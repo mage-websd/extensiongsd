@@ -1,0 +1,83 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Product list template
+ *
+ * @see Mage_Catalog_Block_Product_List
+ */
+?>
+<?php $_helper = $this->helper('igallery'); ?>
+<?php $_gallery = $this->_getGallery(); ?>
+<?php if ($_gallery) : ?>
+    <div class="page-title igallery-title">
+        <h1><?php echo $this->stripTags($_gallery->getName(), null, true) ?></h1>
+    </div>
+    <?php if($_description = $_gallery->getDescription()): ?>
+    <div class="igallery-description std">
+        <?php echo $_description; ?>
+    </div>
+    <?php endif; ?>
+<?php endif; ?>
+
+<?php $_imageCollection = $this->_getCollection(); ?>
+<?php if(!$_imageCollection->count()): ?>
+<p class="note-msg"><?php echo $this->__('There are no images matching the selection.') ?></p>
+<?php else: ?>
+<div class="category-products igallery-images">
+
+    <div class="toolbar-top">
+        <?php echo $this->getToolbarHtml(); ?>
+    </div>
+
+    <?php $_collectionSize = $_imageCollection->count() ?>
+    <?php $_columnCount = $this->_getColumnCount(); ?>
+    <?php $i=0; foreach ($_imageCollection as $_image): ?>
+        <?php if ($i++%$_columnCount==0): ?>
+        <ul class="my-igallery-grid">
+        <?php endif ?>
+            <?php $_size = $_helper->getImageSize($_image, 144, 100); ?>
+            <?php if ($_size) : ?>
+            <li class="item<?php if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif; ?>">
+                <?php if (is_object($_gallery)) : ?>
+                <a title="<?php echo $this->stripTags($_image->getLabel(), null, true) ?>" class="igallery-image" href="<?php echo $_helper->getImageUrl($_image->getFile()); ?>" rel="prettyPhoto[gallery][<?php echo $_gallery->getId() ?>]"><img src="<?php echo $this->helper('igallery/image')->init($_image->getFile())->resize($_size->getWidth(), $_size->getHeight()); ?>" alt="<?php echo $this->stripTags($_image->getLabel(), null, true) ?>" /></a>
+                <?php else : ?>
+                <a title="<?php echo $this->stripTags($_image->getLabel(), null, true) ?>" class="igallery-image" href="<?php echo $_helper->getImageUrl($_image->getFile()); ?>" rel="prettyPhoto[gallery]"><img src="<?php echo $this->helper('igallery/image')->init($_image->getFile())->resize($_size->getWidth(), $_size->getHeight()); ?>" alt="<?php echo $this->stripTags($_image->getLabel(), null, true) ?>" /></a>
+                <?php endif; ?>
+            </li>
+            <?php endif; ?>
+        <?php if ($i%$_columnCount==0 || $i==$_collectionSize): ?>
+        </ul>
+        <?php endif ?>
+    <?php endforeach ?>
+    <script type="text/javascript">decorateGeneric($$('ul.my-igallery-grid'), ['odd','even','first','last'])</script>
+
+    <div class="toolbar-bottom">
+        <?php echo $this->getToolbarHtml(); ?>
+    </div>
+</div>
+<?php endif; ?>

@@ -1,0 +1,258 @@
+<?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This software is designed to work with Magento community edition and
+ * its use on an edition other than specified is prohibited. aheadWorks does not
+ * provide extension support in case of incorrect edition use.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Giftcard
+ * @version    1.0.8
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ */
+?><?php
+$_product = $this->getProduct();
+$_id = $_product->getId();
+$preConfiguredValues = $this->getPreConfiguredValues();
+?>
+
+<div class="aw-gc-form<?php if($this->isEEVersion()):?>-enterprise<?php endif;?>">
+    <?php if($_product->isSaleable()): ?>
+        <p class="availability in-stock">
+            <?php echo $this->helper('catalog')->__('Availability:') ?>
+            <span><?php echo $this->helper('catalog')->__('In stock') ?></span>
+        </p>
+    <?php else: ?>
+        <p class="availability out-of-stock">
+            <?php echo $this->helper('catalog')->__('Availability:') ?>
+            <span>
+                <?php echo $this->helper('catalog')->__('Out of stock') ?>
+            </span>
+        </p>
+    <?php endif; ?>
+
+    <?php echo $this->getChildHtml('product_type_data_extra') ?>
+
+    <?php if ($_product->isSaleable() && $this->hasAmountOptions()): ?>
+        <?php if (!$_product->getAwGcAllowOpenAmount() && (count($this->getAmountOptions()) == 1)): ?>
+            <?php $_amount = $this->getAmountOptions(); $_amount = array_shift($_amount); ?>
+            <div class="price-box">
+                <span class="regular-price">
+                    <span class="price" id="product-price-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>">
+                        <?php echo Mage::helper('core')->currency($_amount, true, false); ?>
+                    </span>
+                </span>
+            </div>
+            <script type="text/javascript">
+                //<![CDATA[
+                optionsPrice.productPrice = "<?php echo $_amount;?>";
+                //]]>
+            </script>
+        <?php else: ?>
+            <div class="fieldset aw-gc-amount-form">
+                <ul class="form-list">
+                    <li>
+                        <?php if (count($this->getAmountOptions()) > 0): ?>
+                            <label for="aw-gc-amount" id="aw-gc-amount-label-select" class="required">
+                                <em>*</em>
+                                <?php echo $this->__('Amount');?>
+                            </label>
+                        <?php endif; ?>
+
+                        <?php if ($_product->getAwGcAllowOpenAmount()): ?>
+                            <label for="aw-gc-custom-amount" id="aw-gc-custom-amount-label-input" class="required">
+                                <em>*</em>
+                                <?php echo $this->__('Amount in %s', $this->getCurrentCurrency()); ?>
+                            </label>
+                             <div id="aw-gc-amount-box" class="input-box">
+                                <input type="text" id="aw-gc-custom-amount" value="<?php echo $this->escapeHtml($preConfiguredValues->getData('aw_gc_custom_amount')) ?>" name="aw_gc_custom_amount" class="validate-number required-entry input-text aw-gc-amount-entry aw-gc-min-amount aw-gc-max-amount" />
+
+                                <?php if ($_product->getAwGcOpenAmountMin() || $_product->getAwGcOpenAmountMax()): ?>
+                                    <?php $_minAmount = Mage::helper('core')->currency($_product->getAwGcOpenAmountMin(), true, false); ?>
+                                    <?php $_maxAmount = Mage::helper('core')->currency($_product->getAwGcOpenAmountMax(), true, false); ?>
+                                    <p class="notice">
+                                        <?php if ($_product->getAwGcOpenAmountMin()): ?>
+                                            <span>
+                                                <?php echo $this->__('Minimum: %s', $_minAmount); ?>
+                                            </span>
+                                        <?php endif; ?>
+
+                                        <?php if ($_product->getAwGcOpenAmountMax()): ?>
+                                            <span>
+                                                <?php echo $this->__('Maximum: %s', $_maxAmount); ?>
+                                            </span>
+                                        <?php endif; ?>
+                                    </p>
+
+                                    <script type="text/javascript">
+                                        //<![CDATA[
+                                        var minAllowedAmount = <?php echo Mage::helper('core')->currency($_product->getAwGcOpenAmountMin(), false, false) ?>;
+                                        var maxAllowedAmount = <?php echo Mage::helper('core')->currency($_product->getAwGcOpenAmountMax(), false, false) ?>;
+
+                                        function parsePrice(value) {
+                                            value = value.replace('\'', '').replace(' ', '');
+                                            var separatorComa = value.indexOf(',');
+                                            var separatorDot  = value.indexOf('.');
+
+                                            if (separatorComa != -1 && separatorDot != -1) {
+                                                if (separatorComa > separatorDot) {
+                                                    value = value.replace('.', '').replace(',', '.');
+                                                } else {
+                                                    value = value.replace(',', '');
+                                                }
+                                            } else if (separatorComa != -1) {
+                                                value = value.replace(',', '.');
+                                            }
+                                            return parseFloat(value);
+                                        }
+
+                                        Validation.add('aw-gc-min-amount', <?php echo Zend_Json::encode($this->__('Entered amount is too low')); ?>, function(v) {
+                                            return (parsePrice(v) >= minAllowedAmount);
+                                        });
+                                        Validation.add('aw-gc-max-amount', <?php echo Zend_Json::encode($this->__('Entered amount is too high')); ?>, function(v) {
+                                            if (maxAllowedAmount == 0) {return true;}
+                                            return (parsePrice(v) <= maxAllowedAmount);
+                                        });
+                                        //]]>
+                                    </script>
+                                <?php endif; ?>
+                            </div>
+                        <?php endif; ?>
+                        <?php if (count($this->getAmountOptions()) > 0): ?>
+                            <?php $configValue = $preConfiguredValues->getData('aw_gc_amounts');?>
+                            <div class="input-box">
+                                <select name="aw_gc_amount" id="aw-gc-amount" class="required-entry aw-gc-amount-entry">
+                                    <option value="">
+                                        <?php echo $this->__('Choose an Amount...') ?>
+                                    </option>
+
+                                    <?php foreach ($this->getAmountOptions() as $value): ?>
+                                        <option value="<?php echo $value; ?>" <?php echo (($configValue == $value) ? 'selected' : '')?>>
+                                            <?php echo Mage::helper('core')->currency($value, true, false); ?>
+                                        </option>
+                                    <?php endforeach; ?>
+
+                                    <?php if ($_product->getAwGcAllowOpenAmount()): ?>
+                                        <option value="custom" <?php echo (($configValue == 'custom') ? 'selected' : '')?>>
+                                            <?php echo $this->__('Other Amount...') ?>
+                                        </option>
+                                    <?php endif; ?>
+                                </select>
+                            </div>
+                        <?php endif; ?>
+                    </li>
+                </ul>
+            </div>
+            <script type="text/javascript">
+                //<![CDATA[
+                if ($('aw-gc-amount') && $('aw-gc-custom-amount')) {
+                    $('aw-gc-custom-amount').hide();
+                    $('aw-gc-amount-box').hide();
+                    $('aw-gc-custom-amount-label-input').hide();
+                    Event.observe($('aw-gc-amount'), 'change', switchGiftCardInputs);
+                }
+
+                function switchGiftCardInputs()
+                {
+                    if (!$('aw-gc-amount') || !$('aw-gc-custom-amount')) {
+                        return;
+                    }
+
+                    var value = $('aw-gc-amount').options[$('aw-gc-amount').selectedIndex].value;
+                    if (value == 'custom') {
+                        $('aw-gc-custom-amount').show();
+                        $('aw-gc-amount-box').show();
+
+                        $('aw-gc-amount-label-select').hide();
+                        $('aw-gc-custom-amount-label-input').show();
+                    } else {
+                        $('aw-gc-custom-amount').hide();
+                        $('aw-gc-amount-box').hide();
+
+                        $('aw-gc-amount-label-select').show();
+                        $('aw-gc-custom-amount-label-input').hide();
+                    }
+                }
+                switchGiftCardInputs();
+                //]]>
+            </script>
+        <?php endif; ?>
+        <div class="fieldset aw-gc-send-form">
+            <ul class="form-list">
+
+                <li class="fields">
+                    <div class="field">
+                        <label for="aw-gc-sender-name" class="required"><em>*</em>
+                            <?php echo $this->__('Sender Name'); ?>
+                        </label>
+                        <div class="input-box">
+                            <?php $senderName = $preConfiguredValues->getData('aw_gc_sender_name') ? $preConfiguredValues->getData('aw_gc_sender_name') : $this->getCustomerName();?>
+                            <input type="text" id="aw-gc-sender-name" name="aw_gc_sender_name" class="required-entry input-text" value="<?php echo $this->escapeHtml($senderName); ?>" />
+                        </div>
+                    </div>
+
+                    <?php if ($this->isAllowEmail()): ?>
+                    <div class="field">
+                        <label for="aw-gc-sender-email" class="required">
+                            <em>*</em>
+                            <?php echo $this->__('Sender Email'); ?>
+                        </label>
+                        <div class="input-box">
+                            <?php $senderEmail = $preConfiguredValues->getData('aw_gc_sender_email') ? $preConfiguredValues->getData('aw_gc_sender_email') : $this->getCustomerEmail();?>
+                            <input type="text" id="aw-gc-sender-email" name="aw_gc_sender_email" class="validate-email required-entry input-text" value="<?php echo $this->escapeHtml($senderEmail);?>"/>
+                        </div>
+                    </div>
+                    <?php endif; ?>
+
+                </li>
+
+                <li class="fields">
+                    <div class="field">
+                        <label for="aw-gc-recipient-name" class="required"><em>*</em><?php echo $this->__('Recipient Name'); ?></label>
+                        <div class="input-box">
+                            <input type="text" id="aw-gc-recipient-name" name="aw_gc_recipient_name" class="required-entry input-text" value="<?php echo $this->escapeHtml($preConfiguredValues->getData('aw_gc_recipient_name')) ?>" />
+                        </div>
+                    </div>
+                    <?php if ($this->isAllowEmail()): ?>
+                        <div class="field">
+                            <label for="aw-gc-recipient-email" class="required">
+                                <em>*</em>
+                                <?php echo $this->__('Recipient Email'); ?>
+                            </label>
+                            <div class="input-box">
+                                <input type="text" id="aw-gc-recipient-email" name="aw_gc_recipient_email" class="validate-email required-entry input-text" value="<?php echo $this->escapeHtml($preConfiguredValues->getData('aw_gc_recipient_email')) ?>" />
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                </li>
+
+                <?php if ($this->isAllowMessage()): ?>
+                    <li>
+                        <label for="aw-gc-message">
+                            <?php echo $this->__('Message'); ?>
+                        </label>
+                        <div class="input-box">
+                            <textarea name="aw_gc_message" id="aw-gc-message" class="input-text" cols="5" rows="3"><?php echo $this->escapeHtml($preConfiguredValues->getData('aw_gc_message')) ?></textarea>
+                        </div>
+                    </li>
+                <?php endif; ?>
+
+            </ul>
+        </div>
+    <?php elseif ($_product->isSaleable()): ?>
+        <?php echo $this->getPriceHtml($_product); ?>
+    <?php endif; ?>
+</div>

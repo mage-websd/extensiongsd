@@ -1,0 +1,149 @@
+<?xml version="1.0"?>
+<config>
+  <tabs>
+    <sns translate="label" module="ajaxfilter">
+      <label>SNSTheme.Com</label>
+      <sort_order>205</sort_order>
+    </sns>
+  </tabs>
+  <sections>
+    <ajaxfilter_cfg  translate="label" module="ajaxfilter">
+      <label>SNS Ajax Filter</label>
+      <tab>sns</tab>
+      <frontend_type>text</frontend_type>
+      <sort_order>0</sort_order>
+      <show_in_default>1</show_in_default>
+      <show_in_website>1</show_in_website>
+      <show_in_store>1</show_in_store>
+      <groups>
+        <general translate="label">
+          <label>General</label>
+          <frontend_type>text</frontend_type>
+          <sort_order>10</sort_order>
+          <show_in_default>1</show_in_default>
+          <show_in_website>1</show_in_website>
+          <show_in_store>1</show_in_store>
+          <fields>
+            <isenabled translate="label">
+              <label>Enable Module</label>
+              <frontend_type>select</frontend_type>
+              <source_model>adminhtml/system_config_source_yesno</source_model>
+              <sort_order>1</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <comment>Use this to enable / disable Module.</comment>
+            </isenabled>
+          </fields>
+        </general>
+        <price_slider translate="label">
+          <label>Price Slider</label>
+          <frontend_type>text</frontend_type>
+          <sort_order>20</sort_order>
+          <show_in_default>1</show_in_default>
+          <show_in_website>1</show_in_website>
+          <show_in_store>1</show_in_store>
+          <fields>
+			<textbox><!-- Make up a field key -->
+              <label>Use textbox for amount?</label>
+              <frontend_type>select</frontend_type>
+              <source_model>adminhtml/system_config_source_yesno</source_model>
+              <sort_order>130</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <comment>Set it to Yes for applying textbox for amount, No will use the labels for amount</comment>
+            </textbox>
+			<goBtnText><!-- Make up a field key -->
+              <label>Name for your GO button .</label> 
+              <frontend_type>text</frontend_type>
+              <sort_order>141</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <comment>This applies to the Go button for amount. By Default nameis "Go"</comment>
+            </goBtnText>
+          </fields>
+        </price_slider>
+        <ajax_conf translate="label">
+          <label>Ajax Configuration</label>
+          <frontend_type>text</frontend_type>
+          <sort_order>30</sort_order>
+          <show_in_default>1</show_in_default>
+          <show_in_website>1</show_in_website>
+          <show_in_store>1</show_in_store>
+          <fields>
+            <layered><!-- Make up a field key -->
+              <label>Enable Ajax for layered navigation?</label>
+              <frontend_type>select</frontend_type>
+              <source_model>adminhtml/system_config_source_yesno</source_model>
+              <sort_order>10</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <comment>Set it to Yes for applying Ajax on layered navigation, No will remove Ajax</comment>
+            </layered>
+            <price><!-- Make up a field key -->
+              <label>Enable Ajax only for Price Slider?</label>
+              <frontend_type>select</frontend_type>
+              <source_model>adminhtml/system_config_source_yesno</source_model>
+              <sort_order>11</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <comment>Set it to Yes for applying Ajax on layered navigation, No will remove Ajax</comment>
+            </price>
+            <toolbar><!-- Make up a field key -->
+				<label>Enable Ajax for product Toolbar?</label>
+				<frontend_type>select</frontend_type>
+				<source_model>adminhtml/system_config_source_yesno</source_model>
+				<sort_order>12</sort_order>
+				<show_in_default>1</show_in_default>
+				<show_in_website>1</show_in_website>
+				<show_in_store>1</show_in_store>
+				<comment>Set it to Yes for applying Ajax on entire toolbar , No will remove Ajax</comment>
+            </toolbar>
+            <loading_text><!-- Make up a field key -->
+              <label>Results Loading Text</label>
+              <frontend_type>text</frontend_type>
+              <sort_order>40</sort_order>
+              <show_in_default>1</show_in_default>
+              <show_in_website>1</show_in_website>
+              <show_in_store>1</show_in_store>
+              <comment>Text to display when the results are loading via Ajax</comment>
+            </loading_text>
+          </fields>
+        </ajax_conf>
+		<advanced translate="label">
+			<label>Advanced settings</label>
+			<frontend_type>text</frontend_type>
+			<sort_order>45</sort_order>
+			<show_in_default>1</show_in_default>
+			<show_in_website>1</show_in_website>
+			<show_in_store>1</show_in_store>
+			<fields>
+				<include_jquery translate="label">
+					<label>Include jQuery</label>
+					<frontend_type>select</frontend_type>
+					<source_model>adminhtml/system_config_source_yesno</source_model>
+					<sort_order>10</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+				</include_jquery>
+				<include_jqueryui translate="label">
+					<label>Include Jquery UI</label>
+					<frontend_type>select</frontend_type>
+					<source_model>adminhtml/system_config_source_yesno</source_model>
+					<sort_order>3</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<comment>Set this to Yes if you have not included jQuery UI in the website.</comment>
+				</include_jqueryui>
+			</fields>
+		</advanced>
+      </groups>
+    </ajaxfilter_cfg>
+  </sections>
+</config>

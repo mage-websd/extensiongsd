@@ -1,0 +1,295 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    My
+ * @package     My_Igallery
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <sections>
+        <igallery translate="label" module="igallery">
+            <label>I-Gallery</label>
+            <tab>general</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>100</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <general translate="label">
+                    <label>General Configuration</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enable_jquery translate="label">
+                            <label>Enable Jquery</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </enable_jquery>
+                        <template>
+                            <label>Gallery Template (to include in CMS blocks / CMS pages)</label>
+                            <comment>Eg: my_igallery/listx.phtml</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </template>
+                        <image_limit translate="label">
+                            <label>Image Limit Per page (Default Page)</label>
+                            <comment>A number (eg: 12)</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </image_limit>
+                        <column_count translate="label">
+                            <label>Column Count (Default Page)</label>
+                            <comment>A number (eg: 4)</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </column_count>
+                        <allowed_limit_values translate="label">
+                            <label>Images per Page on Grid Allowed Values</label>
+                            <comment>Comma-separated.</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </allowed_limit_values>
+                        <list_allow_all translate="label">
+                            <label>Allow All Products per Page</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </list_allow_all>
+                        <is_random translate="label">
+                            <label>Display Images Randomly (Default Page)?</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </is_random>
+                    </fields>
+                </general>
+                <gallery>
+                    <label>Gallery Configuration</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>50</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <animation_speed translate="label">
+                            <label>Animation Speed</label>
+                            <comment>eg. fast/slow/normal</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </animation_speed>
+                        <slideshow translate="label">
+                            <label>Slideshow</label>
+                            <comment>false OR interval time in ms (eg: 5000)</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </slideshow>
+                        <autoplay_slideshow translate="label">
+                            <label>Auto-Play Slideshow</label>
+                            <comment>eg: true/false</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </autoplay_slideshow>
+                        <opacity translate="label">
+                            <label>Opacity</label>
+                            <comment>Value between 0 and 1 (eg: 0.8)</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </opacity>
+                        <show_title translate="label">
+                            <label>Show Title</label>
+                            <comment>eg: true/false</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </show_title>
+                        <allow_resize translate="label">
+                            <label>Allow Resize</label>
+                            <comment>Resize the photos bigger than viewport (eg: true/false)</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </allow_resize>
+                        <default_width translate="label">
+                            <label>Default Width</label>
+                            <comment>eg: 500</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </default_width>
+                        <default_height translate="label">
+                            <label>Default Height</label>
+                            <comment>eg: 344</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>8</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </default_height>
+                        <counter_separator_label translate="label">
+                            <label>Counter Separator Label</label>
+                            <comment>The separator for the gallery counter 1 "of" 2</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>9</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </counter_separator_label>
+                        <theme translate="label">
+                            <label>Theme</label>
+                            <comment>eg: pp_default / light_rounded / dark_rounded / light_square / dark_square / facebook</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </theme>
+                        <horizontal_padding translate="label">
+                            <label>Horizontal Padding</label>
+                            <comment>The padding on each side of the picture (eg: 20)</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>13</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </horizontal_padding>
+                        <hideflash translate="label">
+                            <label>Hide Flash</label>
+                            <comment>Hides all the flash object on a page, set to "true" if flash appears</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>14</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </hideflash>
+                        <wmode translate="label">
+                            <label>Wmode</label>
+                            <comment>Set the flash wmode attribute (eg: opaque)</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>15</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </wmode>
+                        <autoplay translate="label">
+                            <label>Auto Play</label>
+                            <comment>Automatically start videos: true/false</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>16</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </autoplay>
+                        <modal translate="label">
+                            <label>Modal</label>
+                            <comment>If set to "true", only the close button will close the window</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>17</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </modal>
+                        <deeplinking translate="label">
+                            <label>Deep Linking</label>
+                            <comment>Allow prettyPhoto to update the url to enable deeplinking: true/false</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>18</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </deeplinking>
+                        <overlay_gallery translate="label">
+                            <label>Overlay Gallery</label>
+                            <comment>If set to true, a gallery will overlay the fullscreen image on mouse over: true/false</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>19</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </overlay_gallery>
+                        <keyboard_shortcuts translate="label">
+                            <label>Keyboard Shortcuts</label>
+                            <comment>Set to false if you open forms inside prettyPhoto: true/false</comment>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </keyboard_shortcuts>
+                        <social_tools translate="label">
+                            <label>Display Social Buttons?</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>21</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </social_tools>
+                    </fields>
+                </gallery>
+            </groups>
+        </igallery>
+    </sections>
+</config>

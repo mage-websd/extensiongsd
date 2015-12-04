@@ -1,0 +1,31 @@
+/**
+ * @category	Fishpig
+ * @package Fishpig_Smushit
+ * @license http://fishpig.co.uk/license.txt
+ * @author Ben Tideswell <ben@fishpig.co.uk>
+ */
+
+CHANGELOG
+- 09/10/2015 - 2.1.0.9
+- Added reporting for images with a 0% optimisation score. Without this, it appears as if Smush.it isn't working, where as it is working but just isn't saving the result in the database. This changes it so even if an image cannot be optimised (ie. has a percent of 0), this is still recorded in the database.
+
+- 30/09/2015 - 2.1.0.7
+- Removed time limit from shell script.
+
+- 25/09/2015 - 2.1.0.6
+- Fixed Add-Ons tab in Admin.
+
+- 21/09/2015 - 2.1.0.5
+- Fixed warning message 'Argument 2 passed to Fishpig_Smushit_Model_Resource_Image::createUsingResult() must be an array, object given'
+
+- 10/09/2015 - 2.1.0.3
+- Added support for older versions of Magento.
+
+- 04/09/2015 - 2.1.0.0
+- Added licensing to the extension.
+
+- 03/09/2015 - 2.0.0.3
+- Added a required license code to the extension. You can download the license code from your account.
+
+- 31/08/2015 - 2.0.0.1
+- Added configuration section to the Admin. Version 2.0.0.0 now minifies the resized and cached product images in Magento to provide the best speed increases possible. This extension should be setup via the cron (shell/smushit.php).

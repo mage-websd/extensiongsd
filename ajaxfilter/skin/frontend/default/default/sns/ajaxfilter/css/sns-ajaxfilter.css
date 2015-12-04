@@ -1,0 +1,86 @@
+
+.ui-slider-handle{cursor:pointer}
+#sns_ajaxfilter{
+	display: block;
+    height: 100%;
+    left: 0;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 10000000;
+}
+#sns_ajaxfilter .bg{
+	background: none repeat scroll 0 0 #000000;
+    height: 100%;
+    opacity: 0.2;
+    filter: alpha(opacity=20);
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=20); /* IE8 */
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+#sns_ajaxfilter div.process{
+	background: #000;
+    left: 50%;
+    margin-left: -90px;
+    margin-top: -15px;
+    padding-bottom: 10px;
+    padding-top: 15px;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    width: 180px;
+    z-index: 10;
+    box-shadow: 0 0 5px #000;
+    -moz-box-shadow: 0 0 5px #000;
+    -webkit-box-shadow: 0 0 5px #000;
+    -o-box-shadow: 0 0 5px #000;
+    opacity: 0.7;
+    filter: alpha(opacity=70);
+    -ms-filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=70); /* IE8 */
+}
+#sns_ajaxfilter div.process div{
+    color: #FFF;
+	margin-top: 8px;
+}
+.ui-slider-horizontal.ui-slider {
+	background: #ccc;
+    border:none;
+    height: 2px;
+}
+.ui-slider-horizontal.ui-slider .ui-slider-range{
+	background: #555
+}
+.ui-slider-horizontal.ui-slider .ui-slider-handle {
+	background: #555;
+    border:none;
+    border-radius: 0 0;
+    -moz-border-radius: 0 0;
+    -webkit-border-radius: 0 0;
+    -o-border-radius: 0 0;
+    height: 12px;
+    width: 12px;
+    margin-left: -6px; top: -6px;
+    cursor: ew-resize;
+}
+.price .text-box .price-from{float: left;}
+.price .text-box .price-separator{margin: 0 12px; float: left;}
+.price .text-box .price-to{float: left; margin-right: 7px;}
+.price .text-box{margin: 10px 0 20px;}
+.price .text-box input[type="text"]{
+    border-radius: 0 0;
+    box-shadow: none;
+    -moz-box-shadow: none;
+    -webkit-box-shadow: none;
+    -o-box-shadow: none;
+    margin: 0;
+    padding: 1px 0;
+    text-align: center;
+    width: 60px;
+}
+.price .text-box input[type="button"]{
+    background: #CCC;
+    border: none;
+    padding: 5px 15px 4px;
+    margin: 0 0;
+}

@@ -1,0 +1,62 @@
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+-->
+<layout version="0.1.0">
+    <default>
+        <reference name="root">
+            <block type="igallery/page_html_head" name="my_igallery_head" as="my_igallery_head"/>
+        </reference>
+        <reference name="head">
+            <action method="addCss"><stylesheet>my_igallery/css/prettyPhoto.css</stylesheet></action>
+            <action method="addCss"><stylesheet>my_igallery/css/styles.css</stylesheet></action>
+            <action method="addJs"><script>my_igallery/jquery.prettyPhoto.js</script></action>
+        </reference>
+        <reference name="before_body_end">
+            <block type="igallery/before_body_end" name="my_igallery_before_body_end" as="my_igallery_before_body_end" template="my_igallery/before/body/end.phtml"/>
+        </reference>
+    </default>
+    <igallery_index_index>
+        <reference name="left">
+            <block type="igallery/menu" name="igallery_menu" template="my_igallery/menu.phtml" before="-"/>
+        </reference>
+        <reference name="content">
+            <block type="igallery/list" name="igallery_list" template="my_igallery/list.phtml" before="-"/>
+        </reference>
+    </igallery_index_index>
+    <igallery_category_index>
+        <reference name="content">
+            <block type="igallery/menu" name="igallery_list" template="my_igallery/albums.phtml" before="-"/>
+        </reference>
+    </igallery_category_index>
+    <igallery_category_view>
+        <reference name="left">
+            <block type="igallery/menu" name="igallery_menu" template="my_igallery/menu.phtml" before="-"/>
+        </reference>
+        <reference name="content">
+            <block type="igallery/list" name="igallery_list" template="my_igallery/list.phtml" before="-"/>
+        </reference>
+    </igallery_category_view>
+</layout>

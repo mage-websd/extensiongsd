@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<Fishpig_SmushIt>
+			<version>2.1.0.9</version>
+		</Fishpig_SmushIt>
+	</modules>
+	<global>
+		<blocks>
+			<smushit>
+				<class>Fishpig_SmushIt_Block</class>
+			</smushit>
+		</blocks>
+		<helpers>
+			<smushit>
+				<class>Fishpig_SmushIt_Helper</class>
+			</smushit>
+		</helpers>
+		<models>
+			<smushit>
+				<class>Fishpig_SmushIt_Model</class>
+				<resourceModel>smushit_resource</resourceModel>
+			</smushit>
+			<smushit_resource>
+				<class>Fishpig_SmushIt_Model_Resource</class>
+				<entities>
+					<image><table>smushit_results</table></image>
+				</entities>
+			</smushit_resource>
+		</models>
+	</global>
+	<adminhtml>
+		<layout>
+			<updates>
+				<smushit>
+					<file>smushit.xml</file>
+				</smushit>
+			</updates>
+		</layout>
+	</adminhtml>
+    <admin>
+		<routers>
+			<adminhtml>
+				<args>
+					<modules>
+						<smushit before="Mage_Adminhtml">Fishpig_SmushIt_Adminhtml</smushit>
+					</modules>
+				</args>
+			</adminhtml>
+        </routers>
+    </admin>
+	<default>
+		<smushit>
+			<settings>
+				<enabled>1</enabled>
+				<limit>40</limit>
+				<cron_settings>10,30,50 * * * *</cron_settings>
+			</settings>
+		</smushit>
+	</default>
+	<crontab>
+		<jobs>
+			<smushit_cron>
+				<schedule>
+					<config_path>smushit/settings/cron_settings</config_path>
+				</schedule>
+				<run>
+					<model>smushit/cron::runImageOptimisation</model>
+				</run>
+			</smushit_cron>
+		</jobs>
+	</crontab>
+	<fishpig>
+		
+		
+	</fishpig>
+</config>

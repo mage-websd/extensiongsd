@@ -1,0 +1,161 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   design_default
+ * @package    Inic
+ * @copyright  Copyright (c) 2013 Indianic
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+/* @var $this Inic_Faq_Block_Frontend_List */
+?>
+
+<div class="page-title">
+	<h2><?php echo $this->__('FAQ'); ?></h2>
+</div>
+<?php if ($this->hasFaq()): ?>
+<div class="expand" id="expand-collaps"><a href="javascript:void(0)" onclick="expand(this)"><?php echo $this->__('Expand All'); ?></a></div>
+	<?php if($this->hasFrequent()): ?>
+	<div class="faq-frequent-container">
+		<h2><?php echo $this->__('Most Frequently Asked Questions'); ?></h2>
+		<?php foreach ($this->getFrequentFaqCollection() as $faqItem): ?>
+		<table class="faq-listdata-table">
+		<?php //echo $this->getQuestionView() ?>
+			<tbody>
+				<tr class="faq-question">
+					<td width="5%"><span class="label important"><?php echo $this->__('Q') ?></span></td>
+					<td>
+						<strong><?php echo $this->htmlEscape($faqItem->getQuestion()) ?><strong>
+					</td>
+				</tr> 
+				<tr class="faq-answer" style="display:none;">
+					<td><span class="label success"><?php echo $this->__('A') ?></span></td>
+					<td>
+						<?php echo Mage::helper('faq')->filter($faqItem->getAnswer()); ?>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<?php endforeach; ?>
+	</div>
+	<?php endif; ?>
+	<?php //Search Area ?>
+	<?php echo $this->getChildHtml('search_form'); ?>
+	
+	<div class="faq-container">
+	<h2><?php echo $this->__('FAQ Topics'); ?></h2>
+	<?php if ($this->getCategoryCollection()) : ?>
+	<dl class="faq-list">
+	    <?php foreach ($this->getCategoryCollection() as $category) : ?>
+	    <?php $catQues=$this->getItemCollectionByCategory($category); ?>
+	    <?php if(count($catQues) > 0): ?>
+	    <div>
+	        <dt><h3><a class="catname" href="<?php echo $this->getCategoryUrl($category) ?>"><?php echo $this->htmlEscape($category->getName()); ?></a></h3></dt>
+	        <dd>
+	        	<?php //If List View ?>
+	        	<?php if(Mage::helper('faq')->getQuestionView()=="list"): ?>
+		        <?php foreach ($catQues as $item) : ?>
+		            <table class="faq-listdata-table">
+						<tbody>
+							<tr class="faq-question">
+								<td width="5%"><span class="label important"><?php echo $this->__('Q') ?></span></td>
+								<td>
+									<strong> <?php echo $this->htmlEscape($item->getQuestion()); ?><strong>
+								</td>
+							</tr> 
+							<tr class="faq-answer" style="display:none;">
+								<td><span class="label success"><?php echo $this->__('A') ?></span></td>
+								<td>
+									<?php echo Mage::helper('faq')->filter($item->getAnswer()); ?>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+		        <?php endforeach; ?>
+		        <?php else: ?>
+		        <?php //If Grid View ?>
+		        <?php $i=0; ?>
+				<?php $Collection=$catQues; ?>
+				<?php 
+					$collectionCount=count($Collection); 
+					$_columnCount=intval($collectionCount/2);
+				?>
+				<div style="width:100%;" class="faq-grid-list">
+				<?php foreach ($Collection as $item) : ?>
+				<?php if ($i++==$_columnCount || $i==1): ?>
+		        	<div class="faq-griddata-table">
+		        <?php endif; ?>
+		        		<table>
+							<tbody>
+								<tr class="faq-question">
+									<td width="5%"><span class="label important"><?php echo $this->__('Q') ?></span></td>
+									<td>
+										<strong> <?php echo $this->htmlEscape($item->getQuestion()); ?><strong>
+									</td>
+								</tr> 
+								<tr class="faq-answer" style="display:none;">
+									<td><span class="label success"><?php echo $this->__('A') ?></span></td>
+									<td>
+										<?php echo Mage::helper('faq')->filter($item->getAnswer()); ?>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+				<?php if ($i==$_columnCount || $i==$collectionCount): ?>		
+					</div>
+				<?php endif; ?>
+				<?php endforeach; ?>
+				</div>
+		        <?php endif; ?>
+		        <?php $collectionCount=$this->getItemCollectionByCategoryCount($category); ?>
+		        <?php if($collectionCount): ?>
+		        	<div style="clear:both;">
+		        		<a href="<?php echo $this->getCategoryUrl($category) ?>" style="float:right;"><?php echo $this->__('more'); ?></a>
+		        	</div>	
+		        <?php endif; ?>
+	        </dd>
+	        </div>
+	     <?php endif; ?>
+	    <?php endforeach; ?>
+	</dl>
+	<?php else : ?>
+	<ul class="faq-list">
+	    <?php foreach ($this->getFaqCollection() as $faqItem): ?>
+	    <li>
+	        <a href="#faq-item-<?php echo $faqItem->getId() ?>">
+	            <?php echo $this->htmlEscape($faqItem->getQuestion()) ?>
+	        </a>
+	    </li>
+	    <li>
+	    	<?php echo Mage::helper('faq')->filter($faqItem->getAnswer()); ?>
+	    </li>
+	    <?php endforeach; ?>
+	</ul>
+	<?php endif; ?>
+	</div>
+<?php else: ?>
+<p class="faq-items"><?php echo $this->__('There are no FAQ items at the moment.') ?></p>
+<?php endif; ?>
+<script type="text/javascript">
+$$('.faq-question').each(function(element) {
+    element.observe('click', function(){
+    	this.next().toggle();
+    });
+})
+</script>

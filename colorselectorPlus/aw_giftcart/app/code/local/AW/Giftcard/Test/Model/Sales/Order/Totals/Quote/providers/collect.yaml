@@ -1,0 +1,8 @@
+-
+  - test_id: test_1
+    giftcard_id: 1
+    product_id: 177
+    store_id: 1
+    qty: 1
+    quote_id: 16
+    product_price: 125

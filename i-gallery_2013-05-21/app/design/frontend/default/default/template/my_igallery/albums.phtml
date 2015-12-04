@@ -1,0 +1,67 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+/**
+ * Category left navigation
+ *
+ * @see Mage_Catalog_Block_Navigation
+ */
+?>
+<?php $collection = $this->_getCollection(); ?>
+<?php $columns = $this->getGridColumns(); ?>
+<?php if (count($collection) > 0) : ?>
+    <div class="page-title igallery-title">
+        <h1><?php echo $this->__('Albums') ?></h1>
+    </div>
+    <div class="category-products igallery-images">
+        <?php $UrlModel = Mage::getSingleton('core/url'); ?>
+        <?php $_collectionSize = $collection->count() ? $collection->count() : count($collection); ?>
+        <?php $_columnCount = $this->getGridColumns(); ?>
+        <?php $i=0; foreach ($collection as $_category): ?>
+            <?php if ($i++%$_columnCount==0): ?>
+            <ul class="my-igallery-grid">
+            <?php endif ?>
+
+            <li class="item<?php if(($i-1)%$_columnCount==0): ?> first<?php elseif($i%$_columnCount==0): ?> last<?php endif; ?>">
+                <?php $_image = $_category->getThumbnailImageListForFrontend(); ?>
+                <?php if ($_category->getFriendlyUrl()) : ?>
+                <a href="<?php echo $UrlModel->getDirectUrl($_category->getFriendlyUrl()); ?>">
+                    <img src="<?php echo $this->helper('igallery/image')->init($_image->getFile())->keepFrame(true)->resize(144, 100); ?>" alt="<?php echo $this->stripTags($_image->getLabel(), null, true) ?>" />
+                    <?php echo $this->htmlEscape($_category->getName()) ?>
+                </a>
+                <?php else : ?>
+                <a href="<?php echo $this->getUrl('igallery/category/view/', array('id' => $_category->getId())); ?>">
+                    <img src="<?php echo $this->helper('igallery/image')->init($_image->getFile())->keepFrame(true)->resize(144, 100); ?>" alt="<?php echo $this->stripTags($_image->getLabel(), null, true) ?>" />
+                    <?php echo $this->htmlEscape($_category->getName()) ?>
+                </a>
+                <?php endif; ?>
+            </li>
+
+            <?php if ($i%$_columnCount==0 || $i==$_collectionSize): ?>
+            </ul>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    </div>
+<?php endif; ?>

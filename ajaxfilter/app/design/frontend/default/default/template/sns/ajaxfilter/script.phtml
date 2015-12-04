@@ -1,0 +1,81 @@
+<?php if($this->isEnabled): ?>
+<script type="text/javascript">
+	var data = "";
+	var active = false;
+	$sns_jq(function($){
+		if($('body').find('#sns_ajaxfilter').attr('id') != 'sns_ajaxfilter'){
+		$('body').prepend('<div id="sns_ajaxfilter" style="display:none"><div class="process"><img src="<?php echo $this->loadingImage ?>"><div><?php echo $this->loadingText ?></div></div><div class="bg"></div></div>');}
+
+		<?php if($this->ajaxLayered): ?>
+		$(".block-layered-nav a").live('click',function(e){
+			ajaxFilter($(this).attr('href'));
+			e.preventDefault();
+		});
+		<?php endif; ?>
+
+
+		<?php if($this->ajaxToolbar): ?>
+		$('.toolbar a').live('click',function(e){
+			var url=$(this).attr('href');
+			ajaxFilter(url);
+			e.preventDefault();
+		});
+		$('.toolbar select').removeAttr('onchange');
+		$('.toolbar select').live('change',function(){
+			var url=$(this).val(); alert(url);
+			ajaxFilter(url);
+			e.preventDefault();
+		});
+		<?php endif; ?>
+
+
+	});
+
+<?php if($this->ajaxPrice || $this->ajaxLayered): ?>
+function ajaxFilter(url) {
+    if (!active) {
+        active = true;
+        $sns_jq(function($) {
+            oldUrl = url;
+            $('#sns_ajaxfilter .bg').height('100%');
+            $('#sns_ajaxfilter').fadeIn(300);
+            try {
+                $.ajax({
+                    url: url,
+                    dataType: 'json',
+                    type: 'post',
+                    data: data,
+                    success: function(data) {
+						//callback();
+                        if (data.viewpanel) {
+                            if ($('.block-layered-nav')) {
+                                $('.block-layered-nav').empty();
+                                $('.block-layered-nav').append(data.viewpanel)
+                            }
+                        }
+                        if (data.productlist) {
+                            $('.category-products').empty();
+                            $('.category-products').append(data.productlist)
+                        }
+                        var hist = url.split('?');
+                        if(window.history && window.history.pushState){
+							window.history.pushState('GET', data.title, url);
+						}
+                        $('body').find('.toolbar select').removeAttr('onchange');
+                        $('#sns_ajaxfilter .bg').height('100%');
+                        $('#sns_ajaxfilter').fadeOut(300);
+                    }
+                })
+            } catch (e) {}
+        });
+        active = false
+    }
+    return false
+}
+<?php endif; ?>
+
+function callback(){
+	// return;
+}
+</script>
+<?php endif; ?>

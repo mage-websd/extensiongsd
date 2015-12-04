@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<config>
+    <modules>
+        <Amasty_Example>
+            <version>1.0.0</version>
+        </Amasty_Example>
+    </modules>
+    
+    <global>
+        <helpers>
+            <amexample>
+                <class>Amasty_Example_Helper</class>
+            </amexample>
+        </helpers>
+    </global>
+
+     <frontend>
+        <routers>
+            <amexample_front>
+                <use>standard</use>
+                <args>
+                    <module>Amasty_Example</module>
+                    <frontName>example</frontName>
+                </args>
+            </amexample_front>
+        </routers>
+    </frontend>	
+	
+</config>

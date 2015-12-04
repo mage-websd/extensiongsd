@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package>
+    <name>POBoxShipping</name>
+    <version>2.0.0</version>
+    <stability>beta</stability>
+    <license uri="http://store.delorumcommerce.com/license/commercial-extension">TinyBrick Commercial Extension</license>
+    <channel>community</channel>
+    <extends/>
+    <summary>Supports Magneto 1.5+.  Removes the ability to enter a PO Box address in the shipping address.</summary>
+    <description>Supports Magneto 1.5+.  Removes the ability to enter a PO Box address in the shipping address. This is useful for those that use only shipping methods such as UPS or FedEx that require a physical address and cannot deliver to a PO Box.</description>
+    <notes>Support for Magento 1.5+, Magento Connect 2.</notes>
+    <authors><author><name>Justin Pratt</name><user>jpratt</user><email>jpratt@delorum.com</email></author></authors>
+    <date>2011-03-18</date>
+    <time>04:45:24</time>
+    <contents><target name="magecommunity"><dir name="TinyBrick"><dir name="poShipping"><dir name="Helper"><file name="Data.php" hash="6d68e9c0334a3f42be8d752ccf0ccef7"/></dir><dir name="Model"><dir name="Type"><file name="Onepage.php" hash="9dd94b2e2849feed74f60b6abe056cba"/></dir></dir><dir name="etc"><file name="config.xml" hash="3b44f50ef895425ffa8fc99ecb569296"/><file name="system.xml" hash="3ada8774c293024edd67a387f29be385"/></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="TinyBrick_PoShipping.xml" hash="a9c34756cdfee2961fa8e0618debf300"/></dir></target></contents>
+    <compatible/>
+    <dependencies><required><php><min>5.2.0</min><max>6.0.0</max></php></required></dependencies>
+</package>

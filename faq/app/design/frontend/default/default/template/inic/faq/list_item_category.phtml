@@ -1,0 +1,71 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category   design_default
+ * @package    Inic
+ * @copyright  Copyright (c) 2013 Indianic
+ * @license    http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+/* @var $this Inic_Faq_Block_Frontend_List */
+?>
+
+<div class="page-title">
+	<h2><?php echo $this->__('FAQS'); ?></h2>
+</div>
+<?php if ($this->hasFaq()): ?>
+	<div class="faq-container collapse-wrapper">
+		<?php if ($this->getCategoryCollection()) : ?>
+		    <?php foreach ($this->getCategoryCollection() as $category) : ?>
+			    <?php $catQues=$this->getItemCollectionByCategory($category); ?>
+			    <?php if(count($catQues) > 0): ?>
+				    <div class="faq-category-item">
+				        <h3 class="faq-cate-name collapse-title expand"><?php echo $this->htmlEscape($category->getName()); ?></h3>
+				        <div class="faq-category-content collapse-content">
+							<ul class="faq-list">
+								<?php foreach ($catQues as $item) : ?>
+									<li class="faq-item">
+						        		<h5 class="fitem-title collapse-title expand"><?php echo $this->htmlEscape($item->getQuestion()); ?></h5>
+										<div class="fitem-content collapse-content"><?php echo Mage::helper('faq')->filter($item->getAnswer()); ?></div>
+									</li>
+								<?php endforeach; ?>
+							</ul>
+				        </div>
+			    	</div>
+			    <?php endif; ?>
+		    <?php endforeach; ?>
+		<?php else : ?>
+			<ul class="faq-list">
+			    <?php foreach ($this->getFaqCollection() as $item): ?>
+			    	<li class="faq-item">
+		        		<h5 class="fitem-title collapse-title expand"><?php echo $this->htmlEscape($item->getQuestion()); ?></h5>
+						<div class="fitem-content collapse-content"><?php echo Mage::helper('faq')->filter($item->getAnswer()); ?></div>
+					</li>
+			    <?php endforeach; ?>
+			</ul>
+		<?php endif; ?>
+	</div>
+	<script type="text/javascript">
+		jQuery(document).ready(function($) {
+			$('.faq-container.collapse-wrapper').collapse();
+		})
+	</script>
+<?php else: ?>
+<p class="faq-items"><?php echo $this->__('There are no FAQ items at the moment.') ?></p>
+<?php endif; ?>

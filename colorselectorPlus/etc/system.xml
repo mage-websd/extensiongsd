@@ -1,0 +1,436 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <chadjmorgan translate="label" module="colorselectorplus">
+            <label>CJM Extensions</label>
+            <sort_order>210</sort_order>
+        </chadjmorgan>
+    </tabs>    
+    <sections>
+        <color_selector_plus translate="label" module="colorselectorplus">
+            <label>Color Selector+</label>
+            <header_css>colorselectorplus-header</header_css>
+            <class>colorselectorplus-section</class>
+            <tab>chadjmorgan</tab>
+			<frontend_type>text</frontend_type>
+            <sort_order>130</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+				<about>
+                    <frontend_model>colorselectorplus/system_config_about</frontend_model>
+                    <sort_order>0</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                </about>
+				<info>
+                    <frontend_model>colorselectorplus/system_config_info</frontend_model>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                </info>
+				<swatches>
+                    <frontend_model>colorselectorplus/system_config_swatches</frontend_model>
+                    <sort_order>2</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                </swatches>
+				<colorselectorplusgeneral translate="label">
+                    <label>General</label>
+					<expanded>1</expanded>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>3</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+						<colorattributes translate="label">
+                            <label>Swatch Attributes</label>
+                            <tooltip>Select the attributes to use swatches for. Only attributes that can make configurable products are available. Ctrl+Click (or Cmd+Click if on a mac) to select multiple swatch attributes.</tooltip>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>colorselectorplus/attributes</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+							<can_be_empty>1</can_be_empty>
+                        </colorattributes>		
+						<size translate="label">
+                            <label>Default Swatch Size</label>
+                          	<tooltip>Swatch size to default to if individual size is not set. You can enter a single number if you are using square swatches. To use non-square swatches, you must enter the width and height in this format: WIDTHxHEIGHT. Example: 25x25</tooltip>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Format: WIDTHxHEIGHT</comment>
+                        </size>
+						<title translate="label">
+                            <label>Swatch Title</label>
+                            <tooltip>Title text above swatches.</tooltip>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </title>
+						<hidedropdown translate="label">
+                            <label>Hide Dropdown?</label>
+                            <tooltip>Do you want to hide the dropdown box when swatches are displayed?</tooltip>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </hidedropdown>
+						<dropdowntext translate="label">
+                            <label>Use Drop-Down Text For Labels?</label>
+                            <tooltip>Useful to show extra info if you have CJM Custom Stock Status extension installed, or want to show price differences or other information that is usually showed in the dropdowns. If set to No, just the frontend text of the option will show in the label.</tooltip>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+							<depends><hidedropdown>1</hidedropdown></depends>
+                        </dropdowntext>
+                        <showonlist translate="label">
+                            <label>Show Swatches On Catalog View?</label>
+                            <tooltip>Choose "Yes" to show the swatches on the category list and grid views.</tooltip>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>8</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </showonlist>
+                        <toshow translate="label">
+                            <label>Swatch Attributes To Show On Catalog View</label>
+                            <tooltip>Choose the swatch attributes you want to show on the category view. It is recomended to not show multiple swatch attributes per product, because it could get confusing for the user. For example, if you have color and shirt size for your swatch attributes, you may not want to show the shirt size attribute on the category view.</tooltip>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>colorselectorplus/toshow</source_model>
+                            <sort_order>9</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+							<can_be_empty>1</can_be_empty>
+							<depends><showonlist>1</showonlist></depends>
+                        </toshow>
+                        <listsize translate="label">
+                            <label>Catalog View Swatch Size</label>
+                            <tooltip>Smaller swatch size for category view. You can enter a single number if you are using square swatches. To use non-square swatches, you must enter the width and height in this format: WIDTHxHEIGHT. Example: 25x25</tooltip>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><showonlist>1</showonlist></depends>
+                            <comment>Format: WIDTHxHEIGHT</comment>
+                        </listsize>
+                        <showonlayer translate="label">
+                            <label>Show Swatches In Shop-By?</label>
+                            <tooltip>Choose "Yes" to show the swatches if available instead of text in the layered navigation.</tooltip>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </showonlayer>
+                        <layersize translate="label">
+                            <label>Shop-By Swatch Size</label>
+                            <tooltip>Swatch size for the layered navigation view. You can enter a single number if you are using square swatches. To use non-square swatches, you must enter the width and height in this format: WIDTHxHEIGHT. Example: 25x25</tooltip>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><showonlayer>1</showonlayer></depends>
+                            <comment>Format: WIDTHxHEIGHT</comment>
+                        </layersize>
+                    </fields>
+				</colorselectorplusgeneral>
+				<templatesettings translate="label">
+                    <label>Template Settings</label>
+					<expanded>1</expanded>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>4</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+						<prodimgsize translate="label">
+                            <label>Product Page Image Size</label>
+                          	<tooltip></tooltip>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-greater-than-zero</validate>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Format: WIDTHxHEIGHT</comment>
+                        </prodimgsize>
+                        <moreimgsize translate="label">
+                            <label>More View Image Size</label>
+                          	<tooltip></tooltip>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-greater-than-zero</validate>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Format: WIDTHxHEIGHT</comment>
+                        </moreimgsize>
+                        <listimgsize translate="label">
+                            <label>Catalog View Image Size</label>
+                          	<tooltip></tooltip>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-greater-than-zero</validate>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Format: WIDTHxHEIGHT</comment>
+                        </listimgsize>
+                	</fields>
+				</templatesettings>
+				<zoom translate="label">
+                    <label>Zoom Options</label>
+					<expanded>1</expanded>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>5</sort_order>
+                    <show_in_default>0</show_in_default>
+                    <show_in_website>0</show_in_website>
+                    <show_in_store>0</show_in_store>
+                    <fields>
+						<zoomexists translate="label">
+                            <label>Theme Zoom Exists?</label>
+                            <tooltip>Choose "Yes" if your theme already has a zoom function.</tooltip>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>0</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </zoomexists>
+                        <zoomtag translate="label">
+                            <label>Zoom ID</label>
+                            <tooltip>What ID does the zoom function use to call the function?</tooltip>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><zoomexists>1</zoomexists></depends>
+                        </zoomtag>
+                        <ulclass translate="label">
+                            <label>More View Images UL Class</label>
+                            <tooltip>What is the class name(s) on the UL containing the more view images?</tooltip>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><zoomexists>1</zoomexists></depends>
+                        </ulclass>
+                        <ulid translate="label">
+                            <label>More View Images UL ID</label>
+                            <tooltip>What is the ID on the UL containing the more view images? If no ID, leave blank.</tooltip>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><zoomexists>1</zoomexists></depends>
+                        </ulid>
+						<enabled translate="label">
+                            <label>Enable Image Zoom?</label>
+                            <tooltip>Choose "Yes" to enable the JQuery zoom function.</tooltip>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <depends><zoomexists>0</zoomexists></depends>
+                        </enabled>
+						<width translate="label">
+                            <label>Zoom Width</label>
+                          	<tooltip></tooltip>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-greater-than-zero</validate>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment></comment>
+                            <depends><zoomexists>0</zoomexists></depends>
+                        </width>
+                        <height translate="label">
+                            <label>Zoom Height</label>
+                          	<tooltip></tooltip>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-greater-than-zero</validate>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment></comment>
+                            <depends><zoomexists>0</zoomexists></depends>
+                        </height>
+                        <yoffset translate="label">
+                            <label>Height Offset</label>
+                          	<tooltip></tooltip>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment></comment>
+                            <depends><zoomexists>0</zoomexists></depends>
+                        </yoffset>
+                        <xoffset translate="label">
+                            <label>Width Offset</label>
+                          	<tooltip></tooltip>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-greater-than-zero</validate>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment></comment>
+                            <depends><zoomexists>0</zoomexists></depends>
+                        </xoffset>
+                        <position translate="label">
+                            <label>Pop-up Window Position</label>
+                          	<tooltip></tooltip>
+                            <frontend_type>select</frontend_type>
+							<source_model>colorselectorplus/position</source_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment></comment>
+                            <depends><zoomexists>0</zoomexists></depends>
+                        </position>
+                        <title translate="label">
+                            <label>Show Title</label>
+                          	<tooltip></tooltip>
+                            <frontend_type>select</frontend_type>
+							<source_model>colorselectorplus/truefalse</source_model>
+							<sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment></comment>
+                            <depends><zoomexists>0</zoomexists></depends>
+                        </title>
+                        <titleopacity translate="label">
+                            <label>Title Opacity</label>
+                          	<depends><title>true</title></depends>
+                          	<tooltip></tooltip>
+                            <frontend_type>select</frontend_type>
+							<source_model>colorselectorplus/opacity</source_model>
+							<sort_order>7</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment></comment>
+                            <depends><zoomexists>0</zoomexists></depends>
+                        </titleopacity>
+                       	<softfocus translate="label">
+                            <label>Soft Focus</label>
+                          	<tooltip></tooltip>
+                            <frontend_type>select</frontend_type>
+							<source_model>colorselectorplus/truefalse</source_model>
+							<sort_order>8</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment></comment>
+                            <depends><zoomexists>0</zoomexists></depends>
+                        </softfocus>
+                        <tint translate="label">
+                            <label>Tint Color</label>
+                          	<depends><softfocus>false</softfocus></depends>
+                          	<tooltip>Specifies a tint color which will cover the image. Colors should be specified in hex format, e.g. '#aa00aa'.</tooltip>
+                            <frontend_type>text</frontend_type>
+							<sort_order>9</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment></comment>
+                            <depends><zoomexists>0</zoomexists></depends>
+                        </tint>
+                        <tintopacity translate="label">
+                            <label>Tint Opacity</label>
+                          	<depends><softfocus>false</softfocus></depends>
+                          	<tooltip></tooltip>
+                            <frontend_type>select</frontend_type>
+							<source_model>colorselectorplus/opacity</source_model>
+							<sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment></comment>
+                            <depends><zoomexists>0</zoomexists></depends>
+                        </tintopacity>
+                        <lensopacity translate="label">
+                            <label>Lens Opacity</label>
+                            <depends><softfocus>false</softfocus></depends>
+                          	<tooltip></tooltip>
+                            <frontend_type>select</frontend_type>
+							<source_model>colorselectorplus/opacity</source_model>
+							<sort_order>11</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment></comment>
+                            <depends><zoomexists>0</zoomexists></depends>
+                        </lensopacity>
+                        <smoothmove translate="label">
+                            <label>Movement Smoothness</label>
+                          	<tooltip>The higher the number, the smoother the movement will be. 1 = no smoothing.</tooltip>
+                            <frontend_type>select</frontend_type>
+							<source_model>colorselectorplus/smooth</source_model>
+							<sort_order>12</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment></comment>
+                            <depends><zoomexists>0</zoomexists></depends>
+                        </smoothmove>
+                    </fields>
+				</zoom>
+				<swatchsizes translate="label">
+                    <label>Swatch Sizes</label>
+					<expanded>1</expanded>
+                    <clone_fields>1</clone_fields>
+                    <clone_model>colorselectorplus/swatches</clone_model>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+					<comment><![CDATA[<div><ul class="messages"><li class="notice-msg"><ul><li>Enter swatch sizes per swatch attribute if desired. If left blank, swatch size will be set to the default size entered above.</li></ul></li></ul></div>]]></comment>
+                    <fields>
+                        <swatchsizes>
+                            <label></label>
+                            <frontend_type>text</frontend_type>
+                            <validate>validate-greater-than-zero</validate>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>WIDTHxHEIGHT</comment>
+                        </swatchsizes>
+                    </fields>
+                </swatchsizes>		
+            </groups>
+        </color_selector_plus>
+    </sections>
+</config>

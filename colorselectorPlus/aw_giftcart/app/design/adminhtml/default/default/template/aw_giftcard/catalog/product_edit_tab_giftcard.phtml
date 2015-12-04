@@ -1,0 +1,233 @@
+<?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This software is designed to work with Magento community edition and
+ * its use on an edition other than specified is prohibited. aheadWorks does not
+ * provide extension support in case of incorrect edition use.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Giftcard
+ * @version    1.0.8
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ */
+?><div class="entry-edit">
+    <div class="entry-edit-head">
+        <h4 class="icon-head head-edit-form fieldset-legend">
+            <?php echo $this->__('Gift Card Information') ?>
+        </h4>
+    </div>
+    <fieldset>
+        <legend><?php echo $this->__('Gift Card Information');?></legend>
+        <table cellspacing="0" class="form-list" id="table_aw_giftcard">
+            <tr>
+                <td class="label">
+                    <label for="aw_gc_type">
+                        <?php echo $this->__('Card Type') ?>
+                        <span class="required">*</span>
+                    </label>
+                </td>
+                <td class="value">
+                    <select id="aw_gc_type" name="<?php echo $this->getFieldPrefix() ?>[aw_gc_type]" class="select required-entry">
+                        <?php foreach ($this->getTypes() as $_value => $_label): ?>
+
+                            <?php
+                                $_selected = '';
+                                if ($this->getFieldValue('aw_gc_type') == $_value) {
+                                    $_selected = 'selected="selected"';
+                                }
+                            ?>
+
+                            <option value="<?php echo $_value; ?>" <?php echo $_selected; ?>>
+                                <?php echo $_label; ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+                </td>
+                <td class="value scope-label">
+                    <?php echo Mage::helper('adminhtml')->__('[GLOBAL]') ?>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="label">
+                    <label for="aw_gc_expire">
+                        <?php echo $this->__('Expires After (days)') ?>
+                    </label>
+                </td>
+                <td class="value">
+                    <input  type="text" class="input-text validate-number" id="aw_gc_expire" name="<?php echo $this->getFieldPrefix() ?>[aw_gc_expire]" value="<?php echo $this->getFieldValue('aw_gc_expire');?>"/>
+                    <input type="hidden" id="aw_gc_config_expire_default" value="<?php echo $this->getConfigExpireValue(); ?>" />
+
+                    <?php
+                        $_checked = '';
+                        if ($this->getFieldValue('aw_gc_config_expire') || $this->IsNew()) {
+                            $_checked = 'checked="checked"';
+                        }
+                    ?>
+
+                    <input type="hidden" name="<?php echo $this->getFieldPrefix() ?>[aw_gc_config_expire]" value="0">
+                    <input type="checkbox" id="aw_gc_config_expire" name="<?php echo $this->getFieldPrefix() ?>[aw_gc_config_expire]" value="1" <?php echo $_checked ?> onclick="toggleValueElements(this, this.parentNode);toggleDefault('expire');" />
+                    <label for="aw_gc_config_expire" class="normal">
+                        <?php echo $this->__('Use Config Settings') ?>
+                    </label>
+                    <script type="text/javascript">
+                        toggleValueElements($('aw_gc_config_expire'), $('aw_gc_config_expire').parentNode);
+                    </script>
+                </td>
+                <td class="value scope-label">
+                    <?php echo Mage::helper('adminhtml')->__('[GLOBAL]') ?>
+                </td>
+            </tr>
+            <tr>
+                <td class="label">
+                    <label for="aw_gc_allow_message">
+                        <?php echo $this->__('Allow Message') ?>
+                    </label>
+                </td>
+
+                <td class="value">
+
+                    <select id="aw_gc_allow_message" name="<?php echo $this->getFieldPrefix() ?>[aw_gc_allow_message]" class="select">
+                        <?php foreach ($this->getOptionsYesno() as $_value => $_label): ?>
+
+                            <?php
+                                $_selected = '';
+                                if ($this->getFieldValue('aw_gc_allow_message') == $_value) {
+                                    $_selected = 'selected="selected"';
+                                }
+                            ?>
+
+                            <option value="<?php echo $_value; ?>" <?php echo $_selected; ?>>
+                                <?php echo $_label; ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+
+                    <input type="hidden" id="aw_gc_config_allow_message_default" value="<?php echo $this->getConfigIsAllowMessageValue(); ?>" />
+
+                    <?php
+                        $_checked = '';
+                        if ($this->getFieldValue('aw_gc_config_allow_message') || $this->IsNew()) {
+                            $_checked = 'checked="checked"';
+                        }
+                    ?>
+
+                    <input type="hidden" name="<?php echo $this->getFieldPrefix() ?>[aw_gc_config_allow_message]" value="0">
+
+                    <input type="checkbox" id="aw_gc_config_allow_message" name="<?php echo $this->getFieldPrefix() ?>[aw_gc_config_allow_message]" value="1" <?php echo $_checked ?> onclick="toggleValueElements(this, this.parentNode);toggleDefault('allow_message');" class="checkbox" />
+                    <label for="aw_gc_config_allow_message" class="normal">
+                        <?php echo $this->__('Use Config Settings') ?>
+                    </label>
+                    <script type="text/javascript">
+                        toggleValueElements($('aw_gc_config_allow_message'), $('aw_gc_config_allow_message').parentNode);
+                    </script>
+                </td>
+                <td class="value scope-label"><?php echo Mage::helper('adminhtml')->__('[STORE VIEW]') ?></td>
+            </tr>
+            <tr>
+                <td class="label">
+                    <label for="aw_gc_email_template">
+                        <?php echo $this->__('Email Template') ?>
+                    </label>
+                </td>
+                <td class="value">
+
+                    <select id="aw_gc_email_template" name="<?php echo $this->getFieldPrefix() ?>[aw_gc_email_template]" class="select">
+                        <?php foreach ($this->getEmailTemplates() as $_value => $_label): ?>
+
+                            <?php
+                                $_selected = '';
+                                if ($this->getFieldValue('aw_gc_email_template') == $_value) {
+                                    $_selected = 'selected="selected"';
+                                }
+                            ?>
+
+                            <option value="<?php echo $_value; ?>" <?php echo $_selected; ?>>
+                                <?php echo $_label; ?>
+                            </option>
+                        <?php endforeach; ?>
+                    </select>
+
+                    <input type="hidden" id="aw_gc_config_email_template_default" value="<?php echo $this->getConfigEmailTemplateValue(); ?>" />
+
+                    <?php $_checked = ($this->getFieldValue('aw_gc_config_email_template') || $this->IsNew()) ? 'checked="checked"' : '' ?>
+
+                    <input type="hidden" name="<?php echo $this->getFieldPrefix() ?>[aw_gc_config_email_template]" value="0">
+                    <input type="checkbox" id="aw_gc_config_email_template" name="<?php echo $this->getFieldPrefix() ?>[aw_gc_config_email_template]" value="1" <?php echo $_checked ?> onclick="toggleValueElements(this, this.parentNode);toggleDefault('email_template');" class="checkbox" />
+                    <label for="aw_gc_config_email_template" class="normal">
+                        <?php echo $this->__('Use Config Settings') ?>
+                    </label>
+                    <script type="text/javascript">
+                        toggleValueElements($('aw_gc_config_email_template'), $('aw_gc_config_email_template').parentNode);
+                    </script>
+                </td>
+                <td class="value scope-label">
+                    <?php echo Mage::helper('adminhtml')->__('[STORE VIEW]') ?>
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+
+    <script type="text/javascript">
+        //<![CDATA[
+        function toggleDefault(v)
+        {
+            var defaultValue = $('aw_gc_config_' + v + '_default');
+            var checkbox = $('aw_gc_config_' + v);
+            if (checkbox.checked) {
+                $('aw_gc_' + v).value = defaultValue.value;
+            }
+        }
+
+        toggleDefault('email_template');
+        toggleDefault('expire');
+        toggleDefault('allow_message');
+
+        function togglecardType() {
+            if ($('weight') != undefined) {
+                var weight = $('weight');
+                var span = weight.up('tr').down('td').down('label > span');
+
+                if ($('aw_gc_type').value == '<?php echo AW_Giftcard_Model_Source_Product_Attribute_Giftcard_Type::VIRTUAL_VALUE;?>') {
+                    while(weight.hasClassName('required-entry')) {
+                        weight.removeClassName('required-entry');
+                    }
+                    if (span != undefined) {
+                        span.hide();
+                    }
+                }
+                else {
+                    weight.addClassName('required-entry');
+                    if (span != undefined) {
+                        span.show();
+                    }
+                }
+            }
+            var isVirtual = parseInt($('aw_gc_type').value) == 0;
+
+            $$('.hidden-for-virtual').each(function(el){
+                if (isVirtual) {
+                    el.up('tr').hide();
+                } else {
+                    el.up('tr').show();
+                }
+            })
+        }
+        togglecardType();
+        Event.observe('aw_gc_type', 'change', togglecardType);
+        //]]>
+    </script>
+</div>

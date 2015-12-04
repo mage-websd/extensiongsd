@@ -1,0 +1,16 @@
+
+<?php $id = intval($this->getRequest()->getParam('cat_id')); ?>
+<?php if($this->isSearchEnabled()): ?>
+<div class="faq">
+	<form name="faqsearch" action="<?php echo $this->getSearchUrl() ?>" method="get">
+		<div id="searchform">
+			<label for="keyword"><?php echo $this->__('Search FAQ'); ?></label>
+			<input type="text" onfocus="this.value='';" maxlength="30" size="30" id="keyword" name="keyword">
+			<?php if ($id): ?>
+			<input type="hidden" name="cat_id" id="cat_id" value="<?php echo $id; ?>"/>
+			<?php endif; ?>
+			<button type="submit" class="btnSearch" title="<?php echo $this->__('GO');?>"></button>
+		</div>
+	</form>
+</div>
+<?php endif; ?>

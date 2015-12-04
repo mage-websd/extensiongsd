@@ -1,0 +1,154 @@
+<?xml version="1.0"?>
+<config>
+    <sections>
+        <aw_giftcard translate="label" module="aw_giftcard">
+            <label>Gift Card</label>
+            <tab>awall</tab>
+            <frontend_type>text</frontend_type>
+            <sort_order>110</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <general translate="label">
+                    <label>General Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>1</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <expire translate="label">
+                            <label>Expires After (Days)</label>
+                            <frontend_type>text</frontend_type>
+                            <comment><![CDATA[leave empty to disable expiration]]></comment>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <backend_model>aw_giftcard/system_config_numberValidator</backend_model>
+                        </expire>
+                        <allow_gift_message translate="label">
+                            <label>Allow Gift Message</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </allow_gift_message>
+                        <allow_order_item_status translate="label">
+                            <label>Generate Gift Card When Order Item Is</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>aw_giftcard/source_item_status</source_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </allow_order_item_status>
+                        <allow_refund translate="label">
+                            <label>Refund Processing</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>aw_giftcard/source_giftcard_config_refund</source_model>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </allow_refund>
+                    </fields>
+                </general>
+                <coupon>
+                    <label>Coupon Code Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>2</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <code_length translate="label">
+                            <label>Code Length</label>
+                            <frontend_type>text</frontend_type>
+                            <comment><![CDATA[Excluding prefix, suffix and separators.]]></comment>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </code_length>
+                        <code_format translate="label">
+                            <label>Code Format</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>aw_giftcard/source_code_format</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </code_format>
+                        <code_prefix translate="label">
+                            <label>Code Prefix</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <backend_model>aw_giftcard/system_config_spaceValidator</backend_model>
+                        </code_prefix>
+                        <code_suffix translate="label">
+                            <label>Code Suffix</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <backend_model>aw_giftcard/system_config_spaceValidator</backend_model>
+                        </code_suffix>
+                        <code_separator translate="label">
+                            <label>Code Separator</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                            <backend_model>aw_giftcard/system_config_spaceValidator</backend_model>
+                        </code_separator>
+                        <code_dash translate="label">
+                            <label>Insert Separator Every X Characters</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>6</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>0</show_in_website>
+                            <show_in_store>0</show_in_store>
+                        </code_dash>
+                    </fields>
+                </coupon>
+                <email>
+                    <label>Email Settings</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>3</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <sender translate="label">
+                            <label>Gift Card Notification Email Sender</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_identity</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </sender>
+                        <template translate="label">
+                            <label>Gift Card Notification Email Template</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_email_template</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                        </template>
+                    </fields>
+                </email>
+            </groups>
+        </aw_giftcard>
+    </sections>
+</config>

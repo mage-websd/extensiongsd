@@ -1,0 +1,63 @@
+<?php $_faqResult = $this->getSearch(); ?>
+<?php 
+	$flg=false;
+	$keyword=$this->getRequest()->getParam('keyword'); 
+	$category="";
+	if($this->getRequest()->getParam('cat_id')){
+		$id=$this->getRequest()->getParam('cat_id');
+		$category=Mage::getModel('faq/category')->load($id);
+		$flg=true;
+	}
+?>
+<div class="calegory-faq-list">
+<?php if ($_faqResult): ?>
+<div class="page-title" style="overflow: visible;">
+	<?php if($id!= "" && $keyword!=""): ?>
+		<h1><?php echo $this->__('Search Result For - "%s" from category "%s"',$keyword,$category->getName()); ?></h1>
+	<?php elseif($id="" && $keyword!= ""): ?>
+		<h1><?php echo $this->__('Search Result For : "%s"',$keyword); ?></h1>
+	<?php else: ?>
+		<h1><?php echo $this->__('Search Result From category : "%s"',$category->getName()); ?></h1>
+	<?php endif; ?>
+</div>
+<div class="expand" id="expand-collaps"><a href="javascript:void(0)" onclick="expand(this)"><?php echo $this->__('Expand All'); ?></a></div>
+<div class="faq-detail">
+<?php if(count($_faqResult)): ?>
+		<?php foreach ($_faqResult as $item) : ?>
+		    <table class="faq-listdata-table">
+				<tbody>
+					<tr class="faq-question">
+						<td width="5%"><span class="label important"><?php echo $this->__('Q') ?></span></td>
+						<td>
+							<strong> <?php echo $this->htmlEscape($item->getQuestion()); ?><strong>
+						</td>
+					</tr> 
+					<tr class="faq-answer" style="display:none;">
+						<td><span class="label success"><?php echo $this->__('A') ?></span></td>
+						<td>
+							<?php echo Mage::helper('faq')->filter($item->getAnswer()); ?>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		<?php endforeach; ?>
+<?php else: ?>
+	<p><?php echo $this->__('There is no FAQ item found for search string!') ?></p>
+<?php endif; ?>
+</div>
+	<p>
+		<a href="<?php if($flg): ?><?php echo $this->getUrl('faq/index/categoryshow',array('_secure'=>true,'cat_id'=>$id)) ?><?php else: ?><?php echo Mage :: app()->getStore()->getUrl('faq') ?><?php endif; ?>" title="<?php echo $this->__('Back') ?>"><?php echo $this->__('Back') ?></a>
+	</p>
+</div>
+<?php else: ?>
+<div class="page-title">
+	<h1><?php echo $this->__('Error') ?></h1>
+</div>
+<?php endif; ?>
+<script type="text/javascript">
+$$('.faq-question').each(function(element) {
+    element.observe('click', function(){
+    	this.next().toggle();
+    });
+})
+</script>

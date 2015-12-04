@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<layout version="1.0.0">
+  <catalog_category_view>
+    <reference name="head">
+      <action method="addItem"><type>skin_js</type><name helper="ajaxfilter/data/getJQquery"/><params/><if/></action>
+      <action method="addItem"><type>skin_js</type><name helper="ajaxfilter/data/getJQqueryNoconflict"/><params/><if/></action>
+      <action method="addItem"><type>skin_js</type><name helper="ajaxfilter/data/getJQqueryUI"/><params/><if/></action>
+      <action method="addCss" ifconfig="ajaxfilter_cfg/general/isenabled"><stylesheet>sns/ajaxfilter/css/sns-ajaxfilter.css</stylesheet></action>
+      <action method="addCss" ifconfig="ajaxfilter_cfg/general/isenabled">
+        <script>sns/ajaxfilter/css/jquery-ui-1.8.23.custom.css</script>
+      </action>
+    </reference>
+    <reference name="content">
+      <block type="ajaxfilter/ajax" name="ajaxfilter" template="sns/ajaxfilter/script.phtml" output="toHtml" />
+    </reference>
+  </catalog_category_view>
+  <catalogsearch_result_index>
+    <reference name="head">
+      <action method="addItem"><type>skin_js</type><name helper="ajaxfilter/data/getJQquery"/><params/><if/></action>
+      <action method="addItem"><type>skin_js</type><name helper="ajaxfilter/data/getJQqueryNoconflict"/><params/><if/></action>
+      <action method="addItem"><type>skin_js</type><name helper="ajaxfilter/data/getJQqueryUI"/><params/><if/></action>
+      <action method="addCss" ifconfig="ajaxfilter_cfg/general/isenabled"><stylesheet>sns/ajaxfilter/css/sns-ajaxfilter.css</stylesheet></action>
+      <action method="addCss" ifconfig="ajaxfilter_cfg/general/isenabled">
+        <script>sns/ajaxfilter/css/jquery-ui-1.8.23.custom.css</script>
+      </action>
+    </reference>
+    <reference name="footer">
+      <block type="ajaxfilter/ajax" name="ajaxfilter" template="sns/ajaxfilter/script.phtml" output="toHtml" />
+    </reference>
+  </catalogsearch_result_index>
+</layout>

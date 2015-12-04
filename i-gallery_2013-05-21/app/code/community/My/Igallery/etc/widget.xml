@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<widgets>
+    <my_igallery type="igallery/widget_list">
+        <name>iGallery Widget</name>
+        <description type="desc">Displays once of our galleries in the page</description>
+        <parameters>
+            <gallery_id type="complex" translate="label">
+                <required>1</required>
+                <visible>1</visible>
+                <value></value>
+                <label>Gallery Id</label>
+                <type>label</type>
+                <helper_block>
+                    <type>igallery/adminhtml_widget_chooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select Gallery...</open>
+                        </button>
+                    </data>
+                </helper_block>
+            </gallery_id>
+            <image_limit type="complex" translate="label">
+                <required>1</required>
+                <visible>1</visible>
+                <value>8</value>
+                <label>Max Number of Images to Display</label>
+                <type>text</type>
+            </image_limit>
+            <gallery_title_visible type="complex" translate="label">
+                <required>1</required>
+                <visible>1</visible>
+                <value>1</value>
+                <label>Display Gallery Title</label>
+                <type>select</type>
+                <values>
+                    <yes translate="label">
+                        <value>1</value>
+                        <label>Yes</label>
+                    </yes>
+                    <no translate="label">
+                        <value>2</value>
+                        <label>No</label>
+                    </no>
+                </values>
+            </gallery_title_visible>
+            <gallery_description_visible type="complex" translate="label">
+                <required>1</required>
+                <visible>1</visible>
+                <value>1</value>
+                <label>Display Gallery Description</label>
+                <type>select</type>
+                <values>
+                    <yes translate="label">
+                        <value>1</value>
+                        <label>Yes</label>
+                    </yes>
+                    <no translate="label">
+                        <value>2</value>
+                        <label>No</label>
+                    </no>
+                </values>
+            </gallery_description_visible>
+        </parameters>
+    </my_igallery>
+</widgets>

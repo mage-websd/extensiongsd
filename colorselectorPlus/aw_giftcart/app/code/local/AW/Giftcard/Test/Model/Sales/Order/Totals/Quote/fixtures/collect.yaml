@@ -1,0 +1,160 @@
+scope:
+  website:
+    - website_id: 1
+      code: usa_website
+      name: USA Website
+      default_group_id: 1
+  group:
+    - group_id: 1
+      website_id: 1
+      name: USA Store Group
+      default_store_id: 1
+      root_category_id: 2 # Default Category
+  store:
+    - store_id: 1
+      website_id: 1
+      group_id: 1
+      code: usa
+      name: USA Store
+      is_active: 1
+tables:
+  aw_giftcard/quote_giftcard:
+  aw_giftcard/giftcard:
+    -
+      entity_id: 1
+      code: 66DULJZBK2KX
+      status: 1
+      created_at: '2013-11-18'
+      expire_at: '2014-11-18'
+      website_id: 1
+      balance: 10
+      state: 1
+  eav/attribute_set:
+    -
+      attribute_set_id: 4
+      entity_type_id: 4
+      attribute_set_name: default
+      sort_order: 1
+  catalog/product:
+    -
+      entity_id: 177
+      entity_type_id: 4
+      attribute_set_id: 4
+      type_id: simple
+      sku: 'Generated Product-148'
+      has_options: 0
+      required_options: 0
+      created_at: '2011-08-11 14:48:26'
+      updated_at: '2011-08-11 14:48:26'
+  sales/quote:
+    -
+      entity_id: 16
+      store_id: 1
+      created_at: '2011-08-11 14:48:26'
+      updated_at: '2011-08-11 14:48:26'
+      converted_at: '0000-00-00 00:00:00'
+      is_active: 1
+      is_virtual: 0
+      is_multi_shipping: 0
+      items_count: 1
+      items_qty: 1
+      orig_order_id: 0
+      store_to_base_rate: 1.0000
+      store_to_quote_rate: 1.0000
+      base_currency_code: USD
+      store_currency_code: USD
+      quote_currency_code: USD
+      grand_total: 0
+      base_grand_total: 0
+      customer_id: 0
+      customer_tax_class_id: 3
+      customer_group_id: 0
+      customer_email: guest@guest.ru
+      remote_ip: 192.168.0.160
+      global_currency_code: USD
+      base_to_global_rate: 1.0000
+      base_to_quote_rate: 1.0000
+      subtotal: 0
+      base_subtotal: 0
+      subtotal_with_discount: 0
+      base_subtotal_with_discount: 0
+      trigger_recollect: 0
+  sales/quote_item:
+    -
+      item_id: 62
+      quote_id: 16
+      created_at: '2011-08-11 14:48:26'
+      updated_at: '2011-08-11 14:48:26'
+      product_id: 177
+      store_id: 1
+      is_virtual: 0
+      sku: 'Generated Product-148'
+      name: 'The Great Gatsby'
+      weight: 1
+      qty: 1
+      price: 0
+      base_price: 0
+      row_total: 0
+      base_row_total: 0
+      row_weight: 1
+      product_type: simple
+      price_incl_tax: 0
+      base_price_incl_tax: 0
+      row_total_incl_tax: 0
+      base_row_total_incl_tax: 0
+      free_shipping: 0
+  sales/quote_address:
+    -
+      address_id: 49
+      quote_id: 16
+      created_at: '2011-08-11 14:48:26'
+      updated_at: '2011-08-11 14:48:26'
+      address_type: billing
+      email: guest@guest.ru
+      free_shipping: 0
+      collect_shipping_rates: 0
+    -
+      address_id: 50
+      quote_id: 16
+      created_at: '2011-08-11 14:48:26'
+      updated_at: '2011-08-11 14:48:26'
+      address_type: shipping
+      email: guest@guest.ru
+      same_as_billing: 1
+      weight: 1
+      subtotal: 0
+      base_subtotal: 0
+      grand_total: 0
+      base_grand_total: 0
+      subtotal_incl_tax: 0
+      free_shipping: 0
+      collect_shipping_rates: 0
+  sales/quote_address_item:
+    -
+      address_item_id: 98
+      quote_address_id: 49
+      quote_item_id: 62
+      weight: 1
+      qty: 1
+      row_total: 0
+      base_row_total: 0
+      row_weight: 1
+      product_id: 177
+      sku: 'Generated Product-148'
+      free_shipping: 0
+      price: 0
+      base_price: 0
+    -
+      address_item_id: 99
+      quote_address_id: 50
+      quote_item_id: 62
+      weight: 1
+      qty: 1
+      row_total: 0
+      base_row_total: 0
+      row_weight: 1
+      product_id: 177
+      sku: 'Generated Product-148'
+      free_shipping: 0
+      price: 0
+      base_price: 0

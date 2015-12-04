@@ -1,0 +1,84 @@
+<?php $_faqCategory = $this->getCategory() ?>
+<div class="calegory-faq-list">
+<?php if ($_faqCategory): ?>
+<div class="page-title" style="overflow: visible;">
+	<h1><?php echo $this->htmlEscape($_faqCategory->getName()) ?></h1>
+</div>
+<div class="expand" id="expand-collaps"><a href="javascript:void(0)" onclick="expand(this)"><?php echo $this->__('Expand All'); ?></a></div>
+<?php //Search Area ?>
+<?php echo $this->getChildHtml('cat_search_form'); ?>
+
+<div class="faq-detail">
+	<?php if(Mage::helper('faq')->getQuestionView()=="list"): ?>
+		<?php foreach ($this->getcatFaqCollection() as $item) : ?>
+		    <table class="faq-listdata-table">
+				<tbody>
+					<tr class="faq-question">
+						<td width="5%"><span class="label important"><?php echo $this->__('Q') ?></span></td>
+						<td>
+							<strong> <?php echo $this->htmlEscape($item->getQuestion()); ?><strong>
+						</td>
+					</tr> 
+					<tr class="faq-answer" style="display:none;">
+						<td><span class="label success"><?php echo $this->__('A') ?></span></td>
+						<td>
+							<?php echo Mage::helper('faq')->filter($item->getAnswer()); ?>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		<?php endforeach; ?>
+	<?php else: ?>
+	<div class="faq-list">
+		<?php //If Grid View ?>
+        <?php $i=0; ?>
+		<?php $Collection=$this->getcatFaqCollection(); ?>
+		<?php 
+			$collectionCount=count($Collection); 
+			$_columnCount=intval($collectionCount/2);
+		?>
+		<div style="width:100%;" class="faq-grid-list">
+		<?php foreach ($Collection as $item) : ?>
+		<?php if ($i++==$_columnCount || $i==1): ?>
+        	<div class="faq-griddata-table">
+        <?php endif; ?>
+        		<table>
+					<tbody>
+						<tr class="faq-question">
+							<td width="5%"><span class="label important"><?php echo $this->__('Q') ?></span></td>
+							<td>
+								<strong> <?php echo $this->htmlEscape($item->getQuestion()); ?><strong>
+							</td>
+						</tr> 
+						<tr class="faq-answer" style="display:none;">
+							<td><span class="label success"><?php echo $this->__('A') ?></span></td>
+							<td>
+								<?php echo Mage::helper('faq')->filter($item->getAnswer()); ?>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+		<?php if ($i==$_columnCount || $i==$collectionCount): ?>		
+			</div>
+		<?php endif; ?>
+		<?php endforeach; ?>
+		</div>
+	</div>
+	<?php endif; ?>
+</div>	
+	<p class="bk-link"><a href="<?php echo Mage :: app()->getStore()->getUrl('faq') ?>" title="<?php echo $this->__('Back to the FAQ overview') ?>"><?php echo $this->__('Back to the FAQ overview') ?></a></p>
+</div>
+<?php else: ?>
+<div class="page-title">
+	<h1><?php echo $this->__('Error') ?></h1>
+</div>
+	
+<p><?php echo $this->__('The requested FAQ Category item could not be found!') ?></p>
+<?php endif; ?>
+<script type="text/javascript">
+$$('.faq-question').each(function(element) {
+    element.observe('click', function(){
+    	this.next().toggle();
+    });
+})
+</script>

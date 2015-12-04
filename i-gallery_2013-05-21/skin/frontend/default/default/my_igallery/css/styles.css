@@ -1,0 +1,37 @@
+.my-igallery-grid {
+    background: url("../images/bkg_grid.gif") repeat scroll 0 0 transparent;
+    border-bottom: 1px solid #D9DDD3;
+    position: relative;
+    clear: both;
+}
+.my-igallery-grid li.item {
+    float: left;
+    padding: 12px 10px 20px;
+    width: 138px;
+    list-style: none;
+}
+.my-igallery-grid .product-name {
+    color: #203548;
+    font-size: 13px;
+    font-weight: bold;
+    margin: 0 0 5px;
+}
+.my-igallery-block {
+    border: 1px solid #C4C1BC;
+    margin: 0 0 15px;
+}
+.my-igallery-block .block-title {
+    background: url("../images/bkg_block-title.gif") repeat-x scroll 0 0 transparent;
+    border-bottom: 1px solid #DDDDDD;
+    padding: 2px 9px;
+}
+.my-igallery-block .block-title strong {
+    color: #E26703;
+    font: bold 12px/16px Arial,Helvetica,sans-serif;
+    text-transform: uppercase;
+}
+.my-igallery-block .block-content {
+    background: none repeat scroll 0 0 #F8F7F5;
+    padding-left: 10px;
+}
+.igallery-images .toolbar-top, .igallery-images .toolbar-bottom {clear: both;}

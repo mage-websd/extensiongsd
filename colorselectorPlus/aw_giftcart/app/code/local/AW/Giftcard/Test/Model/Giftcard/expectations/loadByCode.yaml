@@ -1,0 +1,6 @@
+test_1: # valid card
+  result: null
+test_2:
+  result: 1
+test_3:
+  result: null

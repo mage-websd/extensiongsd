@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+	<config>
+		<acl>
+			<resources>
+				<admin>
+					<children>
+						<system>
+							<children>
+								<config>
+									<children>
+										<ajaxfilter_cfg translate="title" module="ajaxfilter">
+											<title>SNS Ajax Filter</title>
+											<sort_order>0</sort_order>
+										</ajaxfilter_cfg>
+									</children>
+								</config>
+							</children>
+						</system>
+					</children>
+				</admin>
+			</resources>
+		</acl>
+	</config>

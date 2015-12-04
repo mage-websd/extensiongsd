@@ -1,0 +1,6 @@
+test_1: # valid card
+  result: true
+test_2:
+  result: Gift Card is not valid.
+test_3:
+  result: Gift Card "66DULJZBK2KX" is not active.

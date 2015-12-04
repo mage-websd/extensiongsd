@@ -1,0 +1,70 @@
+<?xml version="1.0" ?>
+<config>
+	<tabs>
+        <inic translate="label" module="faq">
+            <label>Inic Extensions</label>
+            <sort_order>150</sort_order>
+        </inic>
+    </tabs>
+    <sections>
+        <faq_section translate="label">
+            <label>Faq</label>
+            <sort_order>1</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <tab>inic</tab>
+            <groups>
+                <general translate="label">
+                    <label>FAQ Configuration</label>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <expanded>1</expanded>
+                    <fields>
+                        <frequent_enable translate="label">
+                            <label>Show Frequently Questions</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </frequent_enable>
+                    </fields>
+                    <fields>
+                        <no_most_frequent_que translate="label">
+                            <label>Number of Frequently Questions</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>20</sort_order>
+                            <show_in_default>1</show_in_default>
+                    	</no_most_frequent_que>
+                    </fields>
+                    <fields>
+                        <no_of_cat_que translate="label">
+                            <label>Number of category Questions</label>
+                            <frontend_type>text</frontend_type>
+                            <sort_order>30</sort_order>
+                            <show_in_default>1</show_in_default>
+                    	</no_of_cat_que>
+                    </fields>
+                    <fields>
+                        <view_style translate="label">
+                            <label>Display Settings</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>faq/system_config_source_view</source_model>
+                            <sort_order>40</sort_order>
+                            <show_in_default>1</show_in_default>
+                    	</view_style>
+                    </fields>
+                    <fields>
+                        <search_enable translate="label">
+                            <label>Show Search</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>10</sort_order>
+                            <show_in_default>1</show_in_default>
+                        </search_enable>
+                    </fields>
+                </general>
+            </groups>
+        </faq_section>
+    </sections>
+</config>

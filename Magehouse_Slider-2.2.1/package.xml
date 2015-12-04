@@ -1,0 +1,88 @@
+<?xml version="1.0"?>
+<package>
+    <name>Magehouse_Slider</name>
+    <version>2.2.1</version>
+    <stability>stable</stability>
+    <license uri="http://www.opensource.org/licenses/osl-3.0.php">OSL v3.0</license>
+    <channel>community</channel>
+    <extends/>
+    <summary>AJAX Layered navigation &amp; toolbar with price slider.</summary>
+    <description>Free module for Price range Slider.&#xD;
+&#xD;
+This replaces the default price filter by a simple and elegant range slider.&#xD;
+&#xD;
+Also provides with ajax toolbar and layered navigation</description>
+    <notes>First Release&#xD;
+&#xD;
+Features: &#xD;
+&#xD;
+- Customization of slider theme from backend.&#xD;
+- Can use both Images and background color for the slider.&#xD;
+- Can specify whether to include the jQuery or not.&#xD;
+&#xD;
+Relase Notes 1.0.2&#xD;
+&#xD;
+- Fixed bug : jQuery &amp; jQuery UI not getting included.&#xD;
+&#xD;
+Relase Notes 1.0.3&#xD;
+&#xD;
+- Fixed bug : Do not Use Images has no effect on frontend.&#xD;
+&#xD;
+Relase Notes 1.0.4&#xD;
+&#xD;
+- Added : Special Price in filtering&#xD;
+&#xD;
+Relase Notes 1.0.5&#xD;
+&#xD;
+Bugs Solved :&#xD;
+- Currency symbol do not change - Solved&#xD;
+&#xD;
+Improvements:&#xD;
+- Removed theme file dependency&#xD;
+&#xD;
+Relase Notes 2.0.0&#xD;
+&#xD;
+Bugs Solved :&#xD;
+- Catalog search not working - Solved&#xD;
+&#xD;
+Improvements:&#xD;
+- Price Slider now available on search page also&#xD;
+&#xD;
+Relase Notes 2.1.0&#xD;
+&#xD;
+Improvements:&#xD;
+- AJAX price slider on both category and search pages&#xD;
+- AJAX layered navigation can also be enabled&#xD;
+- AJAX Toolbar can also be enabled&#xD;
+&#xD;
+Relase Notes 2.1.1&#xD;
+&#xD;
+Bug Fixes : sliderAjax Not found&#xD;
+&#xD;
+Relase Notes 2.2.0&#xD;
+&#xD;
+Bug Fixes : &#xD;
+&#xD;
+- Left blocks disappearing after ajax&#xD;
+- Multicurrency not working&#xD;
+- Overlay height not proper&#xD;
+- Special price not being displayed in the min and max ranges&#xD;
+- Loading screen not disappearing in IE&#xD;
+New Features:&#xD;
+&#xD;
+- Multi Currency support&#xD;
+- Text box filtering&#xD;
+- Callback for on slide method &#xD;
+- More theming options&#xD;
+&#xD;
+V2.2.1&#xD;
+&#xD;
+FIX: error for min and max price&#xD;
+FIX: JS not getting added in frontend</notes>
+    <authors><author><name>Mrugesh Mistry</name><user>mrugeshrocks</user><email>mrugesh.rocks@gmail.com</email></author></authors>
+    <date>2013-10-29</date>
+    <time>17:36:19</time>
+    <contents><target name="magecommunity"><dir name="Magehouse"><dir name="Slider"><dir name="Block"><file name="Ajax.php" hash="0d2a44176cc2a0646a8d47f97061fb02"/><dir name="Catalog"><dir name="Layer"><dir name="Filter"><file name="Price.php" hash="ac8fcd7033d6fa71c3a36e107c72569d"/></dir></dir></dir></dir><dir name="Helper"><file name="Data.php" hash="a065b8f56bbda2943734e76139883220"/></dir><dir name="Model"><dir name="Catalog"><file name="Layer.php" hash="bc991f782c77652d6be29e15444c9be8"/></dir><dir name="Catalogsearch"><file name="Layer.php" hash="45b64b4477415ec3f58f7fa1c22a3381"/></dir><dir name="Resource"><file name="Setup.php" hash="adf2aaa164649ba2a335545303ee1600"/></dir></dir><dir name="controllers"><dir name="Catalog"><file name="CategoryController.php" hash="c7dde356bb55b306484efac577573625"/></dir><dir name="CatalogSearch"><file name="ResultController.php" hash="55903199aa1e17657e9be4082e09a813"/></dir></dir><dir name="etc"><file name="adminhtml.xml" hash="c728cee82276d42e77808bf48fdd0cdf"/><file name="config.xml" hash="415eed3d77f327505f90d919e32a788c"/><file name="system.xml" hash="66f4384a51f7c568fdbf439471056ea4"/></dir><dir name="sql"><dir name="slider_setup"><file name="mysql4-install-2.1.0.php" hash="12d0c01013cbeadce8d5b6d3e7b148d2"/></dir></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="Magehouse_Slider.xml" hash="43112ba587c13efb57d3b9471498a814"/></dir></target><target name="mageskin"><dir name="frontend"><dir name="base"><dir name="default"><dir name="css"><dir name="slider"><dir name="images"><file name="Thumbs.db" hash="c192da3c422ad168eecbe155887757f4"/><file name="ui-bg_diagonals-thick_18_b81900_40x40.png" hash="95f9cceeb9d742dd3e917ec16ed754f8"/><file name="ui-bg_diagonals-thick_20_666666_40x40.png" hash="f040b255ca13e693da34ab33c7d6b554"/><file name="ui-bg_flat_10_000000_40x100.png" hash="c18cd01623c7fed23c80d53e2f5e7c78"/><file name="ui-bg_glass_100_f6f6f6_1x400.png" hash="4c494f261d76fd2c344853b64a09371b"/><file name="ui-bg_glass_100_fdf5ce_1x400.png" hash="4c494f261d76fd2c344853b64a09371b"/><file name="ui-bg_glass_65_ffffff_1x400.png" hash="4c494f261d76fd2c344853b64a09371b"/><file name="ui-bg_gloss-wave_35_f6a828_500x100.png" hash="8c06b9c15ea2bef5ff5f1c7468bdc106"/><file name="ui-bg_highlight-soft_100_eeeeee_1x100.png" hash="f00e2ff3af640da7ee8915791b947349"/><file name="ui-bg_highlight-soft_75_ffe45c_1x100.png" hash="b806658954cb4d16ade8977af737f486"/><file name="ui-icons_222222_256x240.png" hash="ebe6b6902a408fbf9cac6379a1477525"/><file name="ui-icons_228ef1_256x240.png" hash="79f41c0765e9ec18562b20b0801d748b"/><file name="ui-icons_ef8c08_256x240.png" hash="ef9a6ccfe3b14041928ddc708665b226"/><file name="ui-icons_ffd27a_256x240.png" hash="39c5a5f53ff0e6cebaec731706427bbb"/><file name="ui-icons_ffffff_256x240.png" hash="342bc03f6264c75d3f1d7f99e34295b9"/></dir><file name="jquery-ui-1.8.23.custom.css" hash="408147096939c6ddb0becced6cdc1197"/></dir></dir></dir></dir></dir></target><target name="magedesign"><dir name="frontend"><dir name="base"><dir name="default"><dir name="layout"><file name="slider.xml" hash="c0260a22c67db7fe792c1d9a3a3a03f5"/></dir><dir name="template"><dir name="slider"><file name="ajax.phtml" hash="3fa3e445ae83118a21e4e5f9d2f7f3a4"/></dir></dir></dir></dir></dir></target><target name="magemedia"><dir name="magehouse"><dir name="slider"><dir name="default"><file name="ajax-loader.gif" hash="f9b76dc9bba462ece85fc9d7f8f2c33e"/><file name="handle.png" hash="4c494f261d76fd2c344853b64a09371b"/><file name="handle_1.png" hash="4c494f261d76fd2c344853b64a09371b"/><file name="icon.png" hash="444001bf372dc691461224d21764d5d4"/><file name="icon_1.png" hash="444001bf372dc691461224d21764d5d4"/><file name="icon_cat_-_.png" hash="4f4303633e7b8d123d08df02d01c6a8e"/><file name="icon_order.png" hash="fb9baae9d79e0a7b894d958f83660ab7"/><file name="range-bg.jpg" hash="8c06b9c15ea2bef5ff5f1c7468bdc106"/><file name="slider-bg.jpg" hash="f00e2ff3af640da7ee8915791b947349"/></dir></dir></dir></target></contents>
+    <compatible/>
+    <dependencies><required><php><min>5.2.0</min><max>6.0.0</max></php></required></dependencies>
+</package>

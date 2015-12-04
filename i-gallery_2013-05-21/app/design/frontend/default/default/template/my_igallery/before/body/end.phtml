@@ -1,0 +1,88 @@
+<?php $_helper = $this->helper('igallery') ?>
+<script type="text/javascript">
+<!--
+jQuery(document).ready(
+    function (){
+        jQuery("a[rel^='prettyPhoto']").prettyPhoto({
+            <?php if ($animation_speed = $_helper->getConfig('animation_speed')) : ?>
+            animation_speed:'<?php echo $animation_speed ?>',
+            <?php endif; ?>
+
+            <?php if ($slideshow = $_helper->getConfig('slideshow')) : ?>
+            slideshow:<?php echo (int)$slideshow ?>,
+            <?php endif; ?>
+
+            <?php if ($autoplay_slideshow = $_helper->getConfig('autoplay_slideshow')) : ?>
+            autoplay_slideshow: <?php echo $autoplay_slideshow ?>,
+            <?php endif; ?>
+
+            <?php if ($opacity = $_helper->getConfig('opacity')) : ?>
+            opacity:<?php echo $opacity ?>,
+            <?php endif; ?>
+
+            <?php if ($show_title = $_helper->getConfig('show_title')) : ?>
+            show_title:<?php echo $show_title ?>,
+            <?php endif; ?>
+
+            <?php if ($allow_resize = $_helper->getConfig('allow_resize')) : ?>
+            allow_resize:<?php echo $allow_resize ?>,
+            <?php endif; ?>
+
+            <?php if ($default_width = $_helper->getConfig('default_width')) : ?>
+            default_width:<?php echo $default_width ?>,
+            <?php endif; ?>
+
+            <?php if ($default_height = $_helper->getConfig('default_height')) : ?>
+            default_height:<?php echo $default_width ?>,
+            <?php endif; ?>
+
+            <?php if ($counter_separator_label = $_helper->getConfig('counter_separator_label')) : ?>
+            counter_separator_label:'<?php echo $counter_separator_label ?>',
+            <?php endif; ?>
+
+            <?php if ($theme = $_helper->getConfig('theme')) : ?>
+            theme:'<?php echo $theme ?>',
+            <?php endif; ?>
+
+            <?php if ($horizontal_padding = $_helper->getConfig('horizontal_padding')) : ?>
+            horizontal_padding:<?php echo $horizontal_padding ?>,
+            <?php endif; ?>
+
+            <?php if ($hideflash = $_helper->getConfig('hideflash')) : ?>
+            hideflash:<?php echo $hideflash ?>,
+            <?php endif; ?>
+
+            <?php if ($wmode = $_helper->getConfig('wmode')) : ?>
+            wmode:'<?php echo $wmode ?>',
+            <?php endif; ?>
+
+            <?php if ($autoplay = $_helper->getConfig('autoplay')) : ?>
+            autoplay:<?php echo $autoplay ?>,
+            <?php endif; ?>
+
+            <?php if ($modal = $_helper->getConfig('modal')) : ?>
+            modal:<?php echo $modal ?>,
+            <?php endif; ?>
+
+            <?php if ($deeplinking = $_helper->getConfig('deeplinking')) : ?>
+            deeplinking:<?php echo $deeplinking ?>,
+            <?php endif; ?>
+
+            <?php if ($overlay_gallery = $_helper->getConfig('overlay_gallery')) : ?>
+            overlay_gallery:<?php echo $overlay_gallery ?>,
+            <?php endif; ?>
+
+            <?php if ($keyboard_shortcuts = $_helper->getConfig('keyboard_shortcuts')) : ?>
+            keyboard_shortcuts:<?php echo $keyboard_shortcuts ?>,
+            <?php endif; ?>
+
+            <?php if ($_helper->getConfig('social_tools') == '0') : ?>
+            social_tools:'',
+            <?php endif; ?>
+
+            deeplinking: false,
+        });
+    }
+);
+-->
+</script>

@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<config>
+	<tabs>
+		<fishpig>
+			<label>FishPig</label>
+			<sort_order>200</sort_order>
+		</fishpig>
+	</tabs>
+    <sections>
+        <smushit>
+            <label>Smush.it</label>
+            <tab>fishpig</tab>
+            <sort_order>660</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+            	<settings>
+            		<label>Settings</label>
+            		<comment>This extension uses the Magento CRON. Ensure that your Magento CRON is enabled for this extension to function.</comment>
+            		<sort_order>2</sort_order>
+            		<show_in_default>1</show_in_default>
+            		<fields>
+						<enabled>
+            				<label>Enabled</label>
+            				<sort_order>0</sort_order>
+            				<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+            				<show_in_default>1</show_in_default>
+						</enabled>
+						<limit>
+            				<label>Image Limit</label>
+            				<comment>The number of images to be optimised each time the cron runs.</comment>
+            				<sort_order>6</sort_order>
+            				<frontend_type>text</frontend_type>
+            				<show_in_default>1</show_in_default>
+						</limit>
+						<cron_settings>
+							<label>Crontab Settings</label>
+							<frontend_type>text</frontend_type>
+							<sort_order>11</sort_order>
+							<comment><![CDATA[*/30 * * * * for every 30 minutes. <a href="http://www.crontab-generator.org/" target="_blank">Help</a>]]></comment>
+							<show_in_default>1</show_in_default>
+						</cron_settings>
+            		</fields>
+            	</settings>
+            </groups>
+        </smushit>
+    </sections>
+</config>

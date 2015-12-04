@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <modules>
+        <TinyBrick_PoShipping>
+            <version>0.1.0</version>
+        </TinyBrick_PoShipping>
+    </modules>
+    <global>
+		<models>
+			<checkout>
+				<rewrite>
+					<type_onepage>TinyBrick_PoShipping_Model_Type_Onepage</type_onepage>
+				</rewrite>
+			</checkout>
+		</models>
+		<helpers>
+            <giftcard>
+                <class>TinyBrick_PoShipping_Helper</class>
+            </giftcard>
+        </helpers>
+	</global>
+</config>

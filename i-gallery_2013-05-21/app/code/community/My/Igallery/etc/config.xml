@@ -1,0 +1,223 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    My
+ * @package     My_Igallery
+ * @license     http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ */
+-->
+<config>
+    <modules>
+        <My_Igallery>
+            <version>1.0.1</version>
+        </My_Igallery>
+    </modules>
+    <frontend>
+        <routers>
+            <igallery>
+                <use>standard</use>
+                <args>
+                    <module>My_Igallery</module>
+                    <frontName>igallery</frontName>
+                </args>
+            </igallery>
+        </routers>
+        <layout>
+            <updates>
+                <igallery>
+                    <file>my_igallery.xml</file>
+                </igallery>
+            </updates>
+        </layout>
+    </frontend>
+    <admin>
+        <routers>
+            <igallery>
+                <use>admin</use>
+                <args>
+                    <module>My_Igallery</module>
+                    <frontName>igallery</frontName>
+                </args>
+            </igallery>
+        </routers>
+    </admin>
+    <adminhtml>
+        <acl>
+            <resources>
+                <admin>
+                    <children>
+                        <igallery>
+                            <title>I-Gallery</title>
+                            <sort_order>50</sort_order>
+                            <children>
+                                <index>
+                                    <title>Manage I-Gallery</title>
+                                    <sort_order>0</sort_order>
+                                </index>
+                                <new>
+                                    <title>Add I-Gallery</title>
+                                    <sort_order>1</sort_order>
+                                </new>
+                            </children>
+                        </igallery>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <igallery>
+                                            <title>I-Gallery Section</title>
+                                        </igallery>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+        <menu>
+            <igallery module="igallery">
+                <title>I-Gallery</title>
+                <sort_order>50</sort_order>
+                <children>
+                    <add module="igallery">
+                        <title>Add I-Gallery</title>
+                        <sort_order>0</sort_order>
+                        <action>igallery/adminhtml_banner/add</action>
+                    </add>
+                    <index module="igallery">
+                        <title>Manage I-Gallery</title>
+                        <sort_order>1</sort_order>
+                        <action>igallery/adminhtml_banner/index</action>
+                    </index>
+                    <config module="igallery">
+                        <title>Configuration</title>
+                        <sort_order>2</sort_order>
+                        <action>adminhtml/system_config/edit/section/igallery</action>
+                    </config>
+                </children>
+            </igallery>
+        </menu>
+        <layout>
+            <updates>
+                <igallery>
+                    <file>my_igallery.xml</file>
+                </igallery>
+            </updates>
+        </layout>
+    </adminhtml>
+    <global>
+        <blocks>
+            <igallery>
+                <class>My_Igallery_Block</class>
+            </igallery>
+        </blocks>
+        <models>
+            <igallery>
+                <class>My_Igallery_Model</class>
+                <resourceModel>igallery_mysql4</resourceModel>
+            </igallery>
+            <igallery_mysql4>
+                <class>My_Igallery_Model_Mysql4</class>
+                <entities>
+                    <banner>
+                        <table>my_igallery_banner</table>
+                    </banner>
+                    <banner_image>
+                        <table>my_igallery_banner_image</table>
+                    </banner_image>
+                    <banner_store>
+                        <table>my_igallery_banner_store</table>
+                    </banner_store>
+                </entities>
+            </igallery_mysql4>
+        </models>
+        <helpers>
+            <igallery>
+                <class>My_Igallery_Helper</class>
+            </igallery>
+        </helpers>
+		<events>
+			<controller_action_layout_generate_blocks_after>
+				<observers>
+					<igallery_layout_generate_observer>
+						<type>singleton</type>
+						<class>igallery/layout_generate_observer</class>
+						<method>addJqueryLibrary</method>
+					</igallery_layout_generate_observer>
+				</observers>
+			</controller_action_layout_generate_blocks_after>
+		</events>
+        <resources>
+            <igallery_setup>
+                <setup>
+                    <module>My_Igallery</module>
+                </setup>
+                <connection>
+                    <use>core_setup</use>
+                </connection>
+            </igallery_setup>
+            <igallery_write>
+                <connection>
+                    <use>core_write</use>
+                </connection>
+            </igallery_write>
+            <igallery_read>
+                <connection>
+                    <use>core_read</use>
+                </connection>
+            </igallery_read>
+        </resources>
+    </global>
+    <default>
+        <igallery>
+            <general>
+                <enable_jquery>1</enable_jquery>
+                <template><![CDATA[my_igallery/listx.phtml]]></template>
+                <image_limit>12</image_limit>
+                <column_count>4</column_count>
+                <is_random>1</is_random>
+                <allowed_limit_values>8,12,16</allowed_limit_values>
+            </general>
+            <gallery>
+                <animation_speed>fast</animation_speed>
+                <slideshow>5000</slideshow>
+                <autoplay_slideshow>false</autoplay_slideshow>
+                <opacity>0.80</opacity>
+                <show_title>true</show_title>
+                <allow_resize>true</allow_resize>
+                <default_width>500</default_width>
+                <default_height>344</default_height>
+                <counter_separator_label>/</counter_separator_label>
+                <theme>pp_default</theme>
+                <horizontal_padding>20</horizontal_padding>
+                <hideflash>false</hideflash>
+                <wmode>opaque</wmode>
+                <autoplay>true</autoplay>
+                <modal>false</modal>
+                <deeplinking>true</deeplinking>
+                <overlay_gallery>true</overlay_gallery>
+                <keyboard_shortcuts>true</keyboard_shortcuts>
+                <social_tools>0</social_tools>
+            </gallery>
+        </igallery>
+    </default>
+</config>

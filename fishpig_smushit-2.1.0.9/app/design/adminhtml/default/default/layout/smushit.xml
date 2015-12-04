@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<layout>
+	<!--
+	/**
+	 * Smush It
+	 */
+	 -->
+	<adminhtml_smushit_index>
+		<reference name="content">
+			<block type="core/text" name="splash.dashboard.title">
+				<action method="setText">
+					<text><![CDATA[<div class="content-header"><h3>Smush.it</h3></div>]]></text>
+				</action>
+			</block>
+			<block type="smushit/adminhtml_image" name="smush.it">
+				<block type="smushit/adminhtml_extend" name="smush.it.extend" as="extend" />
+			</block>
+			<block type="core/text" name="smush.it.tabs.content">
+				<action method="setText">
+					<text><![CDATA[
+						<div id="smushit_tabs_content"></div>
+						<style type="text/css">#splash_tab_content .content-header { display: none; }</style>
+					]]></text>
+				</action>
+			</block>
+		</reference>
+	</adminhtml_smushit_index>
+</layout>
