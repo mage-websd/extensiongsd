@@ -1,0 +1,11 @@
+tables:
+  aw_giftcard/giftcard:
+    -
+      entity_id: 1
+      code: 66DULJZBK2KX
+      status: 1
+      created_at: '2013-11-18'
+      expire_at: '2014-11-18'
+      website_id: 1
+      balance: 10
+      state: 1

@@ -1,0 +1,112 @@
+form#aw_giftcard-form ul.form-list li div.input-box {
+    float: right;
+    width: auto;
+    padding-bottom: 10px;
+}
+
+form#aw_giftcard-form ul.form-list li div.input-box label{
+    float: left;
+    padding-right: 5px;
+}
+
+form#aw_giftcard-form ul.form-list li div.input-box input{
+    float: right;
+}
+
+form#aw_giftcard-form ul.form-list li div.input-box label.required em {
+    position: static;
+}
+
+div#aw-giftcard-info-block table td.label {
+    width: 50px;
+}
+
+a.giftcard-btn-remove {
+    display: inline;
+    padding-right: 2px;
+    vertical-align: middle;
+    text-decoration: none !important;
+}
+
+a.giftcard-btn-remove img {
+    vertical-align: middle;
+    display: inline;
+}
+
+.cart div.aw_giftcard form#aw_giftcard-form button {
+    margin: 0 5px 5px 0;
+}
+
+.cart div.aw_giftcard form#aw_giftcard-form button.status {
+    clear: both;
+    float: left;
+}
+
+.cart div.aw_giftcard form#aw_giftcard-form button.status span {
+    padding: 0 !important;
+    background: none !important;
+    line-height: 1.3 !important;
+    color: #444 !important;
+    height: auto !important;
+    font-weight: normal !important;
+    text-transform: none !important;
+}
+
+.cart div.aw_giftcard form#aw_giftcard-form button.status span span {
+    text-decoration: underline; font-size:12px !important;
+}
+
+div.aw-gc-form-enterprise .form-list input.input-text {
+    width: 249px !important;
+}
+
+div.aw-gc-form-enterprise label {
+    width: 120px;
+    text-align: left;
+    padding-right: 5px;
+    padding-bottom: 5px;
+}
+
+div.aw-gc-form-enterprise .form-list select {
+    width: 150px;
+}
+
+div.aw-gc-form-enterprise div.aw-gc-send-form {
+    background: none repeat scroll 0 0 #FFFFFF;
+    border-top: 1px solid #DDDDDD;
+    margin: 0 -30px -30px;
+    padding: 30px 30px 10px;
+    position: relative;
+    z-index: 2;
+}
+
+div.aw-gc-form-enterprise #aw-gc-amount-box {
+    margin-right: 9px;
+    padding-right: 20px;
+    width: 70px;
+
+}
+div.aw-gc-form-enterprise #aw-gc-amount-box .input-text {
+    width: 70px !important;
+}
+
+div.aw-gc-form-enterprise #aw-gc-amount-box p.notice {
+    clear: left;
+    float: left;
+    font-size: 11px;
+    margin: 5px -100px 0 0;
+    padding: 0;
+    position: relative;
+    white-space: nowrap;
+    width: 55px;
+    z-index: 1;
+}
+
+div.aw-gc-amount-form #aw-gc-amount-box p.notice span {
+    display: block;
+}
+
+#giftcard_code {
+    width: 100%;
+    margin-bottom: 5px;
+}

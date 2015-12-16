@@ -40,7 +40,8 @@ class Inic_Faq_Block_Frontend_List extends Mage_Core_Block_Template
 			$this->_faqCollection = Mage :: getModel('faq/faq')
 				->getCollection()
 				->addStoreFilter(Mage :: app()->getStore())
-				->addIsActiveFilter();
+				->addIsActiveFilter()
+				->addPositionSort();
 
 			if (isset($pageSize) && intval($pageSize) && intval($pageSize) > 0) {
 				$this->_faqCollection->setPageSize(intval($pageSize));

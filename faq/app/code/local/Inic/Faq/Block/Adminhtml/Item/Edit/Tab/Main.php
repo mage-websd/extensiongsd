@@ -29,7 +29,7 @@ class Inic_Faq_Block_Adminhtml_Item_Edit_Tab_Main extends Mage_Adminhtml_Block_W
         if (Mage::getSingleton('cms/wysiwyg_config')->isEnabled()) {
             $this->getLayout()->getBlock('head')->setCanLoadTinyMce(true);
         }
-        return $return;
+        return $this;
     }
 
     /**

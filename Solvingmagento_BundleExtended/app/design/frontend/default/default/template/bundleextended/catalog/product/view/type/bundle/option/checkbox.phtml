@@ -1,0 +1,175 @@
+<?php
+/**
+ * Solvingmagento_BundleExtended checkbox option template
+ *
+ * PHP version 5.3
+ *
+ * @category  Solvingmagento
+ * @package   Solvingmagento_BundleExtended
+ * @author    Oleg Ishenko <oleg.ishenko@solvingmagento.com>
+ * @license   http://opensource.org/licenses/osl-3.0.php  Open Software License (OSL 3.0)
+ * @version   GIT: <0.1.0>
+ * @link      http://www.solvingmagento.com/
+ *
+ */
+ 
+?>
+<?php
+function getLabelAttribute($attrCode) {
+    $_attribute = Mage::getResourceModel('catalog/product')->getAttribute($attrCode);
+    //$_attributeLabel = $_attribute->getFrontend()->getValue($_object);
+    $_storeLabel = $_attribute->getData('store_label');
+    return $_storeLabel;
+}
+?>
+<?php /* @var $this Mage_Bundle_Block_Catalog_Product_View_Type_Bundle_Option_Checkbox */ ?>
+<?php $_option = $this->getOption() ?>
+<?php $_selections = $_option->getSelections() ?>
+<?php $_defaults = $this->getSelectionValues() ?>
+<?php $_cHelper = $this->helper('catalog/image'); ?>
+<?php
+$_coreHelper = $this->helper('core');
+$_currentProduct = Mage::registry('current_product');
+$priceType = $_currentProduct->getData('price_type');
+$setId = $_currentProduct->getData('attribute_set_id');
+$groups = Mage::getModel('eav/entity_attribute_group')
+        ->getResourceCollection()
+        ->setAttributeSetFilter($setId)
+        ->addFieldToFilter('attribute_group_name','Extract')
+        ->setSortOrder()
+        ->load();
+$attributeCodes = array();
+foreach ($groups as $group) {
+    $groupName          = $group->getAttributeGroupName();
+    $groupId            = $group->getAttributeGroupId();
+    $attributes = Mage::getResourceModel('catalog/product_attribute_collection')
+        ->setAttributeGroupFilter($group->getId())
+        ->addVisibleFilter()
+        ->checkConfigurableProducts()
+        ->load();
+    if ($attributes->getSize() > 0) {
+        foreach ($attributes->getItems() as $attribute) {
+            /* @var $child Mage_Eav_Model_Entity_Attribute */
+            $attributeCodes[] = $attribute->getAttributeCode();                     
+        }
+    }
+}
+?>
+<dt><?php /*<label<?php if ($_option->getRequired()) echo ' class="required"' ?>><?php echo $this->htmlEscape($_option->getTitle()) ?><?php if ($_option->getRequired()) echo '<em>*</em>' ?></label */ ?></dt>
+<dd class="<?php if ($_option->decoratedIsLast){echo ' last';}?> option-dd-<?php echo $_option->getData('option_id'); ?> option-product-category active">
+    <div class="input-box">
+    <?php if (count($_selections)): ?>
+        <table class="options-list product-selected-bundle">
+            <thead>
+                <?php /*td><?php echo getLabelAttribute('name'); ?></td
+                <td><?php echo getLabelAttribute('weight'); ?></td>
+                */ ?>
+                <td><?php echo getLabelAttribute('sku'); ?></td>
+                
+                <?php /*td><?php echo getLabelAttribute('price'); ?></td*/ ?>
+                <?php if(count($attributeCodes)) : ?>
+                    <?php foreach($attributeCodes as $attributeCode): ?>
+                        <td><?php echo getLabelAttribute($attributeCode); ?></td>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+                <?php /*td><?php echo $this->__('Quantity'); ?></td>
+                <td><?php echo $this->__('Add to<br/>cart'); ?></td*/ ?>
+            </thead>
+        <?php foreach($_selections as $_selection): ?>
+            <?php 
+            if (!isset($_defaults[$_selection->getSelectionId()])) {
+                continue;
+            }
+            $_product = $_selection;
+            $default = $_defaults[$_selection->getSelectionId()]; ?>
+            <tr>
+                <td>
+                    <span><?php echo $_product->getData('sku'); ?></span>
+                </td>
+                <?php /*td>
+                    <div class="price-box">
+                        <span class="regular-price">
+                            <span class="price">
+                                <?php if($priceType): ?>
+                                    <?php echo $_coreHelper->currency($_product->getData('selection_price_value')); ?>
+                                <?php else: ?>
+                                    <?php echo $_coreHelper->currency($_product->getData('final_price')); ?>
+                                <?php endif; ?>
+                            </span>
+                        </span>
+                    </div>
+                </td*/ ?>
+                <?php if(count($attributeCodes)) : ?>
+                    <?php foreach($attributeCodes as $attributeCode): ?>
+                        <td>
+                            <span><?php 
+                            $_attribute = $_product->getResource()->getAttribute($attributeCode);
+                            $_attributeValues = $_attribute->getFrontend()->getValue($_product);
+                            print_r($_attributeValues);
+                            ?></span>
+                        </td>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+                <?php /*td>
+                    <div class="qty-group">
+                        <input type="button" class="btn btn-qty-number btn-minus" value="-" data-qty='bundle-option-<?php echo $_option->getId() ?>-<?php echo $_selection->getSelectionId() ?>-qty-input' <?php /*onclick="bundle.changeOptionQty(document.getElementById('bundle-option-<?php echo $_option->getId() ?>-<?php echo $_selection->getSelectionId() ?>-qty-input'),event);"*/ /* ?> />
+                        <input type="text" name="bundle_option_qty[<?php 
+                        echo $_option->getId().'-'.$_selection->getSelectionId() ?>]" value="<?php echo $default['default_qty'] ?>" title="<?php echo $this->__('Qty') ?>" class="input-text qty validated-number <?php if (!$default['user_defined']) echo ' qty-disabled' ?>" onkeyup="bundle.changeOptionQty(this, event)" onblur="bundle.changeOptionQty(this, event)" onchange="bundle.changeOptionQty(this, event);" <?php
+                        if (!$default['user_defined']) echo ' disabled="disabled"' ?> id="bundle-option-<?php 
+                        echo $_option->getId() ?>-<?php echo $_selection->getSelectionId() ?>-qty-input" />
+                        <input type="button" class="btn btn-qty-number btn-plus" value="+" data-qty='bundle-option-<?php echo $_option->getId() ?>-<?php echo $_selection->getSelectionId() ?>-qty-input' <?php /*onclick="bundle.changeOptionQty(document.getElementById('bundle-option-<?php echo $_option->getId() ?>-<?php echo $_selection->getSelectionId() ?>-qty-input'),event);"*/ /* ?> />
+                    </div>
+                </td>
+                <td>
+                    <input onclick="bundle.changeSelection(this)" class="change-container-classname checkbox bundle-option-<?php echo $_option->getId() ?> <?php if ($_option->getRequired()) echo 'validate-one-required-by-name' ?> btn-bundle-add-cart" id="bundle-option-<?php echo $_option->getId() ?>-<?php echo $_selection->getSelectionId() ?>" type="checkbox" name="bundle_option[<?php echo $_option->getId() ?>][]"<?php if ($this->_isSelected($_selection)) echo ' checked="checked"' ?><?php if (!$_selection->isSaleable()) echo ' disabled="disabled"' ?> value="<?php echo $_selection->getSelectionId() ?>"/>
+                </td*/ ?>
+                <?php if($_option->getRequired()): ?>
+                    <?php echo $this->setValidationContainer('bundle-option-'.$_option->getId().'-'.$_selection->getSelectionId(), 'bundle-option-'.$_option->getId().'-container') ?>
+                <?php endif; ?>
+                    <?php /*input onkeyup="bundle.changeOptionQty(this, event)" onblur="bundle.changeOptionQty(this, event)" <?php
+                        if (!$default['user_defined']) echo ' disabled="disabled"' ?> id="bundle-option-<?php 
+                        echo $_option->getId() ?>-<?php echo $_selection->getSelectionId() ?>-qty-input" class="input-text qty<?php 
+                        if (!$default['user_defined']) echo ' qty-disabled' ?>" type="text" name="bundle_option_qty[<?php 
+                        echo $_option->getId().'-'.$_selection->getSelectionId() ?>]" value="<?php echo $default['default_qty'] ?>"/ */?>
+                    <?php /*select onchange="bundle.changeOptionQty(this, event)" <?php
+                            if (!$default['user_defined']) echo ' disabled="disabled"' ;
+                        ?> 
+                        id="bundle-option-<?php echo $_option->getId() ?>-<?php echo $_selection->getSelectionId() ?>-qty-input" class="input-text qty<?php if (!$default['user_defined']) echo ' qty-disabled' ?>" 
+                        name="bundle_option_qty[<?php echo $_option->getId().'-'.$_selection->getSelectionId() ?>]" 
+                    >
+                        <?php for($iQty = 1; $iQty < 11 ; $iQty++) : ?>
+                            <option value="<?php echo $iQty; ?>" <?php if($iQty == $default['default_qty']) echo ' selected'; ?>><?php echo $iQty; ?></option>
+                        <?php endfor; ?>
+                    </select*/ ?>
+            </tr>
+        <?php endforeach; ?>
+        </table>
+        <div id="bundle-option-<?php echo $_option->getId() ?>-container"></div>
+        <?php /*div class="bundle-addcart-bottom">
+            <div class="add-to-cart">
+                <button type="button" title="<?php echo $this->__('Add to Cart') ?>" class="button btn-cart" onclick="productAddToCartForm.submit(this)"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
+                <input type="hidden" name="qty" value="1" />
+                <?php if ( Mage::getStoreConfig('ajax/general/enabled') == '1' ) : ?>
+                    <div class="ajax-cart-loader">
+                        <span id='ajax_loader' class="ajax-loader-view" style='display:none'><img src='<?php echo $this->getSkinUrl('images/opc-ajax-loader.gif')?>'/></span>
+                    </div>
+                <?php endif ?>
+                <?php echo $this->getChildHtml('', true, true) ?>
+            </div>
+        </div*/ ?>
+    <?php endif; ?>
+    </div>
+</dd>
+
+<script type="text/javascript">
+    jQuery(document).ready(function($) {
+        $(document).on('change','.btn-bundle-add-cart',function(event) {
+            if($(this).is(':checked')) {
+                $(this).addClass('checked');
+            }
+            else {
+                $(this).removeClass('checked');
+            }
+        });
+    });
+</script>

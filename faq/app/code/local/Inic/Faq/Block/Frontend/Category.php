@@ -15,11 +15,11 @@
  * @author     Inic
  */
 class Inic_Faq_Block_Frontend_Category extends Mage_Core_Block_Template {
-	
+
 	protected $_catfaq;
 	protected $_catfaqcCollection;
-	
-	
+
+
 	protected function _prepareLayout()
     {
         $categoryfaq = $this->getCategory();
@@ -27,13 +27,13 @@ class Inic_Faq_Block_Frontend_Category extends Mage_Core_Block_Template {
             $head->setTitle($this->htmlEscape($categoryfaq->getName()) . ' - ' . $head->getTitle());
         }
     }
-	
+
     public function getCategory() {
     	if (!$this->_catfaq) {
 	    	$id = intval($this->getRequest()->getParam('cat_id'));
 	    	try {
-					$this->_catfaq = Mage :: getModel('faq/category')->load($id); 
-					
+					$this->_catfaq = Mage :: getModel('faq/category')->load($id);
+
 					if ($this->_catfaq->getIsActive() != 1){
 						Mage::throwException('Catagory is not active');
 					}
@@ -43,7 +43,7 @@ class Inic_Faq_Block_Frontend_Category extends Mage_Core_Block_Template {
     	}
 		return $this->_catfaq;
     }
-    
+
 	/**
 	 * Function to gather the current faq item
 	 *
@@ -54,7 +54,7 @@ class Inic_Faq_Block_Frontend_Category extends Mage_Core_Block_Template {
 			if (!$this->_catfaq) {
 					Mage::throwException('Please Select Category');
 			}else{
-				$this->_catfaqcCollection=$this->_catfaq->getItemCollection()->addIsActiveFilter()->addStoreFilter(Mage::app()->getStore());
+				$this->_catfaqcCollection=$this->_catfaq->getItemCollection()->addIsActiveFilter()->addStoreFilter(Mage::app()->getStore())->addPositionSort();
 			}
 		}catch (Exception $e) {
 				$this->_catfaqcCollection = false;

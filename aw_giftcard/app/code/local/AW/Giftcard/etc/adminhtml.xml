@@ -1,0 +1,83 @@
+<?xml version="1.0"?>
+<config>
+    <layout>
+        <updates>
+            <aw_giftcard module="AW_Giftcard">
+                <file>aw_giftcard.xml</file>
+            </aw_giftcard>
+        </updates>
+    </layout>
+    <menu>
+        <customer>
+            <children>
+                <aw_giftcard>
+                    <title>Gift Cards</title>
+                    <sort_order>150</sort_order>
+                    <children>
+                        <manage module="aw_giftcard">
+                            <title>Manage Gift Cards</title>
+                            <sort_order>1</sort_order>
+                            <action>aw_giftcard_admin/adminhtml_giftcard</action>
+                        </manage>
+                        <settings module="aw_giftcard">
+                            <title>Settings</title>
+                            <sort_order>2</sort_order>
+                            <action>adminhtml/system_config/edit/section/aw_giftcard</action>
+                        </settings>
+                    </children>
+                </aw_giftcard>
+            </children>
+        </customer>
+    </menu>
+    <acl>
+        <resources>
+            <all>
+                <title>Allow Everything</title>
+            </all>
+            <admin>
+                <children>
+                    <customer>
+                        <children>
+                            <aw_giftcard translate="title" module="aw_giftcard">
+                                <title>Gift Cards</title>
+                                <sort_order>150</sort_order>
+                                <children>
+                                    <manage translate="title">
+                                        <title>Manage Gift Cards</title>
+                                        <sort_order>1</sort_order>
+                                        <action>aw_giftcard_admin/adminhtml_giftcard</action>
+                                    </manage>
+                                    <settings translate="title">
+                                        <title>Settings</title>
+                                        <sort_order>2</sort_order>
+                                        <action>adminhtml/system_config/edit/section/aw_giftcard</action>
+                                    </settings>
+                                </children>
+                            </aw_giftcard>
+                        </children>
+                    </customer>
+                    <system>
+                        <children>
+                            <config>
+                                <children>
+                                    <aw_giftcard>
+                                        <title>aheadWorks - Gift Card Section</title>
+                                    </aw_giftcard>
+                                </children>
+                            </config>
+                        </children>
+                    </system>
+                </children>
+            </admin>
+        </resources>
+    </acl>
+    <translate>
+        <modules>
+            <AW_Giftcard>
+                <files>
+                    <default>AW_Giftcard.csv</default>
+                </files>
+            </AW_Giftcard>
+        </modules>
+    </translate>
+</config>

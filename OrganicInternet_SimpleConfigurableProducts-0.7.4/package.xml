@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.9.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+    http://pear.php.net/dtd/tasks-1.0.xsd
+    http://pear.php.net/dtd/package-2.0
+    http://pear.php.net/dtd/package-2.0.xsd">
+ <name>OrganicInternet_SimpleConfigurableProducts</name>
+ <channel>connect.magentocommerce.com/community</channel>
+ <summary>This extension changes the way that the pricing of configurable products works in Magento. With this extension the price for configurable products is taken directly from the  associated simple products rather than the configurable product itself.
+ </summary>
+ <description>This extension changes the way that the pricing of configurable products works in Magento. With this extension the price for configurable products is taken directly from the associated simple products rather than the configurable product itself.
+
+This gives site owners direct control over the price of every individual configuration of a product, while still giving users the flexibility they usually get with configurable products. (There&apos;s no more having to set rules such as: +20% for blue, -£10 for small, +15% for leather. You just price the underlying small-blue-leather product at £199.99 and that&apos;s what the user pays.)
+
+v0.7 has full support for: Special Prices, Tier Prices, Custom Options, Catalog Price Rules, dynamic changing of product image/description/name to match the matching associated product, etc
+
+See http://github.com/organicinternet/magento-configurable-simple/ for installation and upgrade instructions and the complete feature list.
+
+---
+This extension is provided totally free to use and will remain so, however I spend a lot of my free time maintaining and improving it and providing support, so if you&apos;ve found it useful please consider making a donation, thanks.
+
+&lt;form action=&quot;https://www.paypal.com/cgi-bin/webscr&quot; method=&quot;post&quot;&gt;&lt;input type=&quot;hidden&quot; name=&quot;cmd&quot; value=&quot;_donations&quot;&gt;&lt;input type=&quot;hidden&quot; name=&quot;business&quot; value=&quot;FTVWCQCSG59JS&quot;&gt;&lt;input type=&quot;hidden&quot; name=&quot;lc&quot; value=&quot;GB&quot;&gt;&lt;input type=&quot;hidden&quot; name=&quot;item_name&quot; value=&quot;Simple Configurable Products - Magento Extension&quot;&gt;
+&lt;input type=&quot;hidden&quot; name=&quot;item_number&quot; value=&quot;887564&quot;&gt;&lt;input type=&quot;hidden&quot; name=&quot;currency_code&quot; value=&quot;GBP&quot;&gt;&lt;input type=&quot;hidden&quot; name=&quot;bn&quot; value=&quot;PP-DonationsBF:btn_donate_LG.gif:NonHosted&quot;&gt;&lt;input type=&quot;image&quot; src=&quot;https://www.paypal.com/en_GB/i/btn/btn_donate_LG.gif&quot; border=&quot;0&quot; name=&quot;submit&quot; alt=&quot;PayPal - The safer, easier way to pay online.&quot;&gt;&lt;img alt=&quot;&quot; border=&quot;0&quot; src=&quot;https://www.paypal.com/en_GB/i/scr/pixel.gif&quot; width=&quot;1&quot; height=&quot;1&quot;&gt;&lt;/form&gt;
+
+Thanks, 
+Matt
+
+
+---
+
+Version 0.7 of SCP is a major rewrite adding many new features, significant performance improvements and support for Magento v1.4. 
+
+Version 0.7 of SCP is not compatible with Magento versions prior to 1.4.0.1
+
+See the documentation for more details.
+ </description>
+ <lead>
+  <name>OrganicInternet - Matt Dean</name>
+  <user>organicmatt</user>
+  <email>matt@organicinternet.co.uk</email>
+  <active>yes</active>
+ </lead>
+ <date>2010-08-15</date>
+ <time>11:11:25</time>
+ <version>
+  <release>0.7.4</release>
+  <api>0.7.4</api>
+ </version>
+ <stability>
+  <release>stable</release>
+  <api>stable</api>
+ </stability>
+ <license>GPL</license>
+ <notes>
+See http://github.com/organicinternet/magento-configurable-simple/ for up-to-date documentation and to contribute!
+ </notes>
+ <contents>
+  <dir name="/">
+   <dir name="frontend">
+    <dir name="base">
+     <dir name="default">
+      <dir name="images">
+       <file md5sum="7b9776076d5fceef4993b55c9383dedd" name="scp-ajax-loader.gif" role="mageskin" />
+      </dir> <!-- /frontend/base/default/images -->
+      <dir name="js">
+       <file md5sum="85d51a75f1674c85287b71fe2f9dad55" name="scp_product_extension.js" role="mageskin" />
+      </dir> <!-- /frontend/base/default/js -->
+      <dir name="layout">
+       <file md5sum="1d6d42e7ea6b8a3b5b18b08c34c5f5f9" name="simpleconfigurableproducts.xml" role="magedesign" />
+      </dir> <!-- /frontend/base/default/layout -->
+      <dir name="template">
+       <dir name="catalog">
+        <dir name="product">
+         <dir name="view">
+          <dir name="options">
+           <file md5sum="707e2a23b01c7f44ec207327770cf19d" name="scpwrapper.phtml" role="magedesign" />
+          </dir> <!-- /frontend/base/default/template/catalog/product/view/options -->
+          <file md5sum="b82c5ca0da007693e4e33623fb946f45" name="scpajaxoptions.phtml" role="magedesign" />
+          <file md5sum="5f299a1bcc37cbb51ab65a939a249c8d" name="scpoptions.phtml" role="magedesign" />
+         </dir> <!-- /frontend/base/default/template/catalog/product/view -->
+        </dir> <!-- /frontend/base/default/template/catalog/product -->
+       </dir> <!-- /frontend/base/default/template/catalog -->
+       <dir name="page">
+        <file md5sum="af6c1e1249fd89bf5fcac3783ca59eb6" name="scpcontentonly.phtml" role="magedesign" />
+       </dir> <!-- /frontend/base/default/template/page -->
+       <dir name="sales">
+        <dir name="reorder">
+         <file md5sum="366a8a6ffe3c3dc6d9c65c78e46fd175" name="scpsidebar.phtml" role="magedesign" />
+        </dir> <!-- /frontend/base/default/template/sales/reorder -->
+       </dir> <!-- /frontend/base/default/template/sales -->
+      </dir> <!-- /frontend/base/default/template -->
+     </dir> <!-- /frontend/base/default -->
+    </dir> <!-- /frontend/base -->
+   </dir> <!-- /frontend -->
+   <dir name="modules">
+    <file md5sum="9940c9361821c51b912ba2d3f9995b24" name="OrganicInternet_SimpleConfigurableProducts.xml" role="mageetc" />
+   </dir> <!-- /modules -->
+   <dir name="OrganicInternet">
+    <dir name="SimpleConfigurableProducts">
+     <dir name="Adminhtml">
+      <dir name="Block">
+       <dir name="Catalog">
+        <dir name="Product">
+         <dir name="Edit">
+          <dir name="Tab">
+           <dir name="Super">
+            <dir name="Config">
+             <file md5sum="b4d05499ae5dfd05e15bd5b637b99a6b" name="Grid.php" role="magecommunity" />
+            </dir> <!-- /OrganicInternet/SimpleConfigurableProducts/Adminhtml/Block/Catalog/Product/Edit/Tab/Super/Config -->
+           </dir> <!-- /OrganicInternet/SimpleConfigurableProducts/Adminhtml/Block/Catalog/Product/Edit/Tab/Super -->
+          </dir> <!-- /OrganicInternet/SimpleConfigurableProducts/Adminhtml/Block/Catalog/Product/Edit/Tab -->
+         </dir> <!-- /OrganicInternet/SimpleConfigurableProducts/Adminhtml/Block/Catalog/Product/Edit -->
+        </dir> <!-- /OrganicInternet/SimpleConfigurableProducts/Adminhtml/Block/Catalog/Product -->
+       </dir> <!-- /OrganicInternet/SimpleConfigurableProducts/Adminhtml/Block/Catalog -->
+      </dir> <!-- /OrganicInternet/SimpleConfigurableProducts/Adminhtml/Block -->
+     </dir> <!-- /OrganicInternet/SimpleConfigurableProducts/Adminhtml -->
+     <dir name="Catalog">
+      <dir name="Block">
+       <dir name="Product">
+        <dir name="View">
+         <dir name="Type">
+          <file md5sum="3e1ce7ebc3fd2809f61fc2bfd68a5468" name="Configurable.php" role="magecommunity" />
+         </dir> <!-- /OrganicInternet/SimpleConfigurableProducts/Catalog/Block/Product/View/Type -->
+         <file md5sum="8fa06a35201f4adf46bd0fee0588e79e" name="Attributes.php" role="magecommunity" />
+         <file md5sum="ffc632c64c4cae0f00d228541de0b8a4" name="Media.php" role="magecommunity" />
+        </dir> <!-- /OrganicInternet/SimpleConfigurableProducts/Catalog/Block/Product/View -->
+        <file md5sum="183eadc7b59e1836a8a84aea5bdf04d1" name="Price.php" role="magecommunity" />
+       </dir> <!-- /OrganicInternet/SimpleConfigurableProducts/Catalog/Block/Product -->
+      </dir> <!-- /OrganicInternet/SimpleConfigurableProducts/Catalog/Block -->
+      <dir name="Model">
+       <dir name="Product">
+        <dir name="Type">
+         <dir name="Configurable">
+          <file md5sum="e107c13eb1dcc51337ce45de7ff17141" name="Price.php" role="magecommunity" />
+         </dir> <!-- /OrganicInternet/SimpleConfigurableProducts/Catalog/Model/Product/Type/Configurable -->
+         <file md5sum="7443a0698eb7b137f72dfc15725a4e96" name="Configurable.php" role="magecommunity" />
+         <file md5sum="8ef7b9a3c0f915681eb0c9eb88eae7e1" name="Simple.php" role="magecommunity" />
+         <file md5sum="1d9b3d5302852a673e622b4b4354ba54" name="Virtual.php" role="magecommunity" />
+        </dir> <!-- /OrganicInternet/SimpleConfigurableProducts/Catalog/Model/Product/Type -->
+       </dir> <!-- /OrganicInternet/SimpleConfigurableProducts/Catalog/Model/Product -->
+       <dir name="Resource">
+        <dir name="Eav">
+         <dir name="Mysql4">
+          <dir name="Product">
+           <dir name="Indexer">
+            <dir name="Price">
+             <file md5sum="59a75a07d2d6e9c2a7f4fc5e842ec817" name="Configurable.php" role="magecommunity" />
+            </dir> <!-- /OrganicInternet/SimpleConfigurableProducts/Catalog/Model/Resource/Eav/Mysql4/Product/Indexer/Price -->
+            <file md5sum="8b2f2fb56f94bf164fd159a19043315e" name="Price.php" role="magecommunity" />
+           </dir> <!-- /OrganicInternet/SimpleConfigurableProducts/Catalog/Model/Resource/Eav/Mysql4/Product/Indexer -->
+           <file md5sum="47f49718bedbba0a2ea860cf93b4faba" name="Collection.php" role="magecommunity" />
+          </dir> <!-- /OrganicInternet/SimpleConfigurableProducts/Catalog/Model/Resource/Eav/Mysql4/Product -->
+         </dir> <!-- /OrganicInternet/SimpleConfigurableProducts/Catalog/Model/Resource/Eav/Mysql4 -->
+        </dir> <!-- /OrganicInternet/SimpleConfigurableProducts/Catalog/Model/Resource/Eav -->
+       </dir> <!-- /OrganicInternet/SimpleConfigurableProducts/Catalog/Model/Resource -->
+       <file md5sum="1a6dfedacb38df8e720f119f510d9525" name="Product.php" role="magecommunity" />
+      </dir> <!-- /OrganicInternet/SimpleConfigurableProducts/Catalog/Model -->
+     </dir> <!-- /OrganicInternet/SimpleConfigurableProducts/Catalog -->
+     <dir name="CatalogIndex">
+      <dir name="Model">
+       <dir name="Data">
+        <file md5sum="75a683207aa2096a03e07346d19d5622" name="Configurable.php" role="magecommunity" />
+       </dir> <!-- /OrganicInternet/SimpleConfigurableProducts/CatalogIndex/Model/Data -->
+      </dir> <!-- /OrganicInternet/SimpleConfigurableProducts/CatalogIndex/Model -->
+     </dir> <!-- /OrganicInternet/SimpleConfigurableProducts/CatalogIndex -->
+     <dir name="CatalogInventory">
+      <dir name="Model">
+       <dir name="Mysql4">
+        <dir name="Indexer">
+         <dir name="Stock">
+          <file md5sum="61e9ba65a896fce97934af234773793e" name="Configurable.php" role="magecommunity" />
+         </dir> <!-- /OrganicInternet/SimpleConfigurableProducts/CatalogInventory/Model/Mysql4/Indexer/Stock -->
+        </dir> <!-- /OrganicInternet/SimpleConfigurableProducts/CatalogInventory/Model/Mysql4/Indexer -->
+       </dir> <!-- /OrganicInternet/SimpleConfigurableProducts/CatalogInventory/Model/Mysql4 -->
+      </dir> <!-- /OrganicInternet/SimpleConfigurableProducts/CatalogInventory/Model -->
+     </dir> <!-- /OrganicInternet/SimpleConfigurableProducts/CatalogInventory -->
+     <dir name="CatalogRule">
+      <dir name="Model">
+       <dir name="Mysql4">
+        <file md5sum="e4ff4119ed9da11ccee2a6c14e2e56aa" name="Rule.php" role="magecommunity" />
+       </dir> <!-- /OrganicInternet/SimpleConfigurableProducts/CatalogRule/Model/Mysql4 -->
+      </dir> <!-- /OrganicInternet/SimpleConfigurableProducts/CatalogRule/Model -->
+     </dir> <!-- /OrganicInternet/SimpleConfigurableProducts/CatalogRule -->
+     <dir name="Checkout">
+      <dir name="Block">
+       <dir name="Cart">
+        <dir name="Item">
+         <file md5sum="85b2a7c9e5883d981e4c91da6e53e3a9" name="Renderer.php" role="magecommunity" />
+        </dir> <!-- /OrganicInternet/SimpleConfigurableProducts/Checkout/Block/Cart/Item -->
+       </dir> <!-- /OrganicInternet/SimpleConfigurableProducts/Checkout/Block/Cart -->
+      </dir> <!-- /OrganicInternet/SimpleConfigurableProducts/Checkout/Block -->
+     </dir> <!-- /OrganicInternet/SimpleConfigurableProducts/Checkout -->
+     <dir name="controllers">
+      <file md5sum="bb9b20bc5284c32a8e60febe7e9803c2" name="AjaxController.php" role="magecommunity" />
+     </dir> <!-- /OrganicInternet/SimpleConfigurableProducts/controllers -->
+     <dir name="etc">
+      <file md5sum="4c50c1ae23882257f4f7d51acd745482" name="config.xml" role="magecommunity" />
+      <file md5sum="9fec5c9d7e354cd120fe18f63f3eccdc" name="system.xml" role="magecommunity" />
+     </dir> <!-- /OrganicInternet/SimpleConfigurableProducts/etc -->
+     <dir name="Helper">
+      <file md5sum="5f91b08d83b0f5211ba48bb9e57a73b7" name="Data.php" role="magecommunity" />
+     </dir> <!-- /OrganicInternet/SimpleConfigurableProducts/Helper -->
+     <dir name="Rss">
+      <dir name="Block">
+       <dir name="Catalog">
+        <file md5sum="8bd374355b28204b872a460f1df726ee" name="Category.php" role="magecommunity" />
+        <file md5sum="d4bf513c1d1b80a8c6f35b50e364c932" name="New.php" role="magecommunity" />
+        <file md5sum="f8d21afb44bb4f3313ca2eb892063b75" name="Special.php" role="magecommunity" />
+        <file md5sum="f11184d72153579620183e0df9616341" name="Tag.php" role="magecommunity" />
+       </dir> <!-- /OrganicInternet/SimpleConfigurableProducts/Rss/Block/Catalog -->
+       <file md5sum="930698cb4ceac56a64fa010ce8304386" name="Wishlist.php" role="magecommunity" />
+      </dir> <!-- /OrganicInternet/SimpleConfigurableProducts/Rss/Block -->
+     </dir> <!-- /OrganicInternet/SimpleConfigurableProducts/Rss -->
+    </dir> <!-- /OrganicInternet/SimpleConfigurableProducts -->
+   </dir> <!-- /OrganicInternet -->
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>5.2</min>
+    <max>6.0</max>
+    <exclude>6.0</exclude>
+   </php>
+   <pearinstaller>
+    <min>1.6.2</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease />
+</package>

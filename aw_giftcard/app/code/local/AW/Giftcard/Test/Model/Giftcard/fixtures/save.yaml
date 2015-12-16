@@ -1,0 +1,31 @@
+config:
+  websites/usa/aw_giftcard/coupon/code_format: 0123456789
+  websites/usa/aw_giftcard/coupon/code_length: 12
+  websites/usa/aw_giftcard/coupon/code_dash: 4
+  websites/usa/aw_giftcard/coupon/code_prefix: pref
+  websites/usa/aw_giftcard/coupon/code_suffix: suff
+  websites/usa/aw_giftcard/coupon/code_separator: '-'
+scope:
+  website:
+    -
+      website_id: 1
+      code: usa
+      name: USA
+      default_group_id: 1
+  group:
+    -
+      group_id: 1
+      website_id: 1
+      name: USA Group
+      default_store_id: 1
+      root_category_id: 2
+  store:
+    -
+      store_id: 1
+      website_id: 1
+      group_id: 1
+      code: usa_store
+      name: Usa Store
+      is_active: 1
+tables:
+  aw_giftcard/history:

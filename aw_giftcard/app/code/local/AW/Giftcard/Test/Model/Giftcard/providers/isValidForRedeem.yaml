@@ -1,0 +1,12 @@
+-
+  - test_id: test_1
+    giftcard_id: 3
+    store_id: 1
+-
+  - test_id: test_2
+    giftcard_id: null
+    store_id: 1
+-
+  - test_id: test_3
+    giftcard_id: 4
+    store_id: 1

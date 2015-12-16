@@ -1,0 +1,14 @@
+td.aw-giftcard-amounts .data {
+    width: 465px;
+}
+
+table#table_aw_giftcard td.value input[type="checkbox"] {
+    margin: 4px 10px 0 0;
+    vertical-align: top;
+}
+
+table#table_aw_giftcard td.value input[type="checkbox"] + label {
+    display: inline-block;
+    margin: 2px 0 0 -7px;
+    vertical-align: top;
+}

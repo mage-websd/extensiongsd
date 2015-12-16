@@ -1,0 +1,169 @@
+<?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This software is designed to work with Magento community edition and
+ * its use on an edition other than specified is prohibited. aheadWorks does not
+ * provide extension support in case of incorrect edition use.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Giftcard
+ * @version    1.0.8
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ */
+?><tr>
+    <td class="label">
+        <?php echo $this->__($this->getElement()->getLabel()) ?>
+    </td>
+    <td colspan="10" class="grid aw-giftcard-amounts">
+        <table cellspacing="0" class="data border" id="<?php echo $this->getElement()->getHtmlId(); ?>_table">
+            <?php if ($this->isMultiWebsites()): ?>
+                <col width="135" />
+            <?php endif; ?>
+            <col />
+            <col width="1" />
+            <thead>
+                <tr class="headings">
+                    <th <?php if (!$this->isMultiWebsites()): ?>style="display:none"<?php endif; ?>>
+                        <?php echo $this->__('Website') ?>
+                    </th>
+                    <th>
+                        <?php echo $this->__('Amount') ?>
+                        <span class="required">*</span>
+                    </th>
+                    <th class="last">
+                        <?php echo $this->__('Action') ?>
+                    </th>
+                </tr>
+                <tr id="<?php echo $this->getElement()->getHtmlId();?>_add_template" class="template no-display">
+                    <td <?php if (!$this->isMultiWebsites()): ?>style="display:none"<?php endif; ?>>
+                        <select disabled="no-template" class="<?php echo $this->getElement()->getClass(); ?> required-entry" name="<?php echo $this->getElement()->getName();?>[__index__][website_id]" id="#{prefix}_aw_giftcard_amounts_row___index___website">
+                            <?php foreach ($this->getWebsites() as $_websiteId => $_info): ?>
+                                <option value="<?php echo $_websiteId ?>">
+                                    <?php echo $_info['name'] ?>
+                                    <?php if (!empty($_info['currency'])): ?>
+                                        [<?php echo $_info['currency'] ?>]
+                                    <?php endif; ?>
+                                </option>
+                            <?php endforeach ?>
+                        </select>
+                    </td>
+                    <td>
+                        <input disabled="no-template" class="<?php echo $this->getElement()->getClass();?> required-entry validate-greater-than-zero" type="text" name="<?php echo $this->getElement()->getName();?>[__index__][price]" value="'#{price}'" />
+                    </td>
+                    <td class="last">
+                        <input type="hidden" name="<?php echo $this->getElement()->getName();?>[__index__][delete]" class="delete" disabled="no-template" value=""  id="#{prefix}_aw_giftcard_amounts_row___index___delete" />
+                        <button title="<?php echo $this->__('Delete Amount'); ?>" class="scalable delete icon-btn delete-product-option" onclick="giftcardAmountsControl.deleteItem('<?php echo $this->getElement()->getHtmlId();?>', event);return false">
+                            <span>
+                                <span>
+                                    <span>
+                                        <?php echo $this->__('Delete'); ?>
+                                    </span>
+                                </span>
+                            </span>
+                        </button>
+                    </td>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <td <?php if (!$this->isMultiWebsites()): ?>style="display:none"<?php endif; ?>></td>
+                    <td colspan="2" class="a-right"><?php echo $this->getAddButtonHtml() ?></td>
+                </tr>
+            </tfoot>
+            <tbody id="<?php echo $this->getElement()->getHtmlId();?>_container">
+            </tbody>
+        </table>
+        <input type="hidden" id="aw_giftcard_amounts_total" name="aw_giftcard_amounts_total" value="" class="required-entry">
+
+        <script type="text/javascript">
+            //<![CDATA[
+            if (typeof itemsCount == 'undefined') {
+                var itemsCount = 0;
+            }
+            var giftcardAmountsControl = {
+                deleteButton: false,
+                addItem : function () {
+                    var data = {};
+                    data.prefix = '';
+                    data.website_id = 0;
+                    data.price      = '';
+                    data.index      = itemsCount++;
+                    if(arguments.length == 3) {
+                        data.prefix     = arguments[0];
+                        data.website_id = arguments[1];
+                        data.price      = arguments[2];
+                    } else if (arguments.length == 1) {
+                        data.prefix     = arguments[0];
+                    }
+
+                    var template = new Template('<tr>' + $(data.prefix + '_add_template').innerHTML.replace(/__index__/g, '#{index}').replace(/ disabled="?no-template"?/g, '').replace(/ disabled/g, '').replace(/="'([^']*)'"/g, '="$1"') + '</tr>');
+                    Element.insert($(data.prefix + '_container'), {'bottom':template.evaluate(data)});
+
+                    $(data.prefix + '_aw_giftcard_amounts_row_'+data.index+'_website').value = data.website_id;
+                    this.updateTotalAmounts();
+                },
+                disableElement: function(elem) {
+                    elem.disabled = true;
+                    $(elem).addClassName('disabled');
+                },
+
+                deleteItem : function(prefix, event) {
+                    var tr = Event.findElement(event, 'tr');
+                    if (tr) {
+                        Element.select(tr, '.delete').each(function(elem){elem.value='1'});
+                        Element.select(tr, ['input', 'select']).each(function(elem){elem.hide()});
+                        Element.hide(tr);
+                        Element.addClassName(tr, 'no-display template');
+                    }
+                    itemsCount--;
+                    this.updateTotalAmounts();
+                },
+
+                updateTotalAmounts: function() {
+                    $('aw_giftcard_amounts_total').value = (itemsCount > 0 ? itemsCount : '');
+                }
+            };
+
+            <?php if (null !== $this->getValues() && is_array($this->getValues()) && count($this->getValues()) > 0): ?>
+                <?php foreach ($this->getValues() as $_item): ?>
+                    giftcardAmountsControl.addItem('<?php echo $this->getElement()->getHtmlId();?>', '<?php echo $_item['website_id'] ?>', '<?php echo sprintf('%.2f', $_item['value']) ?>');
+                <?php endforeach; ?>
+            <?php endif;?>
+
+            function updatePriceAmountValidation() {
+                if($('aw_gc_allow_open_amount')) {
+                    if ($('aw_gc_allow_open_amount').value == 1) {
+                        productForm.validator.reset('aw_giftcard_amounts_total');
+                        Element.removeClassName($('aw_giftcard_amounts_total'), 'required-entry');
+                    } else {
+                        if (!Element.hasClassName($('aw_giftcard_amounts_total'), 'required-entry')) {
+                            Element.addClassName($('aw_giftcard_amounts_total'), 'required-entry');
+                        }
+                    }
+                }
+            }
+
+            function setupPriceAmountEvents() {
+                if ($('aw_gc_allow_open_amount')) {
+                    Event.observe('aw_gc_allow_open_amount', 'change', updatePriceAmountValidation);
+                }
+                updatePriceAmountValidation();
+            }
+            Event.observe(window, 'load', setupPriceAmountEvents);
+            //]]>
+        </script>
+    </td>
+</tr>

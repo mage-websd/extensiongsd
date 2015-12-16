@@ -1,0 +1,7 @@
+test_1: # valid card
+  history: 0
+  invoice: 0
+  creditmemo: 0
+  quote: 0
+  giftcard_id: null
+  errors: null

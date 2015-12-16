@@ -1,0 +1,103 @@
+<?xml version="1.0"?>
+<layout>
+    <adminhtml_catalog_product_aw_giftcard>
+        <reference name="head">
+            <action method="addCss"><name>aw_giftcard/css/styles.css</name></action>
+        </reference>
+        <reference name="product_tabs">
+            <action method="addTab"><name>aw_giftcard_info</name><block>aw_giftcard/adminhtml_catalog_product_edit_tab_info</block></action>
+        </reference>
+    </adminhtml_catalog_product_aw_giftcard>
+
+    <aw_giftcard_admin_adminhtml_giftcard_index>
+        <reference name="content">
+            <block type="aw_giftcard/adminhtml_giftcard" name="aw_giftcard.giftcard"/>
+        </reference>
+    </aw_giftcard_admin_adminhtml_giftcard_index>
+
+    <aw_giftcard_admin_adminhtml_giftcard_edit>
+        <reference name="content">
+            <block type="aw_giftcard/adminhtml_giftcard_edit" name="giftcard_edit" />
+        </reference>
+        <reference name="left">
+            <block type="aw_giftcard/adminhtml_giftcard_edit_tabs" name="giftcard_tabs" />
+        </reference>
+    </aw_giftcard_admin_adminhtml_giftcard_edit>
+
+    <adminhtml_sales_order_view>
+        <reference name="order_items">
+            <action method="addColumnRender">
+                <column>name</column>
+                <block>aw_giftcard/adminhtml_sales_items_column_name_giftcard</block>
+                <template>sales/items/column/name.phtml</template>
+                <type>aw_giftcard</type>
+            </action>
+        </reference>
+        <reference name="order_totals">
+            <block type="aw_giftcard/adminhtml_sales_order_totals_giftcard" name="aw_giftcard.order.totals" template="aw_giftcard/sales/totals_giftcard.phtml" />
+        </reference>
+    </adminhtml_sales_order_view>
+
+    <adminhtml_sales_order_invoice_new>
+        <reference name="invoice_totals">
+            <block type="aw_giftcard/adminhtml_sales_order_totals_giftcard" name="aw_giftwrap.invoice.totals" template="aw_giftcard/sales/totals_giftcard.phtml" />
+        </reference>
+    </adminhtml_sales_order_invoice_new>
+
+    <adminhtml_sales_order_invoice_updateqty>
+        <reference name="invoice_totals">
+            <block type="aw_giftcard/adminhtml_sales_order_totals_giftcard" name="aw_giftwrap.invoice.totals" template="aw_giftcard/sales/totals_giftcard.phtml" />
+        </reference>
+    </adminhtml_sales_order_invoice_updateqty>
+
+    <adminhtml_sales_order_invoice_view>
+        <reference name="invoice_totals">
+            <block type="aw_giftcard/adminhtml_sales_order_totals_giftcard" name="aw_giftwrap.invoice.totals" template="aw_giftcard/sales/totals_giftcard.phtml" />
+        </reference>
+    </adminhtml_sales_order_invoice_view>
+
+    <adminhtml_sales_order_creditmemo_new>
+        <reference name="creditmemo_totals">
+            <block type="aw_giftcard/adminhtml_sales_order_totals_giftcard" name="aw_giftwrap.creditmemo.totals" template="aw_giftcard/sales/totals_giftcard.phtml" />
+        </reference>
+    </adminhtml_sales_order_creditmemo_new>
+
+    <adminhtml_sales_order_creditmemo_updateqty>
+        <reference name="creditmemo_totals">
+            <block type="aw_giftcard/adminhtml_sales_order_totals_giftcard" name="aw_giftwrap.creditmemo.totals" template="aw_giftcard/sales/totals_giftcard.phtml" />
+        </reference>
+    </adminhtml_sales_order_creditmemo_updateqty>
+
+    <adminhtml_sales_order_creditmemo_view>
+        <reference name="creditmemo_totals">
+            <block type="aw_giftcard/adminhtml_sales_order_totals_giftcard" name="aw_giftwrap.creditmemo.totals" template="aw_giftcard/sales/totals_giftcard.phtml" />
+        </reference>
+    </adminhtml_sales_order_creditmemo_view>
+
+    <PRODUCT_TYPE_aw_giftcard>
+        <reference name="product.composite.fieldset">
+            <block type="aw_giftcard/adminhtml_catalog_product_composite_fieldset_giftcard" name="product.composite.fieldset.aw.giftcard" before="product.composite.fieldset.options" template="aw_giftcard/catalog/product_composite_fieldset_giftcard.phtml"/>
+        </reference>
+    </PRODUCT_TYPE_aw_giftcard>
+
+    <adminhtml_sales_order_create_load_block_items>
+        <reference name="items_grid">
+            <block type="aw_giftcard/adminhtml_sales_order_create_payment" template="aw_giftcard/sales/order_create_items.phtml" name="aw_giftcard" after="-" />
+        </reference>
+    </adminhtml_sales_order_create_load_block_items>
+
+    <adminhtml_sales_order_create_load_block_data>
+        <reference name="items_grid">
+            <block type="aw_giftcard/adminhtml_sales_order_create_payment" template="aw_giftcard/sales/order_create_items.phtml" name="aw_giftcard" after="-" />
+        </reference>
+    </adminhtml_sales_order_create_load_block_data>
+
+    <adminhtml_sales_order_create_index>
+        <reference name="js">
+            <block type="adminhtml/template" template="aw_giftcard/sales/order_create_js.phtml" name="aw_giftcard_js" />
+        </reference>
+        <reference name="items_grid">
+            <block type="aw_giftcard/adminhtml_sales_order_create_payment" template="aw_giftcard/sales/order_create_items.phtml" name="aw_giftcard" after="-" />
+        </reference>
+    </adminhtml_sales_order_create_index>
+</layout>

@@ -1,0 +1,325 @@
+<?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This software is designed to work with Magento community edition and
+ * its use on an edition other than specified is prohibited. aheadWorks does not
+ * provide extension support in case of incorrect edition use.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Giftcard
+ * @version    1.0.8
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ */
+?><?php
+$_product = $this->getProduct();
+$_id = $_product->getId();
+$preConfiguredValues = $this->getPreConfiguredValues();
+?>
+<div class="aw-gc-form<?php if($this->isEEVersion()):?>-enterprise<?php endif;?>">
+    <?php echo $this->getChildHtml('product_type_data_extra') ?>
+    <?php if ($_product->isSaleable() && $this->hasAmountOptions()): ?>
+        <?php if (!$_product->getAwGcAllowOpenAmount() && (count($this->getAmountOptions()) == 1)): ?>
+            <?php $_amount = $this->getAmountOptions(); $_amount = array_shift($_amount); ?>
+            <div class="price-box">
+                <span class="regular-price">
+                    <span class="price" id="product-price-<?php echo $_id ?><?php echo $this->getIdSuffix() ?>">
+                        <?php echo Mage::helper('core')->currency($_amount, true, false); ?>
+                    </span>
+                </span>
+            </div>
+            <script type="text/javascript">
+                //<![CDATA[
+                optionsPrice.productPrice = "<?php echo $_amount;?>";
+                //]]>
+            </script>
+        <?php else: ?>
+            <div class="fieldset aw-gc-amount-form">
+                <ul class="form-list">
+                    <li>
+                        <?php /*if (count($this->getAmountOptions()) > 0): ?>
+                            <label for="aw-gc-amount" id="aw-gc-amount-label-select" class="required">
+                                <em>*</em>
+                                <?php echo $this->__('Amount');?>
+                            </label>
+                        <?php endif;*/ ?>
+
+                        <?php if ($_product->getAwGcAllowOpenAmount()): ?>
+                            <label for="aw-gc-custom-amount" id="aw-gc-custom-amount-label-input" class="required">
+                                <em>*</em>
+                                <?php echo $this->__('Amount in %s', $this->getCurrentCurrency()); ?>
+                            </label>
+                             <div id="aw-gc-amount-box" class="input-box">
+                                <input type="text" id="aw-gc-custom-amount" value="<?php echo $this->escapeHtml($preConfiguredValues->getData('aw_gc_custom_amount')) ?>" name="aw_gc_custom_amount" class="validate-number required-entry input-text aw-gc-amount-entry aw-gc-min-amount aw-gc-max-amount" />
+
+                                <?php if ($_product->getAwGcOpenAmountMin() || $_product->getAwGcOpenAmountMax()): ?>
+                                    <?php $_minAmount = Mage::helper('core')->currency($_product->getAwGcOpenAmountMin(), true, false); ?>
+                                    <?php $_maxAmount = Mage::helper('core')->currency($_product->getAwGcOpenAmountMax(), true, false); ?>
+                                    <p class="notice">
+                                        <?php if ($_product->getAwGcOpenAmountMin()): ?>
+                                            <span>
+                                                <?php echo $this->__('Minimum: %s', $_minAmount); ?>
+                                            </span>
+                                        <?php endif; ?>
+
+                                        <?php if ($_product->getAwGcOpenAmountMax()): ?>
+                                            <span>
+                                                <?php echo $this->__('Maximum: %s', $_maxAmount); ?>
+                                            </span>
+                                        <?php endif; ?>
+                                    </p>
+
+                                    <script type="text/javascript">
+                                        //<![CDATA[
+                                        var minAllowedAmount = <?php echo Mage::helper('core')->currency($_product->getAwGcOpenAmountMin(), false, false) ?>;
+                                        var maxAllowedAmount = <?php echo Mage::helper('core')->currency($_product->getAwGcOpenAmountMax(), false, false) ?>;
+
+                                        function parsePrice(value) {
+                                            value = value.replace('\'', '').replace(' ', '');
+                                            var separatorComa = value.indexOf(',');
+                                            var separatorDot  = value.indexOf('.');
+
+                                            if (separatorComa != -1 && separatorDot != -1) {
+                                                if (separatorComa > separatorDot) {
+                                                    value = value.replace('.', '').replace(',', '.');
+                                                } else {
+                                                    value = value.replace(',', '');
+                                                }
+                                            } else if (separatorComa != -1) {
+                                                value = value.replace(',', '.');
+                                            }
+                                            return parseFloat(value);
+                                        }
+
+                                        Validation.add('aw-gc-min-amount', <?php echo Zend_Json::encode($this->__('Entered amount is too low')); ?>, function(v) {
+                                            return (parsePrice(v) >= minAllowedAmount);
+                                        });
+                                        Validation.add('aw-gc-max-amount', <?php echo Zend_Json::encode($this->__('Entered amount is too high')); ?>, function(v) {
+                                            if (maxAllowedAmount == 0) {return true;}
+                                            return (parsePrice(v) <= maxAllowedAmount);
+                                        });
+                                        //]]>
+                                    </script>
+                                <?php endif; ?>
+                            </div>
+                        <?php endif; ?>
+                        <?php if (count($this->getAmountOptions()) > 0): ?>
+                            <?php $configValue = $preConfiguredValues->getData('aw_gc_amounts');?>
+                            <div class="input-box">
+                                <select name="aw_gc_amount" id="aw-gc-amount" class="required-entry aw-gc-amount-entry">
+                                    <option value="">
+                                        <?php echo $this->__('SELECT AN AMOUNT*'); ?>
+                                    </option>
+
+                                    <?php foreach ($this->getAmountOptions() as $value): ?>
+                                        <option value="<?php echo $value; ?>" <?php echo (($configValue == $value) ? 'selected' : '')?>>
+                                            <?php echo Mage::helper('core')->currency($value, true, false); ?>
+                                        </option>
+                                    <?php endforeach; ?>
+
+                                    <?php if ($_product->getAwGcAllowOpenAmount()): ?>
+                                        <option value="custom" <?php echo (($configValue == 'custom') ? 'selected' : '')?>>
+                                            <?php echo $this->__('Other Amount...') ?>
+                                        </option>
+                                    <?php endif; ?>
+                                </select>
+                            </div>
+                        <?php endif; ?>
+                    </li>
+                </ul>
+            </div>
+            <script type="text/javascript">
+                //<![CDATA[
+                if ($('aw-gc-amount') && $('aw-gc-custom-amount')) {
+                    $('aw-gc-custom-amount').hide();
+                    $('aw-gc-amount-box').hide();
+                    $('aw-gc-custom-amount-label-input').hide();
+                    Event.observe($('aw-gc-amount'), 'change', switchGiftCardInputs);
+                }
+
+                function switchGiftCardInputs()
+                {
+                    if (!$('aw-gc-amount') || !$('aw-gc-custom-amount')) {
+                        return;
+                    }
+
+                    var value = $('aw-gc-amount').options[$('aw-gc-amount').selectedIndex].value;
+                    if (value == 'custom') {
+                        $('aw-gc-custom-amount').show();
+                        $('aw-gc-amount-box').show();
+
+                        $('aw-gc-amount-label-select').hide();
+                        $('aw-gc-custom-amount-label-input').show();
+                    } else {
+                        $('aw-gc-custom-amount').hide();
+                        $('aw-gc-amount-box').hide();
+                        if($('aw-gc-amount-label-select')) {
+                            $('aw-gc-amount-label-select').show();
+                        }
+                        $('aw-gc-custom-amount-label-input').hide();
+                    }
+                }
+                switchGiftCardInputs();
+                //]]>
+            </script>
+        <?php endif; ?>
+        <div class="fieldset aw-gc-send-form">
+            <ul class="form-list">
+
+                <li class="fields">
+                    <div class="field">
+                        <div class="input-box">
+                            <?php $senderName = $preConfiguredValues->getData('aw_gc_sender_name') ? $preConfiguredValues->getData('aw_gc_sender_name') : $this->getCustomerName();?>
+                            <input type="text" id="aw-gc-sender-name" name="aw_gc_sender_name" class="required-entry input-text" value="<?php echo $this->escapeHtml($senderName); ?>"  placeholder="<?php echo $this->__('From Name*'); ?>" />
+                        </div>
+                    </div>
+
+                    <?php if ($this->isAllowEmail()): ?>
+                    <div class="field" style="display: none;">
+                        <label for="aw-gc-sender-email" class="required">
+                            <em>*</em>
+                            <?php echo $this->__('Sender Email'); ?>
+                        </label>
+                        <div class="input-box">
+                            <?php 
+                                $senderEmail = $preConfiguredValues->getData('aw_gc_sender_email') ? $preConfiguredValues->getData('aw_gc_sender_email') : $this->getCustomerEmail();
+                                if(!$senderEmail) {
+                                    $_senderDefault = Mage::getStoreConfig('aw_giftcard/email/sender');
+                                    $_senderDefault = Mage::getStoreConfig('trans_email/ident_'.$_senderDefault.'/email');
+                                    $senderEmail = $_senderDefault;
+                                }
+                            ?>
+                            <input type="text" id="aw-gc-sender-email" name="aw_gc_sender_email" class="validate-email required-entry input-text" value="<?php echo $this->escapeHtml($senderEmail);?>"/>
+                        </div>
+                    </div>
+                    <?php endif; ?>
+                </li>
+
+                <li class="fields">
+                    <div class="field">
+                        <div class="input-box">
+                            <input type="text" id="aw-gc-recipient-name" name="aw_gc_recipient_name" class="required-entry input-text" value="<?php echo $this->escapeHtml($preConfiguredValues->getData('aw_gc_recipient_name')) ?>" placeholder="<?php echo $this->__('To Name*'); ?>" />
+                        </div>
+                    </div>
+                </li>
+                <li class="fields">
+                    <?php if ($this->isAllowEmail()): ?>
+                        <div class="field">
+                            <div class="input-box">
+                                <input type="text" id="aw-gc-recipient-email" name="aw_gc_recipient_email" class="validate-email required-entry input-text" value="<?php echo $this->escapeHtml($preConfiguredValues->getData('aw_gc_recipient_email')) ?>" placeholder="<?php echo $this->__('To Email Address*'); ?>" />
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                </li>
+
+                <?php if ($this->isAllowMessage()): ?>
+                    <li>
+                        <div class="input-box">
+                            <textarea name="aw_gc_message" id="aw-gc-message" class="input-textarea input-gift-message required-entry" placeholder="<?php echo $this->__('Message*'); ?>"><?php echo $this->escapeHtml($preConfiguredValues->getData('aw_gc_message')) ?></textarea>
+                        </div>
+                    </li>
+                <?php endif; ?>
+                <li class="fields">
+                    <div class="field">
+                        <div class="input-box">
+                            <input type="text" name="gift_mail_delivery_date" id="gift_mail_delivery_date" class="input-text required-entry" readonly="readonly" placeholder="<?php echo $this->__('Mail Delivery Date*'); ?>">
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    <?php elseif ($_product->isSaleable()): ?>
+        <?php echo $this->getPriceHtml($_product); ?>
+    <?php endif; ?>
+</div>
+<script type="text/javascript">
+    enUS = {
+        "m": {
+            "wide": ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"],
+            "abbr": ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+        }
+    }; // en_US locale reference
+    Calendar._DN = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"]; // full day names
+    Calendar._SDN = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]; // short day names
+    Calendar._FD = 0; // First day of the week. "0" means display Sunday first, "1" means display Monday first, etc.
+    Calendar._MN = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]; // full month names
+    Calendar._SMN = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]; // short month names
+    Calendar._am = "AM"; // am/pm
+    Calendar._pm = "PM";
+
+    // tooltips
+    Calendar._TT = {};
+    Calendar._TT["INFO"] = 'About the calendar';
+
+    Calendar._TT["ABOUT"] =
+        'DHTML Date/Time Selector\n' +
+        "(c) dynarch.com 2002-2005 / Author: Mihai Bazon\n" +
+        'For latest version visit: http://www.dynarch.com/projects/calendar/\n' +
+        'Distributed under GNU LGPL. See http://gnu.org/licenses/lgpl.html for details.' +
+        '\n\n' +
+        'Date selection:\n' +
+        '- Use the \xab, \xbb buttons to select year\n' +
+        '- Use the \u2039 buttons to select month\n' +
+        '- Hold mouse button on any of the above buttons for faster selection.';
+    Calendar._TT["ABOUT_TIME"] = '\n\n' +
+    'Time selection:\n' +
+    '- Click on any of the time parts to increase it\n' +
+    '- or Shift-click to decrease it\n' +
+    '- or click and drag for faster selection.';
+
+    Calendar._TT["PREV_YEAR"] = 'Prev. year (hold for menu)';
+    Calendar._TT["PREV_MONTH"] = 'Prev. month (hold for menu)';
+    Calendar._TT["GO_TODAY"] = 'Go Today';
+    Calendar._TT["NEXT_MONTH"] = 'Next month (hold for menu)';
+    Calendar._TT["NEXT_YEAR"] = 'Next year (hold for menu)';
+    Calendar._TT["SEL_DATE"] = 'Select date';
+    Calendar._TT["DRAG_TO_MOVE"] = 'Drag to move';
+    Calendar._TT["PART_TODAY"] = ' (' + "today" + ')';
+
+    // the following is to inform that "%s" is to be the first day of week
+    Calendar._TT["DAY_FIRST"] = 'Display %s first';
+
+    // This may be locale-dependent. It specifies the week-end days, as an array
+    // of comma-separated numbers. The numbers are from 0 to 6: 0 means Sunday, 1
+    // means Monday, etc.
+    Calendar._TT["WEEKEND"] = "0,6";
+
+    Calendar._TT["CLOSE"] = 'Close';
+    Calendar._TT["TODAY"] = "today";
+    Calendar._TT["TIME_PART"] = '(Shift-)Click or drag to change value';
+
+    // date formats
+    Calendar._TT["DEF_DATE_FORMAT"] = "%Y-%m-%d";
+    Calendar._TT["TT_DATE_FORMAT"] = "%Y-%m-%d";
+
+    Calendar._TT["WK"] = "Week";
+    Calendar._TT["TIME"] = 'Time:';
+    Calendar.setup({
+        inputField: 'gift_mail_delivery_date',
+        ifFormat: '%b %e, %Y',
+        showsTime: false,
+        button: 'gift_mail_delivery_date',
+        align: 'Bl',
+        singleClick: true
+    });
+
+    jQuery(document).ready(function($) {
+        $(document).on('change','input#gift_mail_delivery_date',function(event) {
+            var valueInput = $(this).val();
+            $('input#options_1_text').attr('value',valueInput);
+        });
+    });
+</script>
+<?php /*custom option gift: Mail Delivery Date - id 1*/ ?>

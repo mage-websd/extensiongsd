@@ -1,0 +1,61 @@
+tables:
+  aw_giftcard/giftcard:
+    -
+      entity_id: 9
+      code: 66DULJZBK2KX
+      status: 1
+      created_at: '2013-11-18'
+      expire_at: '2014-11-18'
+      website_id: 1
+      balance: 10
+      state: 1
+  aw_giftcard/history:
+    -
+      history_id: 1
+      giftcard_id: 9
+      updated_at: '2013-11-22 09:46:51'
+      action: 1
+      balance_amount: 2.0000
+      balance_delta: 2.0000
+      additional_info: "a:2:{s:12:\"message_type\";i:1;s:12:\"message_data\";s:9:\"100000032\";}"
+    -
+      history_id: 2
+      giftcard_id: 9
+      updated_at: '2013-11-22 09:46:51'
+      action: 1
+      balance_amount: 2.0000
+      balance_delta: 2.0000
+      additional_info: "a:2:{s:12:\"message_type\";i:1;s:12:\"message_data\";s:9:\"100000032\";}"
+  aw_giftcard/order_creditmemo_giftcard:
+    -
+      link_id: 1
+      giftcard_id: 9
+      creditmemo_entity_id: 1
+      base_giftcard_amount: 2.0000
+      giftcard_amount: 2.0000
+    -
+      link_id: 2
+      giftcard_id: 9
+      creditmemo_entity_id: 2
+      base_giftcard_amount: 2.0000
+      giftcard_amount: 2.0000
+  aw_giftcard/quote_giftcard:
+      -
+        link_id: 1
+        giftcard_id: 9
+        quote_entity_id: 1
+        base_giftcard_amount: 2.0000
+        giftcard_amount: 2.0000
+  aw_giftcard/order_invoice_giftcard:
+      -
+        link_id: 1
+        giftcard_id: 9
+        invoice_entity_id: 1
+        base_giftcard_amount: 2.0000
+        giftcard_amount: 2.0000
+      -
+        link_id: 2
+        giftcard_id: 9
+        invoice_entity_id: 2
+        base_giftcard_amount: 2.0000
+        giftcard_amount: 2.0000
