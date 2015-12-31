@@ -1,0 +1,61 @@
+<?php $helper = Mage::helper('customweb_subscription') ?>
+<?php $subscription = $this->getSubscription(); ?>
+
+<div class="page-title title-buttons">
+	<h1>Subscription #<?php echo $subscription->getReferenceId() ?></h1>
+</div>
+
+<?php echo $this->getChildHtml('info') ?>
+
+<?php if ($subscription->isSalable()) : ?>
+
+<?php
+$_code = $this->getMethodCode();
+$_method = $this->getMethod();
+$_description = $_method->getDescription();
+?>
+
+<?php if ($_code != 'subscription_invoice' && $_code != 'subscription_prepayment') : ?>
+
+	<script>
+	document.observe("dom:loaded", function() {
+				cwpm_<?php echo $_code; ?> = new Customweb.Subscription.Payment("<?php echo $this->getHiddenFieldsUrl();?>",
+				"<?php echo $this->getVisibleFieldsUrl();?>",
+				"<?php echo $this->getProcessUrl();?>",
+				"<?php echo $this->getJavascriptUrl();?>",
+				"<?php echo $_code;?>",
+				<?php echo $this->getSubscription()->getId() ?>);
+		});
+	</script>
+	
+	<div class="order-info-box" style="margin-top: 15px;">
+		<form name="customweb-subscription-payment-form" id="customweb-subscription-payment-form" action="<?php echo $this->getFormActionUrl() ?>">
+			<fieldset class="form-list">
+				<div id="payment_form_<?php echo $_code ?>">
+					<div id="payment_description_<?php echo $_code ?>" class="cw_payment_description">
+						<h4><?php echo $this->getMethodDescription();?></h4>
+					</div>
+					<div id="alias_select">
+						<?php echo $this->getAliasSelect();?>
+					</div>
+					<input type="hidden" id="<?php echo $_code ?>_authorization_method" value="<?php echo $this->getAuthorizationMethod();?>" />
+					<ul id="payment_form_fields_<?php echo $_code ?>">
+						<?php echo $this->getFormFields();?>
+					</ul>
+				</div>
+			</fieldset>
+			<ul class="buttons-set buttons-set-order">
+				<li>
+					<button id="customweb-subscription-place-order" type="submit" title="<?php echo $helper->__('Pay') ?>" class="button btn-proceed-checkout btn-checkout"><span><span><?php echo $helper->__('Pay') ?></span></span></button>
+				</li>
+			</ul>
+		</form>
+	</div>
+	
+<?php endif; ?>
+
+<?php else : ?>
+
+<p class="error-msg"><?php echo $helper->__('Not all products are available in the requested quantity.') ?></p>
+
+<?php endif; ?>

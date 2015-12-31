@@ -1,0 +1,108 @@
+<?php $helper = Mage::helper('customweb_subscription') ?>
+
+<table id="cart-plans-template" style="display:none">
+	<?php echo $this->getRowTemplate() ?>
+</table>
+
+<div class="grid">
+	<table cellspacing="0" class="data" id="cart-plans-container">
+		<colgroup>
+			<col width="250" />
+			<col width="100" />
+			<col width="100" />
+			<col width="100" />
+			<col width="100" />
+			<col width="50" />
+		</colgroup>
+		<thead>
+			<tr class="headings">
+				<th><?php echo $helper->__('Description') ?></th>
+				<th><?php echo $helper->__('Billing Period Unit') ?></th>
+				<th><?php echo $helper->__('Billing Frequency') ?></th>
+				<th><?php echo $helper->__('Maximum Billing Cycles') ?></th>
+				<th><?php echo $helper->__('Initial Fee/Discount') ?></th>
+				<th><?php echo $helper->__('Period Of Notice') ?></th>
+				<th><?php echo $helper->__('Can Customer Suspend') ?></th>
+				<th><?php echo $helper->__('Sort Order') ?></th>
+				<th></th>
+			</tr>
+		</thead>
+		<?php echo $this->getRows() ?>
+		<tfoot>
+			<tr id="cart-plans-form">
+				<td>
+					<div class="table-form-field-wrapper">
+						<input class="input-text table-form-field table-form-required" data-name="description" id="cart-plans-form-description" type="text" <?php echo $this->getDisabled() ?> />
+					</div>
+					<p class="note"><span><?php echo $helper->__('Describe the subscription cart plan. This value is used on the cart page in the subscription cart plan dropdown and to describe the subscription.') ?></span></p>
+				</td>
+				<td>
+					<select class="table-form-field table-form-required" data-name="period_unit" id="cart-plans-form-period-unit" <?php echo $this->getDisabled() ?>>
+						<?php
+						$options = $this->getPeriodUnitOptions();
+						foreach ($options as $value => $label) {
+							echo '<option value="'.$value.'">'.$label.'</option>';
+						}
+						?>
+					</select>
+					<p class="note"><span><?php echo $helper->__('Unit for billing during the subscription period.') ?></span></p>
+				</td>
+				<td>
+					<div class="table-form-field-wrapper">
+						<input class="input-text table-form-field table-form-required" data-name="period_frequency" id="cart-plans-form-period-frequency" type="text" <?php echo $this->getDisabled() ?> />
+					</div>
+					<p class="note"><span><?php echo $helper->__('Number of billing periods that make up one billing cycle.') ?></span></p>
+				</td>
+				<td>
+					<div class="table-form-field-wrapper">
+						<input class="input-text table-form-field" data-name="period_max_cycles" id="cart-plans-form-period-max-cycles" type="text" <?php echo $this->getDisabled() ?> />
+					</div>
+					<p class="note"><span><?php echo $helper->__('The subscriptions ends automatically after the above entered number of billing cycles.') ?></span></p>
+				</td>
+				<td>
+					<div class="table-form-field-wrapper">
+						<input class="input-text table-form-field" data-name="init_amount" id="cart-plans-form-init-amount" type="text" <?php echo $this->getDisabled() ?> />
+					</div>
+					<p class="note"><span><?php echo $helper->__('Define a fee or a discount (negative value) that is added to or subtracted from the initial payment.') ?></span></p>
+				</td>
+				<td>
+					<div class="table-form-field-wrapper">
+						<input class="input-text table-form-field" data-name="cancel_period" id="cart-plans-form-cancel-period" type="text" <?php echo $this->getDisabled() ?> />
+					</div>
+					<p class="note"><span><?php echo $helper->__('The number of billing cycles the subscription will keep running after the cancelation is requested.') ?></span></p>
+				</td>
+				<td>
+					<select class="table-form-field" data-name="can_customer_suspend" id="cart-plans-form-can-customer-suspend" <?php echo $this->getDisabled() ?>>
+						<option value="1"><?php echo $helper->__('Yes') ?></option>
+						<option value="0"><?php echo $helper->__('No') ?></option>
+					</select>
+					<p class="note"><span><?php echo $helper->__('Is the customer allowed to suspend the subscription?') ?></span></p>
+				</td>
+				<td>
+					<div class="table-form-field-wrapper">
+						<input class="input-text table-form-field" data-name="sort_order" id="cart-plans-form-sort-order" type="text" <?php echo $this->getDisabled() ?> />
+					</div>
+					<p class="note"><span><?php echo $helper->__('Define the sort order of the cart plans in the dropdown.') ?></span></p>
+				</td>
+				<td><?php echo $this->getAddRowButtonHtml() ?></td>
+			</tr>
+		</tfoot>
+		<tfoot id="cart-plans-empty">
+			<tr>
+				<td colspan="9"><?php echo $helper->__('There are no subscription cart plans.') ?></td>
+			</tr>
+		</tfoot>
+	</table>
+</div>
+
+<script>
+document.observe("dom:loaded", function() {
+	subscriptionCartPlansForm = new Customweb.Subscription.TableForm('cart-plans-', 'sort-order', function(){
+		var vars = {
+			period_unit_label: $('cart-plans-form-period-unit').options[$('cart-plans-form-period-unit').selectedIndex].innerHTML,
+			can_customer_suspend_label: $('cart-plans-form-can-customer-suspend').options[$('cart-plans-form-can-customer-suspend').selectedIndex].innerHTML
+		};
+		return vars;
+	});
+});
+</script>

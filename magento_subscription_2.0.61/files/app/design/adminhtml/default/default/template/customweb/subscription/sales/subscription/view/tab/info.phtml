@@ -1,0 +1,55 @@
+<?php $helper = Mage::helper('customweb_subscription') ?>
+<?php $subscription = $this->getSubscription() ?>
+<div>
+    <div class="box-left">
+		<div class="entry-edit">
+	        <div class="entry-edit-head">
+	            <h4 class="icon-head"><?php echo $helper->__('Subscription') ?></h4>
+	        </div>
+	        <div class="fieldset">
+   				<?php echo $this->getInfoHtml() ?>
+   			</div>
+   		</div>
+   	</div>
+   	<div class="box-right">
+	    <div class="entry-edit">
+	        <div class="entry-edit-head">
+	            <h4 class="icon-head head-account"><?php echo $helper->__('Schedule Information') ?></h4>
+	        </div>
+	        <div class="fieldset">
+	        	<?php echo $this->getScheduleHtml() ?>
+	        </div>
+	    </div>
+	</div>
+    <div class="clear"></div>
+	<?php echo $this->getAddressHtml() ?>
+	<div class="clear"></div>
+	<div class="box-left">
+	    <div class="entry-edit">
+	        <div class="entry-edit-head">
+	            <h4 class="icon-head head-account"><?php echo $helper->__('Billing Information') ?></h4>
+	        </div>
+	        <div class="fieldset">
+				<?php echo $this->getBillingHtml() ?>
+	        </div>
+	    </div>
+	</div>
+	<div class="box-right">
+		<div class="entry-edit">
+	        <div class="entry-edit-head">
+	            <h4 class="icon-head head-account"><?php echo $helper->__('Payments') ?></h4>
+	        </div>
+	        <div class="fieldset">
+	        	<?php echo $this->getPaymentHtml() ?>
+	        </div>
+	    </div>
+	</div>
+	<div class="clear"></div>
+	<div class="entry-edit">
+        <div class="entry-edit-head">
+            <h4 class="icon-head head-account"><?php echo $helper->__('Purchased Items') ?></h4>
+        </div>
+		<?php echo $this->getItemsHtml() ?>
+    </div>
+	<div class="clear"></div>
+</div>

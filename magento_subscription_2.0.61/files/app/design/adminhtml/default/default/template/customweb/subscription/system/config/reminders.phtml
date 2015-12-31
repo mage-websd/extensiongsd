@@ -1,0 +1,84 @@
+<?php $helper = Mage::helper('customweb_subscription') ?>
+
+<table id="reminders-template" style="display:none">
+	<?php echo $this->getRowTemplate() ?>
+</table>
+
+<div class="grid">
+	<table cellspacing="0" class="data" id="reminders-container">
+		<colgroup>
+			<col width="50" />
+			<col width="150" />
+			<col width="250" />
+			<col width="50" />
+		</colgroup>
+		<thead>
+			<tr class="headings">
+				<th><?php echo $helper->__('Time Before Due Date') ?></th>
+				<th><?php echo $helper->__('Time Unit') ?></th>
+				<th><?php echo $helper->__('Email Template') ?></th>
+				<th></th>
+			</tr>
+		</thead>
+		<?php echo $this->getRows() ?>
+		<tfoot>
+			<tr id="reminders-form">
+				<td>
+					<div class="table-form-field-wrapper">
+						<input class="input-text table-form-field table-form-required" data-name="count" id="reminders-form-count" type="text" <?php echo $this->getDisabled() ?> />
+					</div>
+					<p class="note"><span><?php echo $helper->__('Enter when this reminder email should be sent before the actual due date of the subscription. This has to be a number.') ?></span></p>
+				</td>
+				<td>
+					<select class="table-form-field table-form-required" data-name="unit" id="reminders-form-unit" <?php echo $this->getDisabled() ?>>
+						<?php
+						$options = $this->getUnitOptions();
+						foreach ($options as $value => $label) {
+							echo '<option value="'.$value.'">'.$label.'</option>';
+						}
+						?>
+					</select>
+					<p class="note"><span><?php echo $helper->__('Select the unit for the number in the previous field.') ?></span></p>
+				</td>
+				<td>
+					<select class="table-form-field table-form-required" data-name="email_template" id="reminders-form-email-template" <?php echo $this->getDisabled() ?>>
+						<?php
+						$options = Mage::getModel('adminhtml/system_config_source_email_template')->setPath('customweb_subscription_email_template_reminder')->toOptionArray();
+						foreach ($options as $option) {
+							echo '<option value="'.$option['value'].'">'.$option['label'].'</option>';
+						}
+						?>
+					</select>
+					<p class="note"><span><?php echo $helper->__('Select which email template should be sent as reminder. You can edit the templates yourself under System > Transactional Emails.') ?></span></p>
+				</td>
+				<td><?php echo $this->getAddRowButtonHtml() ?></td>
+			</tr>
+		</tfoot>
+		<tfoot id="reminders-empty">
+			<tr>
+				<td colspan="6"><?php echo $helper->__('No reminders are configured.') ?></td>
+			</tr>
+		</tfoot>
+	</table>
+</div>
+
+<script>
+document.observe("dom:loaded", function() {
+	subscriptionRemindersForm = new Customweb.Subscription.TableForm('reminders-', null, function(){
+		var vars = {
+			unit_label: $('reminders-form-unit').options[$('reminders-form-unit').selectedIndex].innerHTML,
+			email_template_label: $('reminders-form-email-template').options[$('reminders-form-email-template').selectedIndex].innerHTML,
+		};
+		return vars;
+	}, function(){
+		var valid = true,
+			count = $('reminders-form-count').value;
+		$('reminders-container').select('tbody .reminders-data-count').each(function(element, index){
+			if (element.value == count) {
+				valid = false;
+			}
+		});
+		return valid;
+	});
+});
+</script>

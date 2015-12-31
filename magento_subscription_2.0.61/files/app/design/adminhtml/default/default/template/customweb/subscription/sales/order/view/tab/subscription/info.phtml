@@ -1,0 +1,31 @@
+<?php $helper = Mage::helper('customweb_subscription') ?>
+<?php $renderHelper = Mage::helper('customweb_subscription/render') ?>
+<?php $subscription = $this->getSubscription() ?>
+<table cellspacing="0" class="form-list">
+    <tr>
+        <td class="label"><label><?php echo $helper->__('Payment Method') ?></label></td>
+        <td class="value"><strong><?php echo Mage::helper('payment')->getMethodInstance($subscription->getMethodCode())->getTitle() ?></strong></td>
+    </tr>
+    <tr>
+        <td class="label"><label><?php echo $helper->__('Reference Id') ?></label></td>
+        <td class="value"><strong><a href="<?php echo Mage::helper('adminhtml')->getUrl('adminhtml/subscription/view', array('subscription_id' => $subscription->getId())) ?>"><?php echo $subscription->getReferenceId() ?></a></strong></td>
+    </tr>
+    <tr>
+        <td class="label"><label><?php echo $helper->__('Description') ?></label></td>
+        <td class="value"><strong><?php echo $subscription->getDescription() ?></strong></td>
+    </tr>
+    <tr>
+        <td class="label"><label><?php echo $helper->__('Status') ?></label></td>
+        <td class="value"><strong><?php echo $renderHelper->getStatusLabel($subscription->getStatus()) ?></strong></td>
+    </tr>
+    <?php if ($subscription->isCancelRequested() && !$subscription->isCanceled()) : ?>
+    <tr>
+        <td class="label"><label><?php echo $helper->__('Cancelation Requested') ?></label></td>
+        <td class="value"><strong><?php echo $helper->__('Yes') ?></strong></td>
+    </tr>
+    <tr>
+        <td class="label"><label><?php echo $helper->__('Subscription End') ?></label></td>
+        <td class="value"><strong><?php echo $helper->__('After %s more cycle(s)', $subscription->getCancelPeriod() - $subscription->getCancelCount()) ?></strong></td>
+    </tr>
+    <?php endif; ?>
+</table>

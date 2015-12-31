@@ -1,0 +1,56 @@
+<!--@subject {{var store.getFrontendName()}}: Kündigung des Abos Nr. {{var subscription.reference_id}} @-->
+<!--@vars
+{"store url=\"\"":"Shop-Url",
+"var store.getFrontendName()":"Shop-Name",
+"var logo_url":"E-Mail-Logo-Url",
+"var logo_alt":"E-Mail-Logo-Alternativtext",
+"htmlescape var=$customer_name":"Kundenname",
+"var subscription.reference_id":"Abo: Referenznummer",
+"var subscription_created_at":"Abo: Erstelldatum",
+"htmlescape var=$subscription.description":"Abo: Beschreibung",
+"var subscription_period":"Abo: Rechnungsperiode",
+"var subscription_end":"Abo: Maximale Anzahl Rechnungen",
+"var cancel_period":"Abo: Kündigungsfrist",
+"layout handle=\"customweb_subscription_email_items\" subscription=$subscription":"Abo: Artikelliste"}
+@-->
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+
+<body style="background:#F6F6F6; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px; margin:0; padding:0;">
+<div style="background:#F6F6F6; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px; margin:0; padding:0;">
+<table style="width: 100%; border: 0; border-spacing: 0; border-collapse: collapse;">
+<tr>
+	<td align="center" valign="top" style="padding:20px 0 20px 0">
+		<!-- [ header starts here] -->
+		<table style="border:1px solid #E0E0E0; width: 650px; border: 0; border-spacing: 0; border-collapse: collapse;">
+			<tr>
+				<td valign="top"><a href="{{store url=""}}"><img src="{{var logo_url}}" alt="{{var logo_alt}}" style="margin-bottom:10px; border: 0;"/></a></td>
+			</tr>
+			<!-- [ middle starts here] -->
+			<tr>
+				<td valign="top">
+					<h1 style="font-size:22px; font-weight:normal; line-height:22px; margin:0 0 11px 0;">Hallo {{htmlescape var=$customer_name}},</h1>
+					<p style="font-size:12px; line-height:16px; margin:0 0 10px 0;">
+						Sie haben die Kündigung Ihre Abos Nr. {{var subscription.reference_id}} beantragt.
+					</p>
+					<p style="font-size:12px; line-height:16px; margin:0 0 10px 0;">
+						Wir bestätigen Ihnen hiermit die sofortige Kündigung Ihres Abos.
+					</p>
+					<p style="font-size:12px; line-height:16px; margin:0 0 10px 0;">
+						Zur Übersicht finden Sie hier noch einmal die von Ihnen bestellten Abo-Produkte:
+					</p>
+					{{layout handle="customweb_subscription_email_items" subscription=$subscription}}
+					<p style="font-size:12px; line-height:16px; margin:10px 0 10px 0;">
+						Bei Fragen zum Abo kontaktieren Sie uns entweder direkt via E-Mail unter:
+                        <a href="mailto:{{config path='trans_email/ident_support/email'}}" style="color:#1E7EC8;">{{config path='trans_email/ident_support/email'}}</a>
+                        oder telefonisch unter: <span class="nobr">{{config path='general/store_information/phone'}}</span>.
+					</p>
+				</td>
+			</tr>
+		</table>
+	</td>
+</tr>
+</table>
+</div>
+</body>

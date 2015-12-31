@@ -1,0 +1,18 @@
+<?php $index = $this->getIndex() ?>
+<?php $data = $this->getRowData() ?>
+<?php $elementName = $this->getElement()->getName() ?>
+<tbody id="reminders-row-<?php echo $index ?>">
+	<tr>
+		<td class="a-right"><?php echo $data->getCount() ?></td>
+		<td><?php echo $data->getUnit() == '#{unit}' ? '#{unit_label}' : Customweb_Subscription_Model_PeriodUnit::valueOf($data->getUnit())->getLabel() ?></td>
+		<td><?php echo $data->getEmailTemplate() == '#{email_template}' ? '#{email_template_label}' : $data->getEmailTemplateLabel() ?></td>
+		<td class="nowrap a-right">
+			<a onclick="subscriptionRemindersForm.removeRow('reminders-row-<?php echo $index ?>');" class="table-form-btn-remove"></a>
+			<a onclick="subscriptionRemindersForm.editRow('reminders-row-<?php echo $index ?>');" class="table-form-btn-edit"></a>
+
+			<input type="hidden" class="reminders-data-count" data-name="count" name="<?php echo $elementName ?>[count][<?php echo $index ?>]" value="<?php echo $data->count ?>" />
+			<input type="hidden" class="reminders-data-unit" data-name="unit" name="<?php echo $elementName ?>[unit][<?php echo $index ?>]" value="<?php echo $data->unit ?>" />
+			<input type="hidden" class="reminders-data-email-template" data-name="email_template" name="<?php echo $elementName ?>[email_template][<?php echo $index ?>]" value="<?php echo $data->email_template ?>" />
+		</td>
+	</tr>
+</tbody>

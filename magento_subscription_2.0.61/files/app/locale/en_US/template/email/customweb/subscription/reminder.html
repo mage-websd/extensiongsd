@@ -1,0 +1,59 @@
+<!--@subject {{var store.getFrontendName()}}: Your subscription {{var subscription.reference_id}} will soon renew @-->
+<!--@vars
+{"store url=\"\"":"Store Url",
+"var store.getFrontendName()":"Store Name",
+"var logo_url":"Email Logo Image Url",
+"var logo_alt":"Email Logo Image Alt",
+"htmlescape var=$customer_name":"Customer Name",
+"var link":"Subscription Payment Link",
+"var subscription.reference_id":"Subscription Reference Id",
+"var subscription_created_at":"Subscription Created At Date",
+"htmlescape var=$subscription.description":"Subscription Description",
+"var subscription_period":"Subscription Billing Period",
+"var subscription_end":"Subscription Maximum Billing Cycles",
+"var cancel_period":"Subscription Period of Notice",
+"var due_date":"Subscription Next Due Date",
+"layout handle=\"customweb_subscription_email_items\" subscription=$subscription":"Subscription Items Grid"}
+@-->
+<!--@styles
+body,td { color:#2f2f2f; font:11px/1.35em Verdana, Arial, Helvetica, sans-serif; }
+@-->
+
+<body style="background:#F6F6F6; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px; margin:0; padding:0;">
+<div style="background:#F6F6F6; font-family:Verdana, Arial, Helvetica, sans-serif; font-size:12px; margin:0; padding:0;">
+<table style="width: 100%; border: 0; border-spacing: 0; border-collapse: collapse;">
+<tr>
+	<td align="center" valign="top" style="padding:20px 0 20px 0">
+		<!-- [ header starts here] -->
+		<table style="border:1px solid #E0E0E0; width: 650px; border: 0; border-spacing: 0; border-collapse: collapse;">
+			<tr>
+				<td valign="top"><a href="{{store url=""}}"><img src="{{var logo_url}}" alt="{{var logo_alt}}" style="margin-bottom:10px; border: 0;"/></a></td>
+			</tr>
+			<!-- [ middle starts here] -->
+			<tr>
+				<td valign="top">
+					<h1 style="font-size:22px; font-weight:normal; line-height:22px; margin:0 0 11px 0;">Dear {{htmlescape var=$customer_name}},</h1>
+					<p style="font-size:12px; line-height:16px; margin:0 0 10px 0;">
+						Note: Your subscription will automatically renew on {{var due_date}}.
+					</p>
+					<p style="font-size:12px; line-height:16px; margin:0 0 10px 0;">
+						You can always check or alter your subscription settings in your customer account. 
+					</p>
+					<p style="font-size:12px; line-height:16px; margin:0 0 10px 0;">
+						We will renew the subscription for the following products:
+					</p>
+					{{layout handle="customweb_subscription_email_items" subscription=$subscription}}
+					
+					<p style="font-size:12px; line-height:16px; margin:0 0 10px 0;">
+						If any questions concerning the subscription arise, please contact us either by e-mail:
+                        <a href="mailto:{{config path='trans_email/ident_support/email'}}" style="color:#1E7EC8;">{{config path='trans_email/ident_support/email'}}</a>
+                        or by phone at <span class="nobr">{{config path='general/store_information/phone'}}</span>.
+					</p>
+				</td>
+			</tr>
+		</table>
+	</td>
+</tr>
+</table>
+</div>
+</body>

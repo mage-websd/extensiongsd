@@ -1,0 +1,32 @@
+<?php $helper = Mage::helper('customweb_subscription') ?>
+<?php $subscription = $this->getSubscription() ?>
+<div class="box-left">
+    <div class="entry-edit">
+        <div class="entry-edit-head">
+            <h4 class="icon-head head-account"><?php echo $helper->__('Billing Address') ?></h4>
+        </div>
+        <div class="fieldset">
+       		<?php if ($subscription->getBillingAddressInfo()) {
+       			$_billingAddress = Mage::getModel('customer/address')->setData($subscription->getBillingAddressInfo());
+     			echo $_billingAddress->format('html');
+			} else {
+				echo $helper->__('No information available.');
+			} ?>
+        </div>
+    </div>
+</div>
+<div class="box-right">
+    <div class="entry-edit">
+        <div class="entry-edit-head">
+            <h4 class="icon-head head-account"><?php echo $helper->__('Shipping Address') ?></h4>
+        </div>
+        <div class="fieldset">
+			<?php if ($subscription->getShippingAddressInfo()) {
+       			$_billingAddress = Mage::getModel('customer/address')->setData($subscription->getShippingAddressInfo());
+     			echo $_billingAddress->format('html');
+			} else {
+				echo $helper->__('No information available.');
+			} ?>
+        </div>
+    </div>
+</div>

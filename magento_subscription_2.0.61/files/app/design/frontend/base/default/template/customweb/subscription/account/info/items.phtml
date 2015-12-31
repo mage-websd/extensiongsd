@@ -1,0 +1,28 @@
+<?php $helper = Mage::helper('customweb_subscription') ?>
+<?php $subscription = $this->getSubscription() ?>
+<table class="data-table" id="my-subscriptions-table">
+	<col />
+	<col width="1" />
+	<col width="1" />
+	<col width="1" />
+	<col width="1" />
+	<thead>
+		<tr>
+			<th><?php echo $helper->__('Product Name') ?></th>
+			<th><?php echo $helper->__('SKU') ?></th>
+			<th class="a-right"><?php echo $helper->__('Price') ?></th>
+			<th class="a-center"><?php echo $helper->__('Qty') ?></th>
+			<th class="a-right"><?php echo $helper->__('Subtotal') ?></th>
+		</tr>
+	</thead>
+	<?php $items = $subscription->getItems() ?>
+	<?php $_index = 0; ?>
+		<?php $count = count($items); ?>
+	<?php foreach ($items as $item): ?>
+	<?php if ($item->getParentItem()) continue; ?>
+	<tbody>
+		<?php echo $this->getItemHtml($item) ?>
+	</tbody>
+	<?php endforeach; ?>
+</table>
+<script type="text/javascript">decorateTable('my-subscriptions-table', {'tbody' : ['odd', 'even'], 'tbody tr' : ['first', 'last']})</script>

@@ -1,0 +1,17 @@
+<?php $helper = Mage::helper('customweb_subscription') ?>
+<?php $renderHelper = Mage::helper('customweb_subscription/render') ?>
+<?php $subscription = $this->getSubscription() ?>
+<table class="info-table" style="width: 100%;">
+    <tr>
+        <th class="label"><?php echo $helper->__('Last Billed') ?></th>
+        <td class="value"><?php echo $subscription->getLastDatetime() ? $this->formatDate($subscription->getLastDatetime(), 'medium', true) : $helper->__('Never') ?></td>
+    </tr>
+    <tr>
+        <th class="label"><?php echo $helper->__('Next Cycle') ?></th>
+        <td class="value"><?php echo $renderHelper->renderNextDueDate($subscription->getPlan()) ?></td>
+    </tr>
+    <tr>
+        <th class="label"><?php echo $helper->__('Payments Made') ?></th>
+        <td class="value"><?php echo $subscription->getNumberOfCycles() ?></td>
+    </tr>
+</table>

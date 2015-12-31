@@ -1,0 +1,23 @@
+<?php $helper = Mage::helper('customweb_subscription') ?>
+<?php $renderHelper = Mage::helper('customweb_subscription/render') ?>
+<?php $subscription = $this->getSubscription() ?>
+<table class="info-table" style="width: 100%;">
+    <tr>
+        <th class="label"><?php echo $helper->__('Start Date') ?></th>
+        <td class="value"><?php echo Mage::helper('core')->formatDate($subscription->getStartDatetime(), 'medium', true) ?></td>
+    </tr>
+    <tr>
+        <th class="label"><?php echo $helper->__('Billing Period') ?></th>
+        <td class="value"><?php echo $renderHelper->renderPlan($subscription->getPlan()) ?></td>
+    </tr>
+    <tr>
+        <th class="label"><?php echo $helper->__('Maximum Billing Cycles') ?></th>
+        <td class="value"><?php echo $renderHelper->renderPlanEnd($subscription->getPlan()) ?></td>
+    </tr>
+    <?php if ($subscription->hasCancelPeriod()) : ?>
+    <tr>
+        <th class="label"><?php echo $helper->__('Period of Notice') ?></th>
+        <td class="value"><?php echo $helper->__('Repeats %s time(s) after cancelation request.', $subscription->getCancelPeriod()) ?></td>
+    </tr>
+    <?php endif; ?>
+</table>

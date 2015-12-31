@@ -1,0 +1,27 @@
+<?php $helper = Mage::helper('customweb_subscription') ?>
+<?php $renderHelper = Mage::helper('customweb_subscription/render') ?>
+<?php $subscription = $this->getSubscription() ?>
+<table cellspacing="0" class="form-list">
+    <tr>
+        <td class="label"><label><?php echo $helper->__('Start Date') ?></label></td>
+        <td class="value"><strong><?php echo Mage::helper('core')->formatDate($subscription->getStartDatetime(), 'medium', true) ?></strong></td>
+    </tr>
+    <tr>
+        <td class="label"><label><?php echo $helper->__('Billing Period') ?></label></td>
+        <td class="value"><strong><?php echo $renderHelper->renderPlan($subscription->getPlan()) ?></strong></td>
+    </tr>
+    <tr>
+        <td class="label"><label><?php echo $helper->__('Maximum Billing Cycles') ?></label></td>
+        <td class="value"><strong><?php echo $renderHelper->renderPlanEnd($subscription->getPlan()) ?></strong></td>
+    </tr>
+    <?php if ($subscription->hasCancelPeriod()) : ?>
+    <tr>
+        <td class="label"><label><?php echo $helper->__('Period of Notice') ?></label></td>
+        <td class="value"><strong><?php echo $helper->__('Repeats %s time(s) after cancelation request.', $subscription->getCancelPeriod()) ?></strong></td>
+    </tr>
+    <?php endif; ?>
+    <tr>
+        <td class="label"><label><?php echo $helper->__('Can Customer Suspend') ?></label></td>
+        <td class="value"><strong><?php echo $subscription->canCustomerSuspend() ? $helper->__('Yes') : $helper->__('No') ?></strong></td>
+    </tr>
+</table>

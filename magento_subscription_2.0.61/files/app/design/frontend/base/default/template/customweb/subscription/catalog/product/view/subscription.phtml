@@ -1,0 +1,34 @@
+<?php $helper = Mage::helper('customweb_subscription') ?>
+<?php $renderHelper = Mage::helper('customweb_subscription/render') ?>
+<?php $product = $this->getProduct() ?>
+<?php if ($product->isSubscription()) : ?>
+ 	<h2><?php echo $helper->__('Subscription') ?></h2>
+	<?php if ($product->getPlan() != null): ?>
+	    <div class="std">
+			<table class="info-table">
+				<?php if ($product->getInitAmount()) : ?>
+			    <tr>
+			        <th class="label"><?php echo $product->getInitAmount() > 0 ? $this->helper('customweb_subscription')->__('Initial Fee') : $this->helper('customweb_subscription')->__('Initial Discount') ?></th>
+			        <td class="value"><?php echo Mage::helper('core')->currency(abs($product->getInitAmount()), true, false) ?></td>
+			    </tr>
+			    <?php endif; ?>
+			    <tr>
+			        <th class="label"><?php echo $helper->__('Billing Period') ?></th>
+			        <td class="value"><?php echo $renderHelper->renderPlan($product->getPlan()) ?></td>
+			    </tr>
+			    <tr>
+			        <th class="label"><?php echo $helper->__('Maximum Billing Cycles') ?></th>
+			        <td class="value"><?php echo $renderHelper->renderPlanEnd($product->getPlan()) ?></td>
+			    </tr>
+			    <?php if ($product->getCancelPeriod() >= 1) : ?>
+			    <tr>
+			        <th class="label"><?php echo $helper->__('Period of Notice') ?></th>
+			        <td class="value"><?php echo $helper->__('Repeats %s time(s) after cancelation request.', $product->getCancelPeriod()) ?></td>
+			    </tr>
+			    <?php endif; ?>
+			</table>
+	    </div>
+	   <?php else:?>
+	   		<div><?php echo $helper->__('You do not define any plan for this subscription.') ?></div>
+	   <?php endif;?>
+<?php endif; ?>

@@ -1,0 +1,43 @@
+<?php $helper = Mage::helper('customweb_subscription') ?>
+<?php $renderHelper = Mage::helper('customweb_subscription/render') ?>
+
+<h4><?php echo $this->getTitle() ?></h4>
+<p><?php echo $this->htmlEscape($this->getText()) ?></p>
+<table class="info-table">
+	<tbody>
+		<tr>
+	        <th class="label"><?php echo $helper->__('Description') ?></th>
+	        <td class="value"><?php echo $this->htmlEscape($this->getDescription()) ?></td>
+	    </tr>
+	    <tr>
+	        <th class="label"><?php echo $helper->__('Billing Period') ?></th>
+	        <td class="value"><?php echo $renderHelper->renderPlan($this->getPlan()) ?></td>
+	    </tr>
+	    <tr>
+	        <th class="label"><?php echo $helper->__('Maximum Billing Cycles') ?></th>
+	        <td class="value"><?php echo $renderHelper->renderPlanEnd($this->getPlan()) ?></td>
+	    </tr>
+	    <?php if ($this->getCancelPeriod()) : ?>
+	    <tr>
+	        <th class="label"><?php echo $helper->__('Period of Notice') ?></th>
+	        <td class="value"><?php echo $helper->__('Repeats %s time(s) after cancelation request.', $this->getCancelPeriod()) ?></td>
+	    </tr>
+	    <?php endif; ?>
+    </tbody>
+</table>
+<table class="subscription-agreement-totals">
+	<colgroup>
+		<col />
+        <col width="1" />
+    </colgroup>
+    <tbody>
+    	<?php $totals = $this->getRecurringCosts() ?>
+    	<?php foreach ($totals as $total) : ?>
+    		<?php if ($total['value'] == 0) { continue; } ?>
+			<tr>
+		    	<th class="a-right"><?php echo $total['title'] ?></th>
+		    	<td class="a-right"><?php echo Mage::helper('core')->currency($total['value'], true, false) ?></td>
+		    </tr>
+	   	<?php endforeach; ?>
+   </tbody>
+</table>

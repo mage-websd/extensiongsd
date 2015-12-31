@@ -1,0 +1,147 @@
+<?xml version="1.0"?>
+<layout>
+	<default>
+		<reference name="head">
+			<action method="addCss"><stylesheet>customweb/subscription/updates.css</stylesheet></action>
+		</reference>
+	</default>
+
+	<customer_account>
+		<reference name="customer_account_navigation">
+			<action method="addLink" translate="label" module="customweb_subscription"><name>subscriptions</name><path>customweb_subscription/index/index</path><label><![CDATA[My Subscriptions]]></label></action>
+		</reference>
+	</customer_account>
+	
+	<customweb_subscription_index_index>
+		<update handle="customer_account"/>
+		<reference name="root">
+			<action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+		</reference>
+		<reference name="my.account.wrapper">
+			<block type="customweb_subscription/account_grid" name="customweb.subscriptions" template="customweb/subscription/subscriptions.phtml">
+				<block type="customweb_subscription/account_grid" name="customweb.subscriptions.grid" as="grid" template="customweb/subscription/account/grid.phtml">
+					<action method="prepareSubscriptionsGrid"/>
+					<action method="setEmptyGridMessage" translate="value"><value><![CDATA[There are no subscriptions yet.]]></value></action>
+					<action method="setGridHtmlId"><value>customweb_subscription_subscription_list_view</value></action>
+				</block>
+			</block>
+		</reference>
+	</customweb_subscription_index_index>
+	
+	<customweb_subscription_index_view__tabs>
+		<reference name="root">
+			<action method="setTemplate"><template>page/2columns-left.phtml</template></action>
+		</reference>
+		<reference name="my.account.wrapper">
+			<block type="customweb_subscription/account_view" name="customweb.subscription.view" template="customweb/subscription/account/view.phtml">
+				<block type="core/text" as="tab_subscription_info" name="customweb.subscription.info.view.tab.subscription">
+					<action method="addToParentGroup"><value>info_tabs</value></action>
+					<action method="setViewLabel" translate="value"><value><![CDATA[Subscription Information]]></value></action>
+					<action method="setViewAction"><value>view</value></action>
+				</block>
+				<block type="core/text" as="tab_related_orders" name="customweb.subscription.info.view.tab.orders">
+					<action method="addToParentGroup"><value>info_tabs</value></action>
+					<action method="setViewLabel" translate="value"><value><![CDATA[Related Orders]]></value></action>
+					<action method="setViewAction"><value>orders</value></action>
+				</block>
+			</block>
+		</reference>
+	</customweb_subscription_index_view__tabs>
+	
+	<customweb_subscription_index_view>
+		<update handle="customer_account"/>
+		<update handle="customweb_subscription_index_view__tabs"/>
+		<reference name="customweb.subscription.info.view.tab.subscription">
+			<action method="setIsViewCurrent"><v>1</v></action>
+		</reference>
+		<reference name="customweb.subscription.view">
+			<block type="customweb_subscription/account_view_info" name="customweb.subscription.view.info" as="info" template="customweb/subscription/account/view/info.phtml">
+				<block type="customweb_subscription/account_view_info" name="subscription_info" template="customweb/subscription/account/info/info.phtml"></block>
+				<block type="customweb_subscription/account_view_items" name="subscription_items" template="customweb/subscription/account/info/items.phtml">
+					<action method="addItemRender"><type>default</type><block>sales/order_item_renderer_default</block><template>sales/order/items/renderer/default.phtml</template></action>
+                    <action method="addItemRender"><type>grouped</type><block>sales/order_item_renderer_grouped</block><template>sales/order/items/renderer/default.phtml</template></action>
+                    <action method="addItemRender"><type>bundle</type><block>bundle/sales_order_items_renderer</block><template>bundle/sales/order/items/renderer.phtml</template></action>
+				</block>
+				<block type="customweb_subscription/account_view_info" name="subscription_schedule" template="customweb/subscription/account/info/schedule.phtml"></block>
+				<block type="customweb_subscription/account_view_info" name="subscription_payment" template="customweb/subscription/account/info/payment.phtml"></block>
+				<block type="customweb_subscription/account_view_info" name="subscription_billing" template="customweb/subscription/account/info/billing.phtml"></block>
+			</block>
+		</reference>
+	</customweb_subscription_index_view>
+	
+	<customweb_subscription_index_orders>
+		<update handle="customer_account"/>
+		<update handle="customweb_subscription_index_view__tabs"/>
+		<reference name="customweb.subscription.info.view.tab.orders">
+			<action method="setIsViewCurrent"><v>1</v></action>
+		</reference>
+		<reference name="customweb.subscription.view">
+			<block type="customweb_subscription/account_view" name="customweb.subscription.view.orders" as="table" template="customweb/subscription/account/view/grid.phtml">
+				<action method="prepareRelatedOrdersFrontendGrid"/>
+				<action method="setViewLabel" translate="value"><value><![CDATA[Orders Based on This Subscription]]></value></action>
+				<action method="setEmptyGridMessage" translate="value"><value><![CDATA[There are no orders yet.]]></value></action>
+				<action method="setGridHtmlClass"><value>info-box</value></action>
+				<action method="setGridHtmlCss"><value>border:0</value></action>
+			</block>
+		</reference>
+	</customweb_subscription_index_orders>
+
+	<customweb_subscription_payment_index>
+		<remove name="right"/>
+		<remove name="left"/>
+		<reference name="head">
+			<action method="addItem"><type>js</type><name>customweb/subscription/payment.js</name></action>
+		</reference>
+		<reference name="root">
+			<action method="setTemplate"><template>page/1column.phtml</template></action>
+		</reference>
+		<reference name="content">
+			<block type="customweb_subscription/payment_form" name="customweb.subscription.payment.form" template="customweb/subscription/payment/form.phtml">
+				<block type="customweb_subscription/account_view_info" name="customweb.subscription.view.info" as="info" template="customweb/subscription/account/view/info.phtml">
+					<block type="customweb_subscription/account_view_info" name="subscription_info" template="customweb/subscription/account/info/info.phtml"></block>
+					<block type="customweb_subscription/account_view_items" name="subscription_items" template="customweb/subscription/account/info/items.phtml">
+						<action method="addItemRender"><type>default</type><block>sales/order_item_renderer_default</block><template>sales/order/items/renderer/default.phtml</template></action>
+                    	<action method="addItemRender"><type>grouped</type><block>sales/order_item_renderer_grouped</block><template>sales/order/items/renderer/default.phtml</template></action>
+                    	<action method="addItemRender"><type>bundle</type><block>bundle/sales_order_items_renderer</block><template>bundle/sales/order/items/renderer.phtml</template></action>
+					</block>
+					<block type="customweb_subscription/account_view_info" name="subscription_schedule" template="customweb/subscription/account/info/schedule.phtml"></block>
+					<block type="customweb_subscription/account_view_info" name="subscription_payment" template="customweb/subscription/account/info/payment.phtml"></block>
+					<block type="customweb_subscription/account_view_info" name="subscription_billing" template="customweb/subscription/account/info/billing.phtml"></block>
+				</block>
+			</block>
+		</reference>
+	</customweb_subscription_payment_index>
+	
+	<checkout_cart_index>
+		<reference name="checkout.cart">
+			<block type="customweb_subscription/checkout_cart_subscription" name="checkout.cart.extra" template="customweb/subscription/checkout/cart/subscription.phtml"/>
+		</reference>
+	</checkout_cart_index>
+	
+	<catalog_product_view>
+		<reference name="product.info">
+			<block type="customweb_subscription/catalog_product_view_subscription" name="product.subscription" as="subscription" template="customweb/subscription/catalog/product/view/subscription.phtml">
+				<action method="addToParentGroup"><group>detailed_info</group></action>
+			</block>
+		</reference>
+	</catalog_product_view>
+	
+    <default>
+	    <reference name="catalog_product_price_template">
+	        <action method="addPriceBlockType">
+	            <type>simple</type>
+	            <block>customweb_subscription/catalog_product_price</block>
+	            <template>customweb/subscription/catalog/product/price.phtml</template>
+	        </action>
+	    </reference>
+	</default>
+	
+	<customweb_subscription_email_items>
+		<block type="customweb_subscription/email_items" name="items" template="customweb/subscription/email/items.phtml">
+            <action method="addItemRender"><type>default</type><block>sales/order_email_items_order_default</block><template>email/order/items/order/default.phtml</template></action>
+            <action method="addItemRender"><type>grouped</type><block>sales/order_email_items_order_grouped</block><template>email/order/items/order/default.phtml</template></action>
+            <action method="addItemRender"><type>bundle</type><block>bundle/sales_order_items_renderer</block><template>bundle/email/order/items/order/default.phtml</template></action>
+        </block>
+        <block type="core/text_list" name="additional.product.info" />
+	</customweb_subscription_email_items>
+</layout>

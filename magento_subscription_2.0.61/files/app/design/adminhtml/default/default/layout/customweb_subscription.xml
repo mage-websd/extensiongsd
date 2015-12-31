@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<layout>
+    <adminhtml_sales_order_view>
+    	<reference name="sales_order_tabs">
+    		<block type="customweb_subscription/adminhtml_sales_order_view_tab_subscription" name="subscription_tab_info" template="customweb/subscription/sales/order/view/tab/subscription.phtml">
+                <block type="customweb_subscription/adminhtml_sales_subscription_view_info" name="subscription_info" template="customweb/subscription/sales/order/view/tab/subscription/info.phtml"></block>
+                <block type="customweb_subscription/adminhtml_sales_subscription_view_info" name="subscription_schedule" template="customweb/subscription/sales/order/view/tab/subscription/schedule.phtml"></block>
+                <block type="customweb_subscription/adminhtml_sales_subscription_view_info" name="subscription_billing" template="customweb/subscription/sales/subscription/view/info/billing.phtml"></block>
+            </block>
+    		<action method="addTab"><name>order_subscriptions</name><block>subscription_tab_info</block></action>
+    	</reference>
+    </adminhtml_sales_order_view>
+    
+    <adminhtml_subscription_view>
+    	<reference name="head">
+    		<action method="addCss"><name>customweb/subscription/updates.css</name></action>
+    	</reference>
+        <reference name="content">
+            <block type="customweb_subscription/adminhtml_sales_subscription_view" name="customweb_subscription_view"></block>
+        </reference>
+        <reference name="left">
+            <block type="customweb_subscription/adminhtml_sales_subscription_view_tabs" name="customweb_subscription_tabs">
+                <block type="customweb_subscription/adminhtml_sales_subscription_view_tab_info" name="subscription_tab_info" template="customweb/subscription/sales/subscription/view/tab/info.phtml">
+                    <block type="customweb_subscription/adminhtml_sales_subscription_view_info" name="subscription_info" template="customweb/subscription/sales/subscription/view/info/info.phtml"></block>
+                    <block type="customweb_subscription/adminhtml_sales_subscription_view_items" name="subscription_items" template="customweb/subscription/sales/subscription/view/info/items.phtml">
+                   	 	<action method="addItemRender"><type>default</type><block>customweb_subscription/adminhtml_sales_subscription_view_renderer_default</block><template>customweb/subscription/sales/subscription/view/info/items/renderer/default.phtml</template></action>
+                   	 	<action method="addItemRender"><type>bundle</type><block>customweb_subscription/adminhtml_sales_subscription_view_renderer_bundle</block><template>customweb/subscription/sales/subscription/view/info/items/renderer/bundle.phtml</template></action>
+                        <action method="addColumnRender"><column>qty</column><block>adminhtml/sales_items_column_qty</block><template>sales/items/column/qty.phtml</template></action>
+                        <action method="addColumnRender"><column>name</column><block>adminhtml/sales_items_column_name</block><template>sales/items/column/name.phtml</template></action>
+                        <action method="addColumnRender"><column>name</column><block>adminhtml/sales_items_column_name_grouped</block><template>sales/items/column/name.phtml</template><type>grouped</type></action>
+                        <block type="core/text_list" name="order_item_extra_info"></block>
+                    </block>
+                    <block type="customweb_subscription/adminhtml_sales_subscription_view_info" name="subscription_schedule" template="customweb/subscription/sales/subscription/view/info/schedule.phtml"></block>
+                    <block type="customweb_subscription/adminhtml_sales_subscription_view_info" name="subscription_payment" template="customweb/subscription/sales/subscription/view/info/payment.phtml"></block>
+                    <block type="customweb_subscription/adminhtml_sales_subscription_view_info" name="subscription_address" template="customweb/subscription/sales/subscription/view/info/address.phtml"></block>
+                    <block type="customweb_subscription/adminhtml_sales_subscription_view_info" name="subscription_billing" template="customweb/subscription/sales/subscription/view/info/billing.phtml"></block>
+                </block>
+                <block type="customweb_subscription/adminhtml_sales_subscription_view_tab_orders" name="subscription_tab_orders"/>
+                <block type="customweb_subscription/adminhtml_sales_subscription_view_tab_logs" name="subscription_tab_logs"/>
+                <block type="customweb_subscription/adminhtml_sales_subscription_view_tab_schedule" name="subscription_tab_schedule"/>
+                <action method="addTab"><name>subscription_info_tab</name><block>subscription_tab_info</block></action>
+                <action method="addTab"><name>subscription_orders_tab</name><block>subscription_tab_orders</block></action>
+                <action method="addTab"><name>subscription_logs_tab</name><block>subscription_tab_logs</block></action>
+                <action method="addTab"><name>subscription_schedule_tab</name><block>subscription_tab_schedule</block></action>
+            </block>
+        </reference>
+    </adminhtml_subscription_view>
+    
+    <adminhtml_system_config_edit>
+    	<reference name="head">
+            <action method="addJs"><script>customweb/subscription/serializer.js</script></action>
+            <action method="addJs"><script>customweb/subscription/tableForm.js</script></action>
+            <action method="addCss"><name>customweb/subscription/updates.css</name></action>
+        </reference>
+    </adminhtml_system_config_edit>
+    
+    <default>
+	    <reference name="notifications">
+	        <block type="customweb_subscription/adminhtml_notification" name="subscription_notification" acl="system/adminnotification/show_toolbar" template="customweb/subscription/notification.phtml" />
+	    </reference>
+	</default>
+</layout>

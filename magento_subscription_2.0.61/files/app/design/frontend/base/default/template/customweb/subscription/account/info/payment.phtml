@@ -1,0 +1,40 @@
+<?php $helper = Mage::helper('customweb_subscription') ?>
+<?php $subscription = $this->getSubscription() ?>
+<table class="info-table" style="width: 100%;">
+    <tr>
+        <th class="label"><?php echo $helper->__('Currency') ?></th>
+        <td class="value a-right"><?php echo strtoupper($subscription->getCurrencyCode()) ?></td>
+    </tr>
+    <?php if ($subscription->getInitAmount()) : ?>
+    <tr>
+        <th class="label"><?php echo $subscription->getInitAmount() > 0 ? $helper->__('Initial Fee') : $helper->__('Initial Discount') ?></th>
+        <td class="value a-right"><?php echo Mage::helper('core')->currencyByStore($subscription->getInitAmount(), $subscription->getStoreId(), true, false) ?></td>
+    </tr>
+    <?php endif; ?>
+    <?php if (!$subscription->getCalculatePrice()) : ?>
+	    <tr>
+	        <th class="label"><?php echo $helper->__('Billing Amount') ?></th>
+	        <td class="value a-right"><?php echo Mage::helper('core')->currencyByStore($subscription->getBillingAmount(), $subscription->getStoreId(), true, false) ?></td>
+	    </tr>
+	    <?php if ($subscription->getTaxAmount()) : ?>
+	    <tr>
+	        <th class="label"><?php echo $helper->__('Tax Amount') ?></th>
+	        <td class="value a-right"><?php echo Mage::helper('core')->currencyByStore($subscription->getTaxAmount(), $subscription->getStoreId(), true, false) ?></td>
+	    </tr>
+	    <?php endif; ?>
+	    <?php if ($subscription->getShippingAmount()) : ?>
+	    <tr>
+	        <th class="label"><?php echo $helper->__('Shipping Amount') ?></th>
+	        <td class="value a-right"><?php echo Mage::helper('core')->currencyByStore($subscription->getShippingAmount(), $subscription->getStoreId(), true, false) ?></td>
+	    </tr>
+	    <?php endif; ?>
+	<?php endif; ?>
+    <tr>
+        <th class="label"><?php echo $helper->__('Total Recurring Amount') ?></th>
+        <?php if (!$subscription->getCalculatePrice()) : ?>
+        	<td class="value a-right"><?php echo Mage::helper('core')->currencyByStore($subscription->getGrandTotal(), $subscription->getStoreId(), true, false) ?></td>
+        <?php else : ?>
+        	<td class="value"><?php echo $helper->__('Calculated Price') ?></td>
+        <?php endif; ?>
+    </tr>
+</table>

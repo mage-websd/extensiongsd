@@ -1,0 +1,57 @@
+<?php $helper = Mage::helper('customweb_subscription') ?>
+<?php $subscription = $this->getSubscription() ?>
+<div class="order-page">
+	<div class="page-title title-buttons">
+	    <h1><?php echo $helper->__('Subscription # %s', $this->escapeHtml($subscription->getReferenceId())) ?></h1>
+	    <?php if ($subscription->canCancel() && !$subscription->isPending() && !$subscription->isAuthorized()): ?>
+	        <a class="link-reorder" href="javascript:void(0);" onclick="if( confirm('<?php echo $helper->__('Do you really want to cancel this subscription?') ?>') ) { window.location.href = '<?php echo $this->getCancelUrl() ?>'; } return false;"><?php echo $helper->__('Cancel') ?></a>
+	    <?php endif; ?>
+	    <?php if ($subscription->canSuspend() && $subscription->canCustomerSuspend()): ?>
+	    	<span class="separator">|</span>
+	        <a class="link-reorder" href="javascript:void(0);" onclick="if( confirm('<?php echo $helper->__('Do you really want to suspend this subscription?') ?>') ) { window.location.href = '<?php echo $this->getSuspendUrl() ?>'; } return false;"><?php echo $helper->__('Suspend') ?></a>
+	    <?php endif; ?>
+	    <?php if ($subscription->canActivate() && $subscription->isSuspended()): ?>
+	    	<span class="separator">|</span>
+	        <a class="link-reorder" href="javascript:void(0);" onclick="window.location.href = '<?php echo $this->getActivateUrl() ?>'; return false;"><?php echo $helper->__('Activate') ?></a>
+	    <?php endif; ?>
+	    <?php if ($subscription->isPending() && $subscription->canPayOnline()) : ?>
+	    	<span class="separator">|</span>
+			<button type="button" title="<?php echo $helper->__('Pay') ?>" class="button" onclick="window.location.href = '<?php echo $this->getPaymentUrl() ?>'; return false;"><span><span><?php echo $helper->__('Pay') ?></span></span></button>
+		<?php endif; ?>
+	</div>
+
+	<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+
+	<?php $infoTabs = $this->getChildGroup('info_tabs'); ?>
+	<dl class="order-info">
+	    <dt><?php echo $helper->__('About This Subscription:') ?></dt>
+	    <dd>
+	        <ul id="subscription-info-tabs">
+	        <?php foreach ($infoTabs as $block): ?>
+	            <?php if ($this->getObjectData($block, 'is_view_current')): ?>
+	                <li class="current"><strong><?php echo $this->escapeHtml($this->getObjectData($block, 'view_label')) ?></strong></li>
+	            <?php else: ?>
+	                <li><a href="<?php echo $this->escapeHtml($this->getObjectData($block, 'view_url')) ?>"><?php echo $this->escapeHtml($this->getObjectData($block, 'view_label')) ?></a></li>
+	            <?php endif; ?>
+	        <?php endforeach; ?>
+	        </ul>
+	    </dd>
+	</dl>
+
+	<?php $info = $this->getChild('info') ?>
+	<?php if ($info):?>
+		<?php echo $this->getChildHtml('info') ?>
+	<?php endif; ?>
+
+	<?php $table = $this->getChild('table') ?>
+	<?php if ($table):?>
+	<div>
+	    <h2 class="table-caption"><?php echo $this->escapeHtml($this->getObjectData($table, 'view_label')) ?></h2>
+	    <?php echo $this->getChildHtml('table') ?>
+	</div>
+	<?php endif;?>
+
+    <div class="buttons-set">
+        <p class="back-link"><a href="<?php echo $this->getBackUrl() ?>"><small>&laquo; </small><?php echo $helper->__('Back to Subscriptions') ?></a></p>
+    </div>
+</div>

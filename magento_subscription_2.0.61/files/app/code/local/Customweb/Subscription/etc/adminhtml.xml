@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<config>
+    <menu>
+		<sales>
+			<children>
+				<customweb_subscription translate="title" module="customweb_subscription">
+					<title><![CDATA[Subscriptions]]></title>
+					<action>adminhtml/subscription/index</action>
+					<sort_order>60</sort_order>
+				</customweb_subscription>
+			</children>
+		</sales>
+	</menu>
+	<acl>
+		<resources>
+			<admin>
+				<children>
+					<system>
+						<children>
+							<config>
+								<children>
+									<customweb_subscription translate="title" module="customweb_subscription">
+										<title><![CDATA[Subscriptions]]></title>
+									</customweb_subscription>
+								</children>
+							</config>
+						</children>
+					</system>
+					<sales>
+						<children>
+							<customweb_subscription translate="title" module="customweb_subscription">
+								<title><![CDATA[Subscriptions]]></title>
+							</customweb_subscription>
+						</children>
+					</sales>
+				</children>
+			</admin>
+		</resources>
+	</acl>
+</config>

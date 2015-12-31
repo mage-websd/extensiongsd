@@ -1,0 +1,38 @@
+<?php if ($this->isAdminNotificationEnabled() && $this->isSubscriptionController() && $this->getFailedSubscriptions() > 0) : ?>
+	<div class="notification-global notification-global-notice">
+		<strong><?php echo Mage::helper('customweb_subscription')->__('Subscriptions:') ?></strong>
+		<?php if ($this->getFailedSubscriptions() == 1) : ?>
+		    <?php echo Mage::helper('customweb_subscription')->__('There is a failed subscription.') ?>
+		<?php else : ?>
+			<?php echo Mage::helper('customweb_subscription')->__('There are %s failed subscriptions.', $this->getFailedSubscriptions()) ?>
+		<?php endif; ?>
+		<a href="<?php echo $this->getFailedSubscriptionsUrl() ?>"><?php echo Mage::helper('customweb_subscription')->__('View list') ?></a>
+	</div>
+<?php endif; ?>
+
+<?php if ($this->isAdminNotificationEnabled() && $this->isSubscriptionController() && $this->getErrorSubscriptions() > 0) : ?>
+	<div class="notification-global notification-global-notice">
+		<strong><?php echo Mage::helper('customweb_subscription')->__('Subscriptions:') ?></strong>
+		<?php if ($this->getErrorSubscriptions() == 1) : ?>
+		    <?php echo Mage::helper('customweb_subscription')->__('There is an erroneous subscription.') ?>
+		<?php else : ?>
+			<?php echo Mage::helper('customweb_subscription')->__('There are %s erroneous subscriptions.', $this->getErrorSubscriptions()) ?>
+		<?php endif; ?>
+		<a href="<?php echo $this->getErrorSubscriptionsUrl() ?>"><?php echo Mage::helper('customweb_subscription')->__('View list') ?></a>
+	</div>
+<?php endif; ?>
+
+<?php if ($this->isAdminNotificationEnabled() && $this->hasScheduleErrors()) : ?>
+	<div class="notification-global">
+		<strong class="label"><?php echo Mage::helper('customweb_subscription')->__('Subscriptions:') ?></strong>
+		<?php echo Mage::helper('customweb_subscription')->__('One or more errors occured when processing scheduled jobs.') ?>
+	</div>
+<?php endif; ?>
+
+<?php if ($this->hasUnmigratedSubscriptions()) : ?>
+	<div class="notification-global">
+		<strong class="label"><?php echo Mage::helper('customweb_subscription')->__('Subscriptions:') ?></strong>
+		<?php echo Mage::helper('customweb_subscription')->__('There are outdated subscriptions. Please update immediately.') ?>
+		<a href="<?php echo $this->getMigrationUrl() ?>"><?php echo Mage::helper('customweb_subscription')->__('Update') ?></a>
+	</div>
+<?php endif; ?>

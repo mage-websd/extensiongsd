@@ -1,0 +1,84 @@
+<?php $helper = Mage::helper('customweb_subscription') ?>
+<?php $cartHelper = Mage::helper('customweb_subscription/cart') ?>
+<?php $renderHelper = Mage::helper('customweb_subscription/render') ?>
+<?php if ($cartHelper->isCartSubscriptionEnabled() && $cartHelper->canUseCartAsSubscription()) : ?>
+	<?php $cartPlans = $cartHelper->getCartSubscriptionPlans() ?>
+	<?php $activeCartPlan = $this->getSubscriptionPlan() ?>
+	<form id="subscription-form" action="<?php echo $this->getUrl('subscription/index/applyPlan') ?>" method="post">
+	    <div class="discount">
+	        <h2 style="background-image: none; padding-left: 0;"><?php echo $this->__('Subscription') ?></h2>
+	        <div class="subscription-form">
+	        	<p><?php echo $helper->__('Would you like to purchase this cart as a subscription?') ?></p>
+
+	        	<div class="form-list">
+        			<?php if ($activeCartPlan != null) : ?>
+        				<label><?php echo $this->__('You selected this subscription plan:') ?></label>
+        			<?php else : ?>
+			            <label for="subscription_plan"><?php echo $this->__('Select a subscription plan:') ?></label>
+			        <?php endif; ?>
+        			<div class="clearer"></div>
+        			<div class="subscription_plan">
+        				<?php if ($activeCartPlan != null) : ?>
+        					<h5 class="order-info"><?php echo $activeCartPlan->getDescription() ?></h5>
+	        			<?php else : ?>
+				            <div class="input-box">
+				                <select id="subscription_plan" name="subscription_plan">
+				                	<option value=""><?php echo $helper->__('None') ?></option>
+				                	<?php foreach ($cartPlans as $cartPlan) : ?>
+				                		<option value="<?php echo $cartPlan->getIndex() ?>"><?php echo $this->htmlEscape($cartPlan->getDescription()) ?></option>
+				                	<?php endforeach; ?>
+				                </select>
+				            </div>
+				    	<?php endif; ?>
+						<?php foreach ($cartPlans as $cartPlan) : ?>
+						<div class="plan-details" id="plan-details-<?php echo $cartPlan->getIndex() ?>" <?php echo ($activeCartPlan != null && $activeCartPlan->getIndex() == $cartPlan->getIndex() ? '' : 'style="display:none;"') ?>>
+							<h5><?php echo $helper->__('Billing Period') ?></h5>
+							<p><?php echo $renderHelper->renderPlan($cartPlan->getPlan()) ?></p>
+							<h5><?php echo $helper->__('Maximum Billing Cycles') ?></h5>
+							<p><?php echo $renderHelper->renderPlanEnd($cartPlan->getPlan()) ?></p>
+							<?php if ($cartPlan->getCancelPeriod()) : ?>
+								<h5><?php echo $cartPlan->getInitAmount() > 0 ? $helper->__('Initial Fee') : $helper->__('Initial Discount') ?></h5>
+								<p><?php echo Mage::helper('core')->currency(abs($cartPlan->getInitAmount()), true, false) ?></p>
+							<?php endif; ?>
+							<?php if ($cartPlan->getCancelPeriod() >= 1) : ?>
+								<h5><?php echo $helper->__('Period Of Notice') ?></h5>
+								<p><?php echo $helper->__('Repeats %s time(s) after cancelation request.', $cartPlan->getCancelPeriod()) ?></p>
+							<?php endif; ?>
+						</div>
+						<?php endforeach; ?>
+					</div>
+	            </div>
+	            <div class="buttons-set">
+	            	<?php if ($activeCartPlan == null) : ?>
+	                	<button type="button" title="<?php echo $this->__('Apply Subscription') ?>" class="button" onclick="subscriptionForm.submit()" value="<?php echo $this->__('Subscribe now!') ?>"><span><span><?php echo $this->__('Apply Subscription') ?></span></span></button>
+	                <?php else : ?>
+	                	<input type="hidden" name="subscription_plan" value="" />
+	                	<button type="button" title="<?php echo $this->__('Change Subscription') ?>" class="button" onclick="subscriptionForm.submit()" value="<?php echo $this->__('Change Subscription') ?>"><span><span><?php echo $this->__('Change Subscription') ?></span></span></button>
+	                <?php endif; ?>
+	            </div>
+	        </div>
+	    </div>
+	</form>
+	<script type="text/javascript">
+	var subscriptionForm = new VarienForm('subscription-form');
+	subscriptionForm.submit = function () {
+	    return VarienForm.prototype.submit.bind(subscriptionForm)();
+	}
+
+	document.observe("dom:loaded", function() {
+		$('subscription_plan').observe('change', function(event){
+			var index = this.value;
+			$$('.plan-details').each(function(element, index){
+				element.hide();
+			});
+			if ($('plan-details-' + index)) {
+				$('plan-details-' + index).show();
+			}
+		});
+
+		$('btn-change-subscription').observe('click', function(event){
+
+		});
+	});
+	</script>
+<?php endif; ?>

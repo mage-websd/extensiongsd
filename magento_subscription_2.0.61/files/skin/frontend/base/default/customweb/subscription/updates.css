@@ -1,0 +1,18 @@
+.customweb-warning {
+	background: url(warning.png) no-repeat right 10px center;
+}
+
+.subscription-agreement-totals {
+	border-top: 1px solid #e4e4e4;
+	margin: 20px 0 5px 0;
+	padding: 10px 15px 0 0;
+	width: 100%;
+}
+
+.subscription-agreement-totals td {
+	padding: 2px 0;
+}
+
+.subscription-agreement-totals th {
+	padding: 2px 30px 2px 0;
+}

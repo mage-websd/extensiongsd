@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+    <modules>
+        <Customweb_Subscription>
+            <active>true</active>
+            <codePool>local</codePool>
+            <depends>
+            	<Mage_Catalog/>
+                <Mage_Sales/>
+            </depends>
+            <version>2.2.2</version>
+        </Customweb_Subscription>
+    </modules>
+</config>

@@ -1,0 +1,441 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<Customweb_Subscription>
+			<version>2.2.2</version>
+		</Customweb_Subscription>
+	</modules>
+
+	<admin>
+		<routers>
+			<adminhtml>
+				<args>
+					<modules>
+						<customweb_subscription before="Mage_Adminhtml">Customweb_Subscription_Adminhtml</customweb_subscription>
+					</modules>
+				</args>
+			</adminhtml>
+		</routers>
+	</admin>
+
+	<adminhtml>
+		<layout>
+			<updates>
+				<customweb_subscription>
+					<file>customweb_subscription.xml</file>
+				</customweb_subscription>
+			</updates>
+		</layout>
+		<translate>
+			<modules>
+				<customweb_subscription>
+					<files>
+						<default>Customweb_Subscription.csv</default>
+					</files>
+				</customweb_subscription>
+			</modules>
+		</translate>
+	</adminhtml>
+
+	<frontend>
+		<layout>
+			<updates>
+				<customweb_subscription>
+					<file>customweb_subscription.xml</file>
+				</customweb_subscription>
+			</updates>
+		</layout>
+		<translate>
+			<modules>
+				<customweb_subscription>
+					<files>
+						<default>Customweb_Subscription.csv</default>
+					</files>
+				</customweb_subscription>
+			</modules>
+		</translate>
+		<routers>
+			<customweb_subscription>
+				<use>standard</use>
+				<args>
+					<module>Customweb_Subscription</module>
+					<frontName>subscription</frontName>
+				</args>
+			</customweb_subscription>
+		</routers>
+	</frontend>
+
+	<global>
+		<blocks>
+			<customweb_subscription>
+				<class>Customweb_Subscription_Block</class>
+			</customweb_subscription>
+
+			<sales>
+				<rewrite>
+					<order_totals>Customweb_Subscription_Block_Sales_Order_Totals</order_totals>
+					<order_invoice_totals>Customweb_Subscription_Block_Sales_Invoice_Totals</order_invoice_totals>
+				</rewrite>
+			</sales>
+
+			<adminhtml>
+				<rewrite>
+					<sales_order_totals>Customweb_Subscription_Block_Adminhtml_Sales_Order_Totals</sales_order_totals>
+					<sales_order_invoice_totals>Customweb_Subscription_Block_Adminhtml_Sales_Order_Invoice_Totals</sales_order_invoice_totals>
+				</rewrite>
+			</adminhtml>
+		</blocks>
+		<helpers>
+			<customweb_subscription>
+				<class>Customweb_Subscription_Helper</class>
+			</customweb_subscription>
+		</helpers>
+		<models>
+			<customweb_subscription>
+				<class>Customweb_Subscription_Model</class>
+				<resourceModel>customweb_subscription_resource</resourceModel>
+			</customweb_subscription>
+			<customweb_subscription_resource>
+				<class>Customweb_Subscription_Model_Resource</class>
+				<entities>
+					<subscription>
+						<table>customweb_subscription</table>
+					</subscription>
+					<subscription_order>
+						<table>customweb_subscription_order</table>
+					</subscription_order>
+					<subscription_schedule>
+						<table>customweb_subscription_schedule</table>
+					</subscription_schedule>
+					<subscription_log>
+						<table>customweb_subscription_log</table>
+					</subscription_log>
+				</entities>
+			</customweb_subscription_resource>
+
+			<catalog>
+				<rewrite>
+					<product>Customweb_Subscription_Model_Catalog_Product</product>
+				</rewrite>
+			</catalog>
+
+			<sales>
+				<rewrite>
+					<order>Customweb_Subscription_Model_Sales_Order</order>
+					<quote>Customweb_Subscription_Model_Sales_Quote</quote>
+					<quote_item>Customweb_Subscription_Model_Sales_Quote_Item</quote_item>
+				</rewrite>
+			</sales>
+
+			<checkout_resource>
+				<rewrite>
+					<agreement_collection>Customweb_Subscription_Model_Resource_Checkout_Agreement_Collection</agreement_collection>
+				</rewrite>
+			</checkout_resource>
+
+			<adminhtml>
+				<rewrite>
+					<session_quote>Customweb_Subscription_Model_Adminhtml_Session_Quote</session_quote>
+				</rewrite>
+			</adminhtml>
+		</models>
+		<resources>
+			<customweb_subscription_setup>
+				<setup>
+					<module>Customweb_Subscription</module>
+					<class>Customweb_Subscription_Model_Resource_Setup</class>
+				</setup>
+				<connection>
+					<use>core_setup</use>
+				</connection>
+			</customweb_subscription_setup>
+			<customweb_subscription_write>
+				<connection>
+					<use>core_write</use>
+				</connection>
+			</customweb_subscription_write>
+			<customweb_subscription_read>
+				<connection>
+					<use>core_read</use>
+				</connection>
+			</customweb_subscription_read>
+		</resources>
+		<events>
+			<adminhtml_catalog_product_edit_prepare_form>
+				<observers>
+					<customweb_subscription>
+						<type>singleton</type>
+						<class>customweb_subscription/observer</class>
+						<method>prepareProductEditForm</method>
+					</customweb_subscription>
+				</observers>
+			</adminhtml_catalog_product_edit_prepare_form>
+
+			<checkout_cart_product_add_after>
+				<observers>
+					<customweb_subscription>
+						<type>singleton</type>
+						<class>customweb_subscription/observer</class>
+						<method>onCartProductAddAfter</method>
+					</customweb_subscription>
+				</observers>
+			</checkout_cart_product_add_after>
+
+			<sales_quote_merge_after>
+				<observers>
+					<customweb_subscription>
+						<type>singleton</type>
+						<class>customweb_subscription/observer</class>
+						<method>onQuoteMergeAfter</method>
+					</customweb_subscription>
+				</observers>
+			</sales_quote_merge_after>
+
+			<sales_order_place_after>
+				<observers>
+					<customweb_subscription>
+						<type>singleton</type>
+						<class>customweb_subscription/observer</class>
+						<method>onOrderPlaceAfter</method>
+					</customweb_subscription>
+				</observers>
+			</sales_order_place_after>
+
+			<sales_order_payment_pay>
+				<observers>
+					<customweb_subscription>
+						<type>singleton</type>
+						<class>customweb_subscription/observer</class>
+						<method>onPaymentPayAfter</method>
+					</customweb_subscription>
+				</observers>
+			</sales_order_payment_pay>
+
+			<sales_order_payment_cancel>
+				<observers>
+					<customweb_subscription>
+						<type>singleton</type>
+						<class>customweb_subscription/observer</class>
+						<method>onPaymentCancelAfter</method>
+					</customweb_subscription>
+				</observers>
+			</sales_order_payment_cancel>
+
+			<payment_method_is_active>
+				<observers>
+					<customweb_subscription>
+						<type>singleton</type>
+						<class>customweb_subscription/observer</class>
+						<method>paymentMethodIsActive</method>
+					</customweb_subscription>
+				</observers>
+			</payment_method_is_active>
+
+			<checkout_allow_guest>
+				<observers>
+					<customweb_subscription>
+						<type>singleton</type>
+						<class>customweb_subscription/observer</class>
+						<method>checkoutAllowGuest</method>
+					</customweb_subscription>
+				</observers>
+			</checkout_allow_guest>
+
+			<customweb_payment_create_transcation_context>
+				<observers>
+					<customweb_subscription>
+						<type>singleton</type>
+						<class>customweb_subscription/observer</class>
+						<method>onCreateTransactionContext</method>
+					</customweb_subscription>
+				</observers>
+			</customweb_payment_create_transcation_context>
+
+			<customweb_payment_after_process>
+				<observers>
+					<customweb_subscription>
+						<type>singleton</type>
+						<class>customweb_subscription/observer</class>
+						<method>onAfterProcess</method>
+					</customweb_subscription>
+				</observers>
+			</customweb_payment_after_process>
+
+			<customweb_collect_invoice_items>
+				<observers>
+					<customweb_subscription>
+						<type>singleton</type>
+						<class>customweb_subscription/observer</class>
+						<method>onCollectInvoiceItems</method>
+					</customweb_subscription>
+				</observers>
+			</customweb_collect_invoice_items>
+
+			<customweb_collect_order_items>
+				<observers>
+					<customweb_subscription>
+						<type>singleton</type>
+						<class>customweb_subscription/observer</class>
+						<method>onCollectOrderItems</method>
+					</customweb_subscription>
+				</observers>
+			</customweb_collect_order_items>
+
+			<customweb_collect_quote_items>
+				<observers>
+					<customweb_subscription>
+						<type>singleton</type>
+						<class>customweb_subscription/observer</class>
+						<method>onCollectQuoteItems</method>
+					</customweb_subscription>
+				</observers>
+			</customweb_collect_quote_items>
+			
+			<customweb_transaction_save_after>
+				<observers>
+					<customweb_subscription>
+						<type>singleton</type>
+						<class>customweb_subscription/observer</class>
+						<method>onAfterSaveTransaction</method>
+					</customweb_subscription>
+				</observers>
+			</customweb_transaction_save_after>
+		</events>
+		<template>
+			<email>
+				<customweb_subscription_email_template_reminder translate="label" module="customweb_subscription">
+					<label><![CDATA[Subscription Reminder Email]]></label>
+					<file>customweb/subscription/reminder.html</file>
+					<type>html</type>
+				</customweb_subscription_email_template_reminder>
+				<customweb_subscription_email_template_pending translate="label" module="customweb_subscription">
+					<label><![CDATA[Subscription Pending Email]]></label>
+					<file>customweb/subscription/pending.html</file>
+					<type>html</type>
+				</customweb_subscription_email_template_pending>
+				<customweb_subscription_email_template_update translate="label" module="customweb_subscription">
+					<label><![CDATA[Subscription Update Email]]></label>
+					<file>customweb/subscription/update.html</file>
+					<type>html</type>
+				</customweb_subscription_email_template_update>
+				<customweb_subscription_email_template_cancel translate="label" module="customweb_subscription">
+					<label><![CDATA[Subscription Cancelation Email]]></label>
+					<file>customweb/subscription/cancel.html</file>
+					<type>html</type>
+				</customweb_subscription_email_template_cancel>
+				<customweb_subscription_email_template_cancel_request translate="label" module="customweb_subscription">
+					<label><![CDATA[Subscription Cancelation Request Email]]></label>
+					<file>customweb/subscription/cancel_request.html</file>
+					<type>html</type>
+				</customweb_subscription_email_template_cancel_request>
+				<customweb_subscription_email_template_failure translate="label" module="customweb_subscription">
+					<label><![CDATA[Subscription Failure Email]]></label>
+					<file>customweb/subscription/failure.html</file>
+					<type>html</type>
+				</customweb_subscription_email_template_failure>
+				<customweb_subscription_email_template_order translate="label" module="customweb_subscription">
+					<label><![CDATA[Subscription Order Email]]></label>
+					<file>customweb/subscription/order.html</file>
+					<type>html</type>
+				</customweb_subscription_email_template_order>
+				<customweb_subscription_email_template_order_guest translate="label" module="customweb_subscription">
+					<label><![CDATA[Subscription Guest Order Email]]></label>
+					<file>customweb/subscription/order_guest.html</file>
+					<type>html</type>
+				</customweb_subscription_email_template_order_guest>
+				<customweb_subscription_email_template_recurring_order translate="label" module="customweb_subscription">
+					<label><![CDATA[Subscription Recurring Order Email]]></label>
+					<file>customweb/subscription/order.html</file>
+					<type>html</type>
+				</customweb_subscription_email_template_recurring_order>
+				<customweb_subscription_email_template_recurring_order_guest translate="label" module="customweb_subscription">
+					<label><![CDATA[Subscription Recurring Guest Order Email]]></label>
+					<file>customweb/subscription/order_guest.html</file>
+					<type>html</type>
+				</customweb_subscription_email_template_recurring_order_guest>
+			</email>
+		</template>
+		<sales>
+			<quote>
+				<totals>
+					<subscription_init_amount>
+						<class>customweb_subscription/sales_quote_address_total_initAmount</class>
+						<after>subtotal,shipping,tax</after>
+                        <before>grand_total</before>
+					</subscription_init_amount>
+				</totals>
+			</quote>
+			<order_invoice>
+				<totals>
+					<subscription_init_amount>
+						<class>customweb_subscription/sales_order_invoice_total_initAmount</class>
+					</subscription_init_amount>
+				</totals>
+			</order_invoice>
+		</sales>
+		<fieldsets>
+			<sales_convert_quote>
+				<subscription_init_amount>
+					<to_order>*</to_order>
+				</subscription_init_amount>
+			</sales_convert_quote>
+		</fieldsets>
+	</global>
+
+	<crontab>
+		<jobs>
+			<customweb_subscription_process>
+                <schedule>
+                    <cron_expr>* * * * *</cron_expr>
+                </schedule>
+                <run>
+                    <model>customweb_subscription/cronObserver::process</model>
+                </run>
+            </customweb_subscription_process>
+		</jobs>
+	</crontab>
+
+	<default>
+		<customweb_subscription>
+			<information>
+				<version>2.0.61</version>
+			</information>
+			<general>
+				<calculate_price>0</calculate_price>
+				<log_level>debug,info,warn,error</log_level>
+			</general>
+			<checkout>
+				<allow_guest>1</allow_guest>
+				<enabled_agreement>1</enabled_agreement>
+				<agreement_title>Your Subscription Plan</agreement_title>
+				<agreement_text>You are about to subscribe to the items above. They will automatically be reordered pursuing the following scheme:</agreement_text>
+				<agreement_checkbox_text>I agree to this subscription plan.</agreement_checkbox_text>
+			</checkout>
+			<cart>
+				<enabled>0</enabled>
+			</cart>
+		</customweb_subscription>
+		<payment>
+			<subscription_invoice>
+				<active>0</active>
+				<model>customweb_subscription/payment_invoice</model>
+				<payment_action>authorize</payment_action>
+				<title>Subscription Invoice</title>
+				<order_status>pending</order_status>
+				<suspend_on_pending_payment>1</suspend_on_pending_payment>
+			</subscription_invoice>
+			<subscription_prepayment>
+				<active>0</active>
+				<model>customweb_subscription/payment_prepayment</model>
+				<payment_action>authorize</payment_action>
+				<title>Subscription Prepayment</title>
+				<order_status>pending</order_status>
+				<suspend_on_pending_payment>1</suspend_on_pending_payment>
+			</subscription_prepayment>
+			<IsrInvoice>
+				<suspend_on_pending_payment>1</suspend_on_pending_payment>
+			</IsrInvoice>
+		</payment>
+	</default>
+</config>
+		

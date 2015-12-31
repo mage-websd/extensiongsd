@@ -1,0 +1,10 @@
+<?php echo $this->getPriceHtml($this->getProduct(), false, $this->getIdSuffix()) ?>
+
+<?php if ($this->getProduct()->getInitAmount()) : ?>
+<div class="price-box">
+	<span class="regular-price" id="product-initial-amount">
+		<span class="price-label"><?php echo $this->getProduct()->getInitAmount() > 0 ? $this->helper('customweb_subscription')->__('Initial Fee') : $this->helper('customweb_subscription')->__('Initial Discount') ?>:</span>
+		<span class="price"><?php echo Mage::helper('core')->currency(abs($this->getProduct()->getInitAmount()), true, false) ?></span>
+	</span>
+</div>
+<?php endif; ?>

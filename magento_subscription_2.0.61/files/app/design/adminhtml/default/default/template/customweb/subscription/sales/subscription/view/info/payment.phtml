@@ -1,0 +1,44 @@
+<?php $helper = Mage::helper('customweb_subscription') ?>
+<?php $subscription = $this->getSubscription() ?>
+<table cellspacing="0" class="form-list">
+    <tr>
+        <td class="label"><label><?php echo $helper->__('Currency') ?></label></td>
+        <td class="value"><strong><?php echo strtoupper($subscription->getCurrencyCode()) ?></strong></td>
+    </tr>
+    <?php if ($subscription->getInitAmount()) : ?>
+    <tr>
+        <td class="label"><label><?php echo $subscription->getInitAmount() > 0 ? $helper->__('Initial Fee') : $helper->__('Initial Discount') ?></label></td>
+        <td class="value"><strong><?php echo Mage::helper('core')->currencyByStore($subscription->getInitAmount(), $subscription->getStoreId(), true, false) ?></strong></td>
+    </tr>
+    <?php endif; ?>
+    <?php if (!$subscription->getCalculatePrice()) : ?>
+	    <tr>
+	        <td class="label"><label><?php echo $helper->__('Billing Amount') ?></label></td>
+	        <td class="value"><strong><?php echo Mage::helper('core')->currencyByStore($subscription->getBillingAmount(), $subscription->getStoreId(), true, false) ?></strong></td>
+	    </tr>
+	    <?php if ($subscription->getTaxAmount()) : ?>
+	    <tr>
+	        <td class="label"><label><?php echo $helper->__('Tax Amount') ?></label></td>
+	        <td class="value"><strong><?php echo Mage::helper('core')->currencyByStore($subscription->getTaxAmount(), $subscription->getStoreId(), true, false) ?></strong></td>
+	    </tr>
+	    <?php endif; ?>
+	    <?php if ($subscription->getShippingAmount()) : ?>
+	    <tr>
+	        <td class="label"><label><?php echo $helper->__('Shipping Amount') ?></label></td>
+	        <td class="value"><strong><?php echo Mage::helper('core')->currencyByStore($subscription->getShippingAmount(), $subscription->getStoreId(), true, false) ?></strong></td>
+	    </tr>
+	    <?php endif; ?>
+    <?php endif; ?>
+    <tr>
+        <td class="label"><label><?php echo $helper->__('Total Recurring Amount') ?></label></td>
+        <td class="value"><strong>
+        	<?php
+        	if (!$subscription->getCalculatePrice()) {
+        		echo Mage::helper('core')->currencyByStore($subscription->getGrandTotal(), $subscription->getStoreId(), true, false);
+        	} else {
+        		echo $helper->__('Calculated Price');
+        	}
+        	?>
+        </strong></td>
+    </tr>
+</table>

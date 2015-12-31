@@ -1,0 +1,29 @@
+<?php $helper = Mage::helper('customweb_subscription') ?>
+<?php $index = $this->getIndex() ?>
+<?php $data = $this->getRowData() ?>
+<?php $elementName = $this->getElement()->getName() ?>
+<tbody id="cart-plans-row-<?php echo $index ?>">
+	<tr>
+		<td><?php echo $data->getDescription() ?></td>
+		<td><?php echo $data->getPeriodUnit() == '#{period_unit}' ? '#{period_unit_label}' : Customweb_Subscription_Model_PeriodUnit::valueOf($data->getPeriodUnit())->getLabel() ?></td>
+		<td class="a-right"><?php echo $data->getPeriodFrequency() ?></td>
+		<td class="a-right"><?php echo $data->getPeriodMaxCycles() ?></td>
+		<td class="a-right"><?php echo $data->getInitAmount() ?></td>
+		<td class="a-right"><?php echo $data->getCancelPeriod() ?></td>
+		<td class="a-right"><?php echo $data->getCanCustomerSuspend() == '#{can_customer_suspend}' ? '#{can_customer_suspend_label}' : ($data->getCanCustomerSuspend() ? $helper->__('Yes') : $helper->__('No')) ?></td>
+		<td class="a-right"><?php echo $data->getSortOrder() ?></td>
+		<td class="nowrap a-right">
+			<a onclick="subscriptionCartPlansForm.removeRow('cart-plans-row-<?php echo $index ?>');" class="table-form-btn-remove"></a>
+			<a onclick="subscriptionCartPlansForm.editRow('cart-plans-row-<?php echo $index ?>');" class="table-form-btn-edit"></a>
+
+			<input type="hidden" class="cart-plans-data-description" data-name="description" name="<?php echo $elementName ?>[description][<?php echo $index ?>]" value="<?php echo $data->getDescription() ?>" />
+			<input type="hidden" class="cart-plans-data-period-unit" data-name="period_unit" name="<?php echo $elementName ?>[period_unit][<?php echo $index ?>]" value="<?php echo $data->getPeriodUnit() ?>" />
+			<input type="hidden" class="cart-plans-data-period-frequency" data-name="period_frequency" name="<?php echo $elementName ?>[period_frequency][<?php echo $index ?>]" value="<?php echo $data->getPeriodFrequency() ?>" />
+			<input type="hidden" class="cart-plans-data-max_cycles" data-name="period_max_cycles" name="<?php echo $elementName ?>[period_max_cycles][<?php echo $index ?>]" value="<?php echo $data->getPeriodMaxCycles() ?>" />
+			<input type="hidden" class="cart-plans-data-init-amount" data-name="init_amount" name="<?php echo $elementName ?>[init_amount][<?php echo $index ?>]" value="<?php echo $data->getInitAmount() ?>" />
+			<input type="hidden" class="cart-plans-data-cancel-period" data-name="cancel_period" name="<?php echo $elementName ?>[cancel_period][<?php echo $index ?>]" value="<?php echo $data->getCancelPeriod() ?>" />
+			<input type="hidden" class="cart-plans-data-can-customer-suspend" data-name="can_customer_suspend" name="<?php echo $elementName ?>[can_customer_suspend][<?php echo $index ?>]" value="<?php echo $data->getCanCustomerSuspend() ?>" />
+			<input type="hidden" class="cart-plans-data-sort-order" data-name="sort_order" name="<?php echo $elementName ?>[sort_order][<?php echo $index ?>]" value="<?php echo $data->getSortOrder() ?>" />
+		</td>
+	</tr>
+</tbody>

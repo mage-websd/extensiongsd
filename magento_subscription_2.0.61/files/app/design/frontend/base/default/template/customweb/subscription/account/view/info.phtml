@@ -1,0 +1,46 @@
+<?php $helper = Mage::helper('customweb_subscription') ?>
+<?php $subscription = $this->getSubscription() ?>
+<div class="col2-set order-info-box">
+	<div class="col-1">
+		<div class="box-title">
+			<h2><?php echo $helper->__('Subscription') ?></h2>
+		</div>
+		<div class="box-content">
+			<?php echo $this->getInfoHtml() ?>
+		</div>
+	</div>
+	<div class="col-2">
+		<div class="box-title">
+			<h2><?php echo $helper->__('Schedule Information') ?></h2>
+		</div>
+		<div class="box-content">
+			<?php echo $this->getScheduleHtml() ?>
+		</div>
+	</div>
+</div>
+<div class="clearer"></div>
+<div class="col2-set order-info-box">
+	<div class="col-1">
+		<div class="box-title">
+			<h2><?php echo $helper->__('Billing Information') ?></h2>
+		</div>
+		<div class="box-content">
+			<?php echo $this->getBillingHtml() ?>
+		</div>
+	</div>
+	<div class="col-2">
+		<div class="box-title">
+			<h2><?php echo $helper->__('Payments') ?></h2>
+		</div>
+		<div class="box-content">
+			<?php echo $this->getPaymentHtml() ?>
+		</div>
+	</div>
+</div>
+<div class="clearer"></div>
+<div class="order-items">
+	<h2 class="table-caption"><?php echo $helper->__('Purchased Item') ?></h2>
+	<div class="box-content">
+		<?php echo $this->getItemsHtml() ?>
+	</div>
+</div>

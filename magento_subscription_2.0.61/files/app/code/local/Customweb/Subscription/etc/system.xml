@@ -1,0 +1,582 @@
+<?xml version="1.0"?>
+<config>
+	<sections>
+		<customweb_subscription translate="label comment" module="customweb_subscription">
+			<class>separator-top</class>
+			<label><![CDATA[Subscriptions]]></label>
+			<tab>sales</tab>
+			<frontend_type>text</frontend_type>
+			<sort_order>900</sort_order>
+			<show_in_default>1</show_in_default>
+			<show_in_website>1</show_in_website>
+			<show_in_store>1</show_in_store>
+			<groups>
+				<information translate="label comment">
+					<label><![CDATA[Information]]></label>
+					<sort_order>10</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<version translate="label comment">
+							<label><![CDATA[Version]]></label>
+							<frontend_type>label</frontend_type>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</version>
+					</fields>
+				</information>
+				<general translate="label comment">
+					<label><![CDATA[General Settings]]></label>
+					<sort_order>20</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<payment_methods translate="label comment">
+							<label><![CDATA[Payment Methods]]></label>
+							<frontend_model>customweb_subscription/adminhtml_system_config_paymentMethod</frontend_model>
+							<backend_model>customweb_subscription/system_config_backend_multiple</backend_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Select the payment methods that are allowed to be used for subscriptions.]]></comment>
+						</payment_methods>
+						<paytime translate="label comment">
+							<label><![CDATA[Payment Term]]></label>
+							<frontend_model>customweb_subscription/adminhtml_system_config_timespan</frontend_model>
+							<backend_model>customweb_subscription/system_config_backend_timespan</backend_model>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Define the amount of time relative to the due date after which the invoice has to be paid. This is the period for customers to pay orders that use a payment method that does not support creation of token or in the case of invoice payments. It is also the period for the merchant in case of deferred capturing to capture the payment. Otherwise the payments will fail.]]></comment>
+						</paytime>
+						<calculate_price translate="label comment">
+							<label><![CDATA[Calculate Price]]></label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Set to yes, if price of a recurring payment should be recalculated - the products' current price is used and price rules are applied.]]></comment>
+						</calculate_price>
+						<log_level translate="label comment">
+							<label><![CDATA[Log Level]]></label>
+							<frontend_type>multiselect</frontend_type>
+							<source_model>Customweb_Subscription_Model_System_Config_Source_LogLevel</source_model>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<can_be_empty>1</can_be_empty>
+							<comment><![CDATA[Define which log entries should be stored.]]></comment>
+						</log_level>
+					</fields>
+				</general>
+				<email translate="label comment">
+					<label><![CDATA[Email Settings]]></label>
+					<sort_order>30</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<identity translate="label comment">
+							<label><![CDATA[Email Sender]]></label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_email_identity</source_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</identity>
+						<template_order translate="label comment">
+							<label><![CDATA[Order Email Template]]></label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_email_template</source_model>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[The Order Email Template will replace the default email template that is sent to the customer after placing an order. It will include information about the subscription.]]></comment>
+						</template_order>
+						<template_order_guest translate="label comment">
+							<label><![CDATA[Guest Order Email Template]]></label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_email_template</source_model>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[The Guest Order Email Template will replace the default email template that is sent to the guest customer after placing an order. It will include information about the subscription.]]></comment>
+						</template_order_guest>
+						<template_recurring_order translate="label comment">
+							<label><![CDATA[Recurring Order Email Template]]></label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_email_template</source_model>
+							<sort_order>32</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[The Recurring Order Email Template will replace the default email template that is sent to the customer after a recurring order is created. It will include information about the subscription.]]></comment>
+						</template_recurring_order>
+						<template_recurring_order_guest translate="label comment">
+							<label><![CDATA[Recurring Guest Order Email Template]]></label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_email_template</source_model>
+							<sort_order>34</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[The Recurring Guest Order Email Template will replace the default email template that is sent to the guest customer after a recurring order is created. It will include information about the subscription.]]></comment>
+						</template_recurring_order_guest>
+						<template_pending translate="label comment">
+							<label><![CDATA[Pending Email Template]]></label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_email_template</source_model>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[The Pending Email will be sent to notify a customer that his payment is due. The template contains a payment link that allows your customer to pay for the next cycle. You can edit the templates yourself under System > Transactional Emails.]]></comment>
+						</template_pending>
+						<template_update translate="label comment">
+							<label><![CDATA[Update Email Template]]></label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_email_template</source_model>
+							<sort_order>50</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[The Update Email Template will be sent whenever the payment authorization fails due to various reasons. It tells the customer to update his payment information by clicking on the provided payment link.]]></comment>
+						</template_update>
+						<template_cancel translate="label comment">
+							<label><![CDATA[Cancelation Email Template]]></label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_email_template</source_model>
+							<sort_order>60</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[The Cancelation Email Template will be sent to inform the customer after has canceled a subscription.]]></comment>
+						</template_cancel>
+						<template_cancel_request translate="label comment">
+							<label><![CDATA[Cancelation Request Email Template]]></label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_email_template</source_model>
+							<sort_order>70</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[The Cancelation Request Email Template will be sent to inform the customer after has requested the cancelation of a subscription.]]></comment>
+						</template_cancel_request>
+						<template_failure translate="label comment">
+							<label><![CDATA[Failure Email Template]]></label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_email_template</source_model>
+							<sort_order>80</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[The Failure Email Template will be sent to inform the customer after the payment has failed at due date. The subscription will be on hold and can only be reactivated in the backend.]]></comment>
+						</template_failure>
+						<reminders translate="label comment">
+							<label><![CDATA[Reminder Emails]]></label>
+							<frontend_model>customweb_subscription/adminhtml_system_config_reminders</frontend_model>
+							<backend_model>customweb_subscription/system_config_backend_reminders</backend_model>
+							<sort_order>90</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</reminders>
+					</fields>
+				</email>
+				<checkout translate="label comment">
+					<label><![CDATA[Checkout Settings]]></label>
+					<sort_order>40</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<allow_guest translate="label comment">
+							<label><![CDATA[Allow Guest Subscriptions]]></label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Define if a customer can purchase a subscription as guest.]]></comment>
+						</allow_guest>
+						<enabled_agreement translate="label comment">
+							<label><![CDATA[Enable Agreement]]></label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[If enabled, the customer has to agree to the subscription in the checkout review. In order for this to work, you have to enable Terms and Conditions in the Checkout config tab.]]></comment>
+						</enabled_agreement>
+						<agreement_title translate="label comment">
+							<label><![CDATA[Agreement Title]]></label>
+							<frontend_type>text</frontend_type>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Set the title of the subscription agreement box in the checkout review.]]></comment>
+						</agreement_title>
+						<agreement_text translate="label comment">
+							<label><![CDATA[Agreement Text]]></label>
+							<frontend_type>textarea</frontend_type>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Set the text of the subscription agreement box in the checkout review.]]></comment>
+						</agreement_text>
+						<agreement_checkbox_text translate="label comment">
+							<label><![CDATA[Agreement Checkbox Text]]></label>
+							<frontend_type>text</frontend_type>
+							<sort_order>50</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Set the checkbox text of the subscription agreement box in the checkout review.]]></comment>
+						</agreement_checkbox_text>
+					</fields>
+				</checkout>
+				<cart translate="label comment">
+					<label><![CDATA[Cart Subscriptions]]></label>
+					<sort_order>50</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<enabled translate="label comment">
+							<label><![CDATA[Enable Cart Subscriptions]]></label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>10</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Would you like to allow customers to create a subscription of their whole cart?]]></comment>
+						</enabled>
+						<plans translate="label comment">
+							<label><![CDATA[Subscription Plans]]></label>
+							<frontend_model>customweb_subscription/adminhtml_system_config_cartPlans</frontend_model>
+							<backend_model>customweb_subscription/system_config_backend_cartPlans</backend_model>
+							<sort_order>20</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</plans>
+						<min_order_total translate="label comment">
+							<label><![CDATA[Minimum Order Total]]></label>
+							<frontend_type>text</frontend_type>
+							<sort_order>30</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</min_order_total>
+						<max_order_total translate="label comment">
+							<label><![CDATA[Maximum Order Total]]></label>
+							<frontend_type>text</frontend_type>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</max_order_total>
+						<product_filter translate="label comment">
+							<label><![CDATA[Product Filter]]></label>
+							<frontend_model>customweb_subscription/adminhtml_system_config_productFilter</frontend_model>
+							<backend_model>customweb_subscription/system_config_backend_multiple</backend_model>
+							<sort_order>50</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+							<comment><![CDATA[Select the products that cannot be used in subscriptions.]]></comment>
+						</product_filter>
+					</fields>
+				</cart>
+			</groups>
+		</customweb_subscription>
+		<payment>
+			<groups>
+				<subscription_invoice translate="label comment" module="customweb_subscription">
+					<label><![CDATA[Subscription Invoice]]></label>
+					<sort_order>100</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<active translate="label comment">
+							<label><![CDATA[Enabled]]></label>
+							<frontend_type>select</frontend_type>
+							<sort_order>10</sort_order>
+							<comment><![CDATA[Enable the payment method]]></comment>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</active>
+						<title translate="label comment">
+							<label><![CDATA[Titel]]></label>
+							<frontend_type>text</frontend_type>
+							<sort_order>20</sort_order>
+							<comment><![CDATA[Title of the payment method]]></comment>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</title>
+						<order_status translate="label comment">
+							<label><![CDATA[New Order Status]]></label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_order_status</source_model>
+							<sort_order>30</sort_order>
+							<comment><![CDATA[]]></comment>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>0</show_in_store>
+						</order_status>
+						<allowspecific translate="label comment">
+							<label><![CDATA[Payment from applicable countries]]></label>
+							<frontend_type>allowspecific</frontend_type>
+							<sort_order>40</sort_order>
+							<comment><![CDATA[]]></comment>
+							<source_model>adminhtml/system_config_source_payment_allspecificcountries</source_model>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</allowspecific>
+						<specificcountry translate="label comment">
+							<label><![CDATA[Payment from specific countries]]></label>
+							<frontend_type>multiselect</frontend_type>
+							<sort_order>50</sort_order>
+							<comment><![CDATA[Payment from specific countries]]></comment>
+							<source_model>adminhtml/system_config_source_country</source_model>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</specificcountry>
+						<sort_order translate="label comment">
+							<label><![CDATA[Sort Order]]></label>
+							<frontend_type>text</frontend_type>
+							<sort_order>60</sort_order>
+							<comment><![CDATA[]]></comment>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</sort_order>
+						<min_order_total translate="label comment">
+							<label><![CDATA[Minimum Order Total]]></label>
+							<frontend_type>text</frontend_type>
+							<sort_order>70</sort_order>
+							<comment><![CDATA[]]></comment>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</min_order_total>
+						<max_order_total translate="label comment">
+							<label><![CDATA[Maximum Order Total]]></label>
+							<frontend_type>text</frontend_type>
+							<sort_order>80</sort_order>
+							<comment><![CDATA[]]></comment>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</max_order_total>
+						<invoice_settlement translate="label comment">
+							<label><![CDATA[Invoice Settlement]]></label>
+							<frontend_type>select</frontend_type>
+							<sort_order>90</sort_order>
+							<comment><![CDATA[Choose settlement after order in case you want an invoice to be created with your order.]]></comment>
+							<source_model>customweb_subscription/system_config_source_settlement</source_model>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</invoice_settlement>
+						<invoice_send_email translate="label comment">
+							<label><![CDATA[Send Invoice Email]]></label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>100</sort_order>
+							<comment><![CDATA[Set to yes, if the invoice email should be sent automatically after settlement.]]></comment>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>0</show_in_store>
+							<depends>
+								<invoice_settlement>after_order</invoice_settlement>
+							</depends>
+						</invoice_send_email>
+						<suspend_on_pending_payment translate="label comment">
+							<label><![CDATA[Suspend on Pending Payment]]></label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>110</sort_order>
+							<comment><![CDATA[Set to no, if the subscription should keep running even when a payment is pending.]]></comment>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>0</show_in_store>
+						</suspend_on_pending_payment>
+					</fields>
+				</subscription_invoice>
+				<subscription_prepayment translate="label comment" module="customweb_subscription">
+					<label><![CDATA[Subscription Prepayment]]></label>
+					<sort_order>101</sort_order>
+					<show_in_default>1</show_in_default>
+					<show_in_website>1</show_in_website>
+					<show_in_store>1</show_in_store>
+					<fields>
+						<active translate="label comment">
+							<label><![CDATA[Enabled]]></label>
+							<frontend_type>select</frontend_type>
+							<sort_order>10</sort_order>
+							<comment><![CDATA[Enable the payment method]]></comment>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</active>
+						<title translate="label comment">
+							<label><![CDATA[Titel]]></label>
+							<frontend_type>text</frontend_type>
+							<sort_order>20</sort_order>
+							<comment><![CDATA[Title of the payment method]]></comment>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</title>
+						<order_status translate="label comment">
+							<label><![CDATA[New Order Status]]></label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_order_status</source_model>
+							<sort_order>30</sort_order>
+							<comment><![CDATA[]]></comment>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>0</show_in_store>
+						</order_status>
+						<allowspecific translate="label comment">
+							<label><![CDATA[Payment from applicable countries]]></label>
+							<frontend_type>allowspecific</frontend_type>
+							<sort_order>40</sort_order>
+							<comment><![CDATA[]]></comment>
+							<source_model>adminhtml/system_config_source_payment_allspecificcountries</source_model>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</allowspecific>
+						<specificcountry translate="label comment">
+							<label><![CDATA[Payment from specific countries]]></label>
+							<frontend_type>multiselect</frontend_type>
+							<sort_order>50</sort_order>
+							<comment><![CDATA[Payment from specific countries]]></comment>
+							<source_model>adminhtml/system_config_source_country</source_model>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</specificcountry>
+						<sort_order translate="label comment">
+							<label><![CDATA[Sort Order]]></label>
+							<frontend_type>text</frontend_type>
+							<sort_order>60</sort_order>
+							<comment><![CDATA[]]></comment>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</sort_order>
+						<min_order_total translate="label comment">
+							<label><![CDATA[Minimum Order Total]]></label>
+							<frontend_type>text</frontend_type>
+							<sort_order>70</sort_order>
+							<comment><![CDATA[]]></comment>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</min_order_total>
+						<max_order_total translate="label comment">
+							<label><![CDATA[Maximum Order Total]]></label>
+							<frontend_type>text</frontend_type>
+							<sort_order>80</sort_order>
+							<comment><![CDATA[]]></comment>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</max_order_total>
+						<invoice_settlement translate="label comment">
+							<label><![CDATA[Invoice Settlement]]></label>
+							<frontend_type>select</frontend_type>
+							<sort_order>90</sort_order>
+							<comment><![CDATA[Choose settlement after order in case you want an invoice to be created with your order.]]></comment>
+							<source_model>customweb_subscription/system_config_source_settlement</source_model>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>1</show_in_store>
+						</invoice_settlement>
+						<invoice_send_email translate="label comment">
+							<label><![CDATA[Send Invoice Email]]></label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>100</sort_order>
+							<comment><![CDATA[Set to yes, if the invoice email should be sent automatically after settlement.]]></comment>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>0</show_in_store>
+							<depends>
+								<invoice_settlement>after_order</invoice_settlement>
+							</depends>
+						</invoice_send_email>
+						<suspend_on_pending_payment translate="label comment">
+							<label><![CDATA[Suspend on Pending Payment]]></label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>110</sort_order>
+							<comment><![CDATA[Set to no, if the subscription should keep running even when a payment is pending.]]></comment>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>0</show_in_store>
+						</suspend_on_pending_payment>
+					</fields>
+				</subscription_prepayment>
+				<IsrInvoice>
+					<fields>
+						<suspend_on_pending_payment translate="label comment">
+							<label><![CDATA[Suspend on Pending Payment]]></label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_yesno</source_model>
+							<sort_order>200</sort_order>
+							<comment><![CDATA[Set to no, if the subscription should keep running even when a payment is pending.]]></comment>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>0</show_in_store>
+						</suspend_on_pending_payment>
+					</fields>
+				</IsrInvoice>
+			</groups>
+		</payment>
+		<tax>
+			<groups>
+				<classes>
+					<fields>
+						<customweb_subscription_initamount_tax_class translate="label comment" module="customweb_subscription">
+							<label>Tax Class For Subscription Initial Amount</label>
+							<frontend_type>select</frontend_type>
+							<source_model>adminhtml/system_config_source_shipping_taxclass</source_model>
+							<sort_order>40</sort_order>
+							<show_in_default>1</show_in_default>
+							<show_in_website>1</show_in_website>
+							<show_in_store>0</show_in_store>
+						</customweb_subscription_initamount_tax_class>
+					</fields>
+				</classes>
+			</groups>
+		</tax>
+	</sections>
+</config>

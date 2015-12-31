@@ -1,0 +1,77 @@
+.table-form-btn-edit, .table-form-btn-remove {
+	display: block;
+	float: right;
+	height: 18px;
+	width: 18px;
+	cursor: pointer;
+	background: no-repeat center center;
+}
+
+.table-form-btn-edit:hover, .table-form-btn-remove:hover {
+	background-color: #ccc;
+}
+
+.table-form-btn-edit {
+	background-image: url(icon_edit.png);
+}
+
+.table-form-btn-remove {
+	background-image: url(icon_remove.png);
+	margin-left: 5px;
+}
+
+#cart-plans-form select, #reminders-form select {
+	width: 100% !important;
+}
+
+#cart-plans-form p.note, #reminders-form p.note {
+	width: auto !important;
+}
+
+#reminders-container {
+	width: 700px;
+}
+
+.table-form-field-wrapper {
+	background-color: #fff;
+	border-width: 1px;
+	border-style: solid;
+	border-color: #aaa #c8c8c8 #c8c8c8 #aaa;
+	padding: 2px;
+}
+
+.table-form-field-wrapper:after {
+	display: block;
+	clear: both;
+	content: ".";
+	font-size: 0;
+	line-height: 0;
+	height: 0;
+	overflow: hidden;
+}
+
+.table-form-field-wrapper input.input-text {
+	float: left;
+	width: 100% !important;
+	border: 0 !important;
+	padding: 0 !important;
+	background: transparent;
+}
+
+.table-form-field-wrapper.validation-failed {
+	background: #fef0ed;
+	border: 1px dashed #d6340e;
+}
+
+select.table-form-field.validation-failed {
+	border: 1px dashed #eb340a !important;
+	background: #faebe7 !important
+}
+
+.customweb-subscription-log-level-icon {
+	height: 12px;
+    width: 12px;
+    float: left;
+    margin-top: 3px;
+    margin-right: 5px;
+}
