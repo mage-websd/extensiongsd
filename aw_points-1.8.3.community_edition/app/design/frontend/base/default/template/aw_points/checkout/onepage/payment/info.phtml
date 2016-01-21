@@ -1,0 +1,143 @@
+<?php
+/**
+ * aheadWorks Co.
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the EULA
+ * that is bundled with this package in the file LICENSE.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ *
+ * =================================================================
+ *                 MAGENTO EDITION USAGE NOTICE
+ * =================================================================
+ * This software is designed to work with Magento community edition and
+ * its use on an edition other than specified is prohibited. aheadWorks does not
+ * provide extension support in case of incorrect edition use.
+ * =================================================================
+ *
+ * @category   AW
+ * @package    AW_Points
+ * @version    1.8.3
+ * @copyright  Copyright (c) 2010-2012 aheadWorks Co. (http://www.aheadworks.com)
+ * @license    http://ecommerce.aheadworks.com/AW-LICENSE.txt
+ */
+?><dl class="sp-methods" id="checkout-payment-method-load"></dl>
+<?php echo $this->getChildChildHtml('additional'); ?>
+
+<?php if ($this->pointsSectionAvailable()): ?>
+    <script type="text/javascript">
+        //<![CDATA[
+        var awPointsConfig = {
+            customerPoints: <?php echo $this->getSummaryForCustomer()->getPoints() ?>,
+            neededPoints: <?php echo $this->getNeededPoints() ?>,
+            limitedPoints: <?php echo $this->getLimitedPoints() ?>,
+            spendRatePoints: <?php echo $this->getSpendRatePoints() ?>,
+            isPointsSubstracted: false,
+            pointsInMoneyApplied: <?php echo (int)$this->getQuote()->getBaseMoneyForPoints() ?>,
+            pointsInMoneyDelta: 0,
+            pointsInMoneyUsed: 0,
+
+            init: function(){
+                $('use_points').disabled = $('points_amount').disabled = false;
+                $('points_amount').value = Math.abs(Math.min(this.customerPoints, this.neededPoints, this.limitedPoints)).toFixed(0);
+                this.pointsInMoneyUsed = $('points_amount').value * this.spendRatePoints;
+                this.methodsContainer = $('checkout-payment-methods-container');
+                this.freeMethodContainer = $('checkout-payment-method-free');
+                this.initObserver();
+                this.checkStoreCredit();
+                this.manageMethods();
+            },
+
+            pointsAmountChanged: function() {
+                var points_amount = $('points_amount').value;
+                if (isNaN(points_amount)) points_amount = 0;
+                points_amount = Math.min(Math.abs(points_amount), this.customerPoints, this.neededPoints, this.limitedPoints);
+                $('points_amount').value = Math.abs(points_amount).toFixed(0);
+
+                this.checkStoreCredit();
+                this.manageMethods();
+            },
+
+            /*AW_StoreCredit compatibility*/
+            checkStoreCredit: function() {
+                if (typeof(storeCreditManager) != "undefined") {
+                    if ($('use_points').checked) {
+                        this.pointsInMoneyDelta = this.pointsInMoneyUsed - $('points_amount').value * this.spendRatePoints;
+                    }
+                    this.pointsInMoneyUsed = $('points_amount').value * this.spendRatePoints;
+
+                    storeCreditManager.quoteBaseGrandTotal += this.pointsInMoneyApplied;
+                    this.pointsInMoneyApplied = 0;
+                    storeCreditManager.quoteBaseGrandTotal += this.pointsInMoneyDelta;
+                    this.pointsInMoneyDelta = 0;
+
+                    if (!this.isPointsSubstracted && $('use_points').checked) {
+                        storeCreditManager.quoteBaseGrandTotal -= this.pointsInMoneyUsed;
+                        this.isPointsSubstracted = true;
+                    }
+
+                    if (this.isPointsSubstracted && !$('use_points').checked) {
+                        storeCreditManager.quoteBaseGrandTotal += this.pointsInMoneyUsed;
+                        this.isPointsSubstracted = false;
+                    }
+
+                    storeCreditManager.switchStorecreditCheckbox();
+                }
+            },
+
+            initObserver: function(){
+                var me = this;
+                Event.observe($('use_points'), "click", function(){
+                    me.checkStoreCredit();
+                    me.manageMethods();
+                });
+            },
+
+            validateMethods: function() {
+                return (!this.canShowMethods() && $('use_points').checked && $('points_base_grand_total').value == 0);
+            },
+
+            manageMethods: function() {
+                if ($('use_points').checked && $('points_base_grand_total').value == 0) {
+                    if (this.canShowMethods()) {
+                        this.showMethods();
+                    } else {
+                        this.hideMethods();
+                    }
+                } else {
+                    this.showMethods();
+                }
+            },
+
+            canShowMethods: function() {
+                return (($('points_amount') ? $('points_amount').value : 0) < this.neededPoints);
+            },
+
+            hideMethods: function() {
+                this.methodsContainer.hide();
+                this.methodsContainer.select('input').each(function(input) {
+                    input.writeAttribute('disabled', 'disabled');
+                });
+                $('p_method_free').writeAttribute('disabled', null);
+                this.freeMethodContainer.show();
+            },
+
+            showMethods: function() {
+                this.methodsContainer.show();
+                this.methodsContainer.select('input').each(function(input) {
+                    input.writeAttribute('disabled', null);
+                });
+                $('p_method_free').writeAttribute('disabled', 'disabled');
+                this.freeMethodContainer.hide();
+            }
+        };
+
+        if (payment) {
+            payment.addAfterInitFunction('awpoints', awPointsConfig.init.bind(awPointsConfig));
+            payment.addBeforeValidateFunction('awpoints', awPointsConfig.validateMethods.bind(awPointsConfig));
+        }
+        //]]>
+    </script>
+<?php endif; ?>
