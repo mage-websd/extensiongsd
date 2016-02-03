@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<layout version="1.0.0">
+	<PRODUCT_TYPE_configurable translate="label" module="catalog">
+		<reference name="head">
+			<action method="addCss"><stylesheet>css/swatches.css</stylesheet><params>media="all"</params></action>
+			<action method="addJs"><script>cjm/colorselectorplus/colorselected.js</script></action>
+		</reference>
+		<reference name="product.info.options.wrapper">
+			<action method="unsetChild"><name>product.info.options.configurable</name></action>
+			<block type="colorselectorplus/catalog_product_view_type_configurable" name="product.info.options.configurable" as="options_configurable" before="-" template="colorselectorplus/catalog/product/view/type/options/configurable.phtml"/>
+		</reference>
+	</PRODUCT_TYPE_configurable>
+	<catalog_product_view translate="label">
+		<reference name="head">		
+	    	<action method="addItem"><type>skin_css</type><name>css/swatches.css</name><params/></action>
+        </reference>
+		<reference name="product.info.media"><action method="setTemplate"><template helper="colorselectorplus/data/canShowMediaTemplate" /></action></reference>
+	</catalog_product_view>
+	<catalog_category_default>
+		<reference name="head">
+			<action method="addCss" ifconfig="color_selector_plus/colorselectorplusgeneral/toshow"><stylesheet>css/swatches.css</stylesheet><params>media="all"</params></action>
+			<action method="addJs" ifconfig="color_selector_plus/colorselectorplusgeneral/toshow"><script>cjm/colorselectorplus/listswitch.js</script></action>
+		</reference>
+		<reference name="product_list">
+			<action method="setTemplate" ifconfig="color_selector_plus/colorselectorplusgeneral/toshow"><template>colorselectorplus/catalog/product/list.phtml</template></action>
+		</reference>
+	</catalog_category_default>
+	<catalog_category_layered>
+		<reference name="head">
+			<action method="addCss"><stylesheet>css/swatches.css</stylesheet><params>media="all"</params></action>
+			<action method="addJs" ifconfig="color_selector_plus/colorselectorplusgeneral/toshow"><script>cjm/colorselectorplus/listswitch.js</script></action>
+		</reference>
+		<reference name="product_list">
+			<action method="setTemplate" ifconfig="color_selector_plus/colorselectorplusgeneral/toshow"><template>colorselectorplus/catalog/product/list.phtml</template></action>
+		</reference>
+		<!--<reference name="content">
+			<block type="colorselectorplus/listswatch" name="optionextended" after="product_list" template="colorselectorplus/listswatches.phtml" />
+		</reference> -->
+	</catalog_category_layered>
+	<catalogsearch_result_index>
+		<reference name="head">
+			<action method="addCss" ifconfig="color_selector_plus/colorselectorplusgeneral/toshow"><stylesheet>css/swatches.css</stylesheet><params>media="all"</params></action>
+			<action method="addJs" ifconfig="color_selector_plus/colorselectorplusgeneral/toshow"><script>cjm/colorselectorplus/listswitch.js</script></action>
+		</reference>
+		<reference name="search_result_list">
+			<action method="setTemplate" ifconfig="color_selector_plus/colorselectorplusgeneral/toshow"><template>colorselectorplus/catalog/product/list.phtml</template></action>
+		</reference>
+	</catalogsearch_result_index>
+</layout>

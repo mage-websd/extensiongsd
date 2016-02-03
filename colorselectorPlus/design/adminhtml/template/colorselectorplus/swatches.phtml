@@ -1,0 +1,98 @@
+<?php $ini_setting = ini_get('max_file_uploads'); ?>
+<?php if($ini_setting == '' || $ini_setting == null) { $ini_setting = 20; } ?>
+<script type="text/javascript">
+	document.maximumUploads = <?php echo($ini_setting); ?>;
+	document.potentialUploads = 0;
+	function addUpload(ID) {
+		++document.potentialUploads;
+		if (document.potentialUploads > document.maximumUploads) {
+			alert("<?php echo Mage::helper('colorselectorplus')->__('Sorry, this server allows a maximum of %s uploads at a time. Please upload the current swatches to upload more.', $ini_setting); ?>");
+		} else {
+			var newField = "<input type=\"file\" name=\"colorselectorplus_swatch["+ID+"]\">";
+			document.getElementById("colorselectorplus_upload_swatch_area_"+ID).innerHTML = newField;
+		}
+	}
+</script>
+<?php $swatchsize = Mage::helper('colorselectorplus/data')->getSwatchSize('null'); ?>
+<?php $sizes = explode("x", $swatchsize); ?>
+<?php $width = $sizes[0]; ?>
+<?php $height = $sizes[1]; ?>
+
+<div>
+	<ul class="messages">
+    	<li class="notice-msg">
+        	<ul>
+            	<li>
+					<?php echo Mage::helper('colorselectorplus')->__('To use auto swatches, please go to Manage Label / Options and enter the HEX code of your color in the Admin value field. Example: Green #83F52C<br>The preview image below is exactly how your swatch will look based on your default swatch size setting in the configuration.') ?>
+              	</li>
+        	</ul>
+    	</li>
+	</ul>
+</div>
+
+<div class="entity-edit">
+	<div class="entry-edit-head">
+    	<h4 class="icon-head head-edit-form fieldset-legend"><?php echo Mage::helper('colorselectorplus')->__('Manage Swatches') ?></h4>
+	</div>
+   	<div class="box">
+   		<div class="hor-scroll">
+       		<table cellspacing="10">
+            	<tr>
+                	<th width="150"><?php echo Mage::helper('colorselectorplus')->__('Swatch Label') ?></th>
+                   	<th width="15"></th>
+                   	<th width="250"><?php echo Mage::helper('colorselectorplus')->__('Upload Swatch Image') ?></th>
+                   	<th width="15"></th>
+                   	<th><?php echo Mage::helper('colorselectorplus')->__('Preview') ?></th>
+                   	<th width="15"></th>
+                   	<th><?php echo Mage::helper('colorselectorplus')->__('Swatch Type') ?></th>
+                   	<th width="15"></th>
+                   	<th><?php echo Mage::helper('colorselectorplus')->__('HEX Code') ?></th>
+                   	<th width="15"></th>
+                   	<th><?php echo Mage::helper('colorselectorplus')->__('Delete') ?></th>
+              	</tr>
+                <?php foreach (Mage::helper('colorselectorplus')->getAttribOptions() as $option): ?>
+                	<?php $theName = explode('#', $option->getData('value')); ?>
+               		<?php $color_value = isset($theName[1]) ? '#'.$theName[1] : ''; ?>
+					<?php $color_name = $theName[0]; ?>
+                	<tr>
+                    	<td><?php echo $color_name; ?></td>
+                    	<td></td>
+                    	<td>
+                    		<div id="colorselectorplus_upload_swatch_area_<?php echo $option->getData('option_id'); ?>">
+								<?php $ae = Mage::helper('colorselectorplus')->getSwatchImg($option) || isset($theName[1]) ? Mage::helper('colorselectorplus')->__('Edit ') : Mage::helper('colorselectorplus')->__('Add '); ?>
+                        		<a href="#" onclick="addUpload(<?php echo $option->getData('option_id'); ?>); return false;">
+									<?php echo $ae . Mage::helper('colorselectorplus')->__('Swatch Image'); ?>
+								</a>
+							</div>
+                    	</td>
+                    	<td></td>
+                    	<td align="center">
+                        	<?php $swatch = Mage::helper('colorselectorplus')->getSwatchImg($option); ?>
+                        	<?php if ($swatch): ?>
+                            	<img src="<?php echo $swatch; ?>" alt="<?php echo $color_name; ?>" width="<?php echo $width ?>px" height="<?php echo $height ?>px">
+                            	<?php $auto = Mage::helper('colorselectorplus')->__('Image'); ?>
+                        	<?php elseif(isset($theName[1])): ?>
+								<?php echo '<div style="height:'.$height.'px; width:'.$width.'px; background-color:'.$color_value.';"></div>'; ?>
+								<?php $auto = Mage::helper('colorselectorplus')->__('Auto'); ?>
+							<?php else: ?>
+								<?php $swatchimage = Mage::helper('colorselectorplus')->getSwatchUrl('empty'); ?>
+								<img src="<?php echo $swatchimage; ?>" alt="Please Upload Swatch!" width="<?php echo $width ?>px" height="<?php echo $height ?>px">
+								<?php $auto = Mage::helper('colorselectorplus')->__('None'); ?>
+							<?php endif; ?>
+                    	</td>
+                    	<td></td>
+                    	<td align="center"><?php echo $auto; ?></td>
+                    	<td></td>
+                    	<td align="center">
+							<?php echo isset($theName[1]) ? strtoupper($color_value) : '-'; ?>
+						</td>
+                    	<td></td>
+                    	<td align="center">
+                            <input <?php if($auto !== 'Image') echo 'disabled="disabled"'; ?> type="checkbox" value="1" name="colorselectorplus_swatch_delete[<?php echo $option->getData('option_id'); ?>]">
+                       	</td>
+               		</tr>
+         		<?php endforeach; ?>
+        	</table>
+      	</div>
+   	</div>
+</div>

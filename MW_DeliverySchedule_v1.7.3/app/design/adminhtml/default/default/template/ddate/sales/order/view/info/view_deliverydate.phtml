@@ -1,0 +1,26 @@
+<?php
+	$ddate = $ddate = Mage::registry('ddate_by_order');
+?>
+<div class="box-left">
+    <div class="entry-edit">
+		<div class="entry-edit-head">
+			<h4 class="icon-head head-shipping-method"><?php echo $this->helper('ddate')->__('Delivery Date') ?></h4>
+		</div>
+
+		<fieldset>
+			<div id="edit_mwdelivery_info">
+				<?php echo $this->__('Delivery Date:')?>
+				<span style="font-weight:bold;">
+					<?php echo Mage::helper('ddate')->format_ddate($ddate['ddate']);?>
+				</span>
+				<br>
+				<?php echo $this->__('Delivery Time:')?>
+				<span style="font-weight:bold;">
+					<?php echo $ddate['dtime'];?>
+			  	</span>
+				</br>
+			</div>
+			<div class="clear"></div>
+		</fieldset>
+    </div>
+</div>

@@ -1,0 +1,72 @@
+<?php $_filters = $this->getActiveFilters() ?>
+<?php if(!empty($_filters)): ?>
+<div class="currently">
+    <p class="block-subtitle"><?php echo $this->__('Currently Shopping by:') ?></p>
+    <ol>
+    <?php foreach ($_filters as $_filter): ?>
+        <?php
+        	$swatch_attributes = Mage::helper('colorselectorplus')->getSwatchAttributes();
+        	$attributeCode = $_filter->getFilter()->getAttributeModel()->getData('attribute_code');
+        	$label = $this->stripTags($_filter->getLabel());
+        	$ss = Mage::helper('colorselectorplus/data')->getSwatchSize('shopby');
+			$sizes = explode("x", $ss);
+        	$width = $sizes[0];
+        	$height = $sizes[1];
+        ?>
+        <?php if(in_array($attributeCode, $swatch_attributes) && Mage::getStoreConfig('color_selector_plus/colorselectorplusgeneral/showonlayer', Mage::app()->getStore()) == 1): ?>
+        	
+        	<?php
+        		$optionId = $_filter->getValueString();
+            	$attributeInfo = Mage::getResourceModel('eav/entity_attribute_collection')->setCodeFilter($attributeCode)->getFirstItem();
+       			$attributeId = $attributeInfo->getAttributeId();
+     			$_collection = Mage::getResourceModel('eav/entity_attribute_option_collection')->setPositionOrder('asc')->setAttributeFilter($attributeId)->setStoreFilter(0)->load();
+     			
+     			foreach( $_collection->toOptionArray() as $_cur_option ) {
+					if($_cur_option['value']==$optionId){ $theLabel = $_cur_option['label']; }
+				}
+			
+        		preg_match_all('/((#?[A-Za-z0-9]+))/', $theLabel, $matches);
+        	
+        		if ( count($matches[0]) > 0 ) {
+        			$color_value = $matches[1][count($matches[0])-1];
+					$findme = '#';
+					$pos = strpos($color_value, $findme);
+				} else {
+					$pos = false; }
+
+            	$img = '';
+            	$bgcol = '';
+            	
+            	if(Mage::helper('colorselectorplus')->getSwatchUrl($optionId)):
+                	$img = Mage::helper('colorselectorplus')->getSwatchUrl($optionId);
+            	elseif($pos !== false):
+                	$bgcol = $color_value;
+           		else:
+           			$img = Mage::helper('colorselectorplus')->getSwatchUrl('empty');
+           		endif;
+        	?>
+        	
+        	<li>
+            	<a href="<?php echo $_filter->getRemoveUrl() ?>" title="<?php echo $this->__('Remove This Item') ?>" class="btn-remove"><?php echo $this->__('Remove This Item') ?></a>
+            	<?php if($img != ''): ?>
+        			<span class="label"><?php echo $this->__($_filter->getName()) ?>:</span>
+        			<img class="swatch-shopby-selected" src="<?php echo $img ?>" title="<?php echo $label ?>" alt="<?php echo $label ?>" style="width:<?php echo $width ?>px; height:<?php echo $height ?>px;">
+      			<?php elseif($bgcol != ''): ?>
+					<span class="label"><?php echo $this->__($_filter->getName()) ?>:</span>
+					<div class="swatch-shopby-selected" style="background-color:<?php echo $bgcol ?>; width:<?php echo $width ?>px; height:<?php echo $height ?>px;" title="<?php echo $label ?>"></div>
+				<?php else: ?>
+					<span class="label"><?php echo $this->__($_filter->getName()) ?>:</span> <?php echo $label ?>
+				<?php endif; ?>
+        	</li>
+        
+        <?php else : ?>
+        	<li>
+            	<a href="<?php echo $_filter->getRemoveUrl() ?>" title="<?php echo $this->__('Remove This Item') ?>" class="btn-remove"><?php echo $this->__('Remove This Item') ?></a>
+            	<span class="label"><?php echo $this->__($_filter->getName()) ?>:</span> <?php echo $this->stripTags($_filter->getLabel()) ?>
+        	</li>
+        <?php endif; ?>
+    <?php endforeach; ?>
+    </ol>
+    <div class="actions"><a href="<?php echo $this->getClearUrl() ?>"><?php echo $this->__('Clear All') ?></a></div>
+</div>
+<?php endif; ?>

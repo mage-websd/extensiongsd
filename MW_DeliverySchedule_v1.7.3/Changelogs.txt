@@ -1,0 +1,117 @@
+Advanced Delivery Schedule - changelogs
+---------------------------------------
+Legend:
+
++ new features added
+* bug fix
+
+v1.7.3(May 20, 2015)
++ Support responsive theme
+* Paypal Express is not active when <Calendar Display> is selected as Datetime Picker
+* <delay(hour)> function is not active when <Calendar Display> is selected as Datetime Picker
+* Storeview is set up with no active time slot but when check out at the frontend, customers are required to fill in delivery information
+* In <Admin/Manage Delivery Times>, when change time slot status,  the field <Store view> is <All store> as default
+* <Print Order> function doesn’t save delivery time information and comment.
+* When edit order at the backend, still be able to choose unavailable time slot.
+* Description function at the backend doesn’t work
+* “Datetime Picker” type is not active when payment method is Paypal Express.
+* <List special days> is still active when <Calendar Display> is selected as <Calendar>
+* <Admin/Delivery Schedule/ Using day off> is YES but at the frontend, the respective time slot is active. 
+
+
+v1.7.2 (March 26, 2015)
++ Display error message if current theme is missing layout file or template folder 
++ Support for the rwd theme package of magento Community Edition 1.9.X
+* Fix bug create separate slots.
+* Fix bug sent email to the client wrong when edit a order from back-end
+* Fix bug does not allow to send email to customer when order that created from back-end
+
+v1.7(May 21, 2014)s
++Sorting delivery slot time at front end
++Allow edit or create delivery information in order's details in admin side
++Add option "Format Date" to manage for both Backend and Frontend 
++Checkout with multip shipping address (with mode Calender)
+*Fix helper data error
+*Fix paypal express issue
+*Fix filter delivery schedule by day at Backend/Manage Delivery Schedule
+
+
+v1.6(Aug 20, 2013)
+*Disable fields in "Manage Delivery Schedule" pages.
+*Fixed date format in "Manage Delivery Schedule" pages.
+*Fixed bug in "Manage Delivery Schedule" grid.
+*Enhanced Sales/Order grid.
+*Add translation for day of week.
+
+v1.5.6 (Jul 26, 2013)
+* Fixed get day of week wrong in some timezones.
+* Fixed view order link in Manage Delivery Schedule leads to 404 error page.
+
+
+v1.5.5 (May 27, 2013)
++ update mcore
+
+v1.5.4
++ move tab order on tab Delivery Information to  Delivery Schedules Manager
+
+v1.5.3.3
+* Fixed bug delay time
+
+v1.5.3.2
+* Fixed bug CSS
+
+v1.5.3.1
+* Fix time picker popup
++ Add ajax request available slots time for date time picker mode.
+
+v1.5.3
+
+*Fix bug "Showing Delivery Information in Invoice page "
+
+* Fixed bug "Subtract value of Ordered attribute (-1) when order is cancelced."
+
++ Add import, export to CSV/XML to schedule and slot time page in the back-end.
+
+v1.5.2
+
+* Fixed bug delay time
+
+v1.5.1
+
+*Fix filtering in backend order grid 
+
+v1.5
+
++ Support magento professional and enterprise edition.
+
++ Add feature "Disable slot based on first slot"
+
+* Fix bugs in magento community 1.7
+
+*  Fix bugs when use Paypal Express
+
+v1.4.5
+
+* Be Compatible with magento 1700,  Enterprise and Pro edition
+
+v1.4.4
+
+* fixed error when used Paypal Express
+
+v1.4.3
+* Fix some bugs (run on magento1.6)
+
+
+v1.4.1
++ Add time slot title
++ Add time slot special day
+
+v1.3.9
++ Add delay of delivery time feature 
+* Fix bug "Error when filtering with increment_id in "Manage shedule"
+
+v1.3.8
++ Add number of booking per time slot feature
+
+v1.3.7
++ Be compatiple with Magento 1.6

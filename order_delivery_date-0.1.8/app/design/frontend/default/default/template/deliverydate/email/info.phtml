@@ -1,0 +1,17 @@
+<?php $_order = $this->getOrder() ?>
+<?php  
+    $date_format = Mage::getStoreConfig('deliverydate/deliverydate_general/deliverydate_format');
+    $time_format = Mage::getStoreConfig('deliverydate/deliverydate_general/deliverytime_format');
+    if ($date_format=='')
+        $date_format='d/M/Y';
+    if($time_format=='')
+        $date_format.=" ,g:i a";
+    else
+        $date_format.=" ".$time_format;
+        if ($_order->getShippingArrivalDate()!='')
+            echo "<strong>Shipping Arrival Date :- </strong>".$currentDate = date ($date_format,strtotime($_order->getShippingArrivalDate()));
+        else
+            echo "<strong>Shipping Arrival Date :- </strong> N/A";
+    if ($_order->getShippingArrivalComments()!='')
+        echo "<br/>".$_order->getShippingArrivalComments();
+?>

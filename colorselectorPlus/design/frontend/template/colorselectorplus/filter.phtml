@@ -1,0 +1,10 @@
+<ol>
+	<?php foreach ($this->getTheItems() as $_item): ?>
+		<?php if($_item['count']): ?>
+	   		<li<?php if($_item['is_selected']) { echo ' class="active"'; } ?>>
+	       		<?php echo Mage::helper('colorselectorplus')->getShopByHtml($_item); ?>
+			</li>
+		<?php endif; ?>
+	<?php endforeach; ?>
+</ol>
+<p class="float-clearer"></p> 

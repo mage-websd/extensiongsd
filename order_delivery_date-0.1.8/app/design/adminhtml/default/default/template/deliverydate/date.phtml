@@ -1,0 +1,30 @@
+<?php 
+    if (Mage::getStoreConfig('deliverydate/deliverydate_general/enabled')==1){
+    ?>
+    <div class="field">
+        <div class="input-box">
+            <label for="page_date-end"><?php echo Mage::helper('sales')->__('Delivery Date:') ?></label>
+            <input name="shipping_arrival_date_display" id="shipping_arrival_date_display" value="" type="text"> 
+            <img title="Select date" id="shipping_arrival_date_trig" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN) . 'adminhtml/default/default/images/grid-cal.gif'; ?>" class="v-middle"><a href="javascript:void(0)" id="link_reset" style="margin-left:5px;" ><img src="<?php echo $this->getSkinUrl('images/ico_reset.png');?>" alt="" class="v-middle" title="Reset"></a>
+        </div>
+        <label for="shipping_arrival_comments">Delivery Comments:</label><br/>
+        <textarea cols="65" rows="8" name="shipping_arrival_comments" id="shipping_arrival_comments"></textarea>
+    </div>
+    <script type="text/javascript">
+        //<![CDATA[
+        Calendar.setup({
+                inputField : 'shipping_arrival_date_display',
+                ifFormat : '%Y-%m-%e %H:%M:%S',
+                button : 'shipping_arrival_date_trig',
+                showsTime : true,
+                align : 'Bl',
+                singleClick : true
+        });
+        Event.observe($('link_reset'),'click',function(){
+                $('shipping_arrival_date_display').setValue('');
+        });
+        //]]>
+    </script>
+    <?php
+    }
+?>

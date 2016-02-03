@@ -1,0 +1,152 @@
+<style type="text/css">
+.ajaxerror {
+	color: red;
+}
+.ajaxok {
+	color: green;
+}
+.ajaxddate {
+	font-size: 18px;
+	font-weight: bold;
+	text-align: center;
+}
+</style>
+<?php
+	$ddate = $ddate = Mage::registry('ddate_by_order');
+	$_order = Mage::registry('current_order');
+?>
+<div class="box-left">
+    <div class="entry-edit">
+		<div class="entry-edit-head">
+			<h4 class="icon-head head-shipping-method"><?php echo $this->helper('ddate')->__('Delivery Date') ?></h4>
+			<?php if ($_order->getStatus()!= Mage_Sales_Model_Order::STATE_CANCELED) : ?>
+				<div class="tools">
+					<a id="mw_delivery_edit_button" name="mw_delivery_edit_button" href="javascript:void(0);" onclick="check_enable_day()">
+						<?php echo $this->helper('ddate')->__('Update Ddate') ?>
+					</a>
+				</div>
+			<?php endif; ?>
+		</div>
+
+		<fieldset>
+			<div id="edit_mwdelivery_info">
+				<span><?php echo $this->__('Delivery Date:')?></span>
+				<span style="font-weight:bold;">
+					<input type="text" name="onestepcheckout_date" id="onestepcheckout_date" value="<?php echo Mage::helper('ddate')->format_ddate($ddate['ddate']);?>" class="required-entry" />
+					<img title="Select date" id="cal_date_trig" src="<?php echo Mage::getBaseUrl(Mage_Core_Model_Store::URL_TYPE_SKIN) . 'adminhtml/default/default/images/grid-cal.gif'; ?>"  class="v-middle"/>
+				</span>
+				<br>
+				<span><?php echo $this->__('Delivery Time:')?></span>
+				<span style="font-weight:bold;">
+				<?php
+					$dtimes = Mage::helper('ddate')->getDtime($_order->getStoreId());
+				?>
+					<select id="onestepcheckout_time" size="1" name="onestepcheckout_time"  class="required-entry" >
+								<option value=""><?php echo $this->__('Time Range');?></option>
+						<?php if (empty($ddate['dtime']) && !empty($ddate['dtimetext'])) : ?>
+								<option selected value="deleted"><?php echo $ddate['dtimetext'].$this->__(' (Slot has been deleted)');?></option>
+						<?php endif; ?>
+						<?php foreach($dtimes as $slot):?>
+							<?php if($slot->getStatus()):?>
+								<option timetext="<?php echo $slot->getData('interval') ?>" value="<?php echo $slot->getDtimeId()?>" <?php if($ddate['dtime']==$slot->getDtime()):?>selected<?php endif;?>><?php echo $slot->getDtime();?></option>
+							<?php endif?>
+						<?php endforeach?>
+					</select>
+				  </span>
+				</br>
+			</div>
+			<div class="clear"></div>
+			<div>
+				<div id="delivery_ajaxmessage" class ="ajaxddate"></div>
+				<div id="hide_ajaxmessage" style="display:none;">
+					<a href="javascript:void(0);" onclick="$('hide_ajaxmessage').hide();$('delivery_ajaxmessage').update('');">
+						<?php echo $this->__('Hide message') ;?>
+					</a>
+				</div>
+			</div>
+		</fieldset>
+    </div>
+</div>
+<script type="text/javascript">// <![CDATA[
+    Calendar.setup({
+        inputField : 'onestepcheckout_date',
+        ifFormat : '<?php echo Mage::helper('ddate')->calendar_date_format();?>',
+        button : 'cal_date_trig',
+        align : 'Bl',
+        singleClick : true
+    });
+
+	deliveryurls = '<?php echo Mage::getUrl('ddate_admin/adminhtml_ddate/update_delivery') ?>';
+	enableurls = '<?php echo Mage::getUrl('ddate_admin/adminhtml_ddate/isenabledday') ?>';
+
+	function check_enable_day() {
+		var date_post ="orderid="+mwdeliveryorderid+"&mwdate="+$('onestepcheckout_date').getValue();
+		if($('onestepcheckout_time')) {
+            date_post = date_post + "&mwtime=" + $('onestepcheckout_time').getValue();
+            date_post = date_post + "&mwtime_osc=" + $('onestepcheckout_time').options[$('onestepcheckout_time').selectedIndex].getAttribute('timetext');
+        }
+        ajaxdata = date_post;
+
+	 	new Ajax.Request(enableurls, {
+			method:'post',
+			parameters: ajaxdata,
+			onSuccess: function(transport) {
+				var json = transport.responseText.evalJSON();
+				if (json.state == 'empty') {
+					alert(json.message);
+				}
+				if (json.state == 'deleted') {
+					alert(json.message);
+				}
+				if (json.state == 'ok'){
+					update_delivery_form();
+				}
+				if (json.state == 'error') {
+					/*var check = alert(json.message + '<?php echo $this->helper('ddate')->__(' .Click OK to forcedly update or Cancel to stop changging the date and time slot!') ?>');
+					if (check == true) {
+						update_delivery_form();
+					}*/
+					alert(json.message + '<?php echo $this->helper('ddate')->__(' .Click OK to stop changging the date and time slot!') ?>');
+				}
+			},
+			onFailure: function() {
+				alert('Something went wrong...');
+			}
+		});
+	}
+
+	function update_delivery_form() {
+		var date_post = "orderid=" + mwdeliveryorderid + "&mwsalesoderid=" + mwsalesoderid + "&mwdate=" + $('onestepcheckout_date').getValue();
+		if ($('onestepcheckout_time')) {
+            date_post = date_post + "&mwtime=" + $('onestepcheckout_time').getValue();
+            date_post = date_post + "&mwtime_osc=" + $('onestepcheckout_time').options[$('onestepcheckout_time').selectedIndex].getAttribute('timetext');
+        }
+
+		if ($('mw_customercomment_info')) {
+			date_post = date_post + "&mwcomment=" + $('mw_customercomment_info').getValue();
+		}
+		if ($('mw_customer_text')) {
+			date_post = date_post + "&mwcustomertext=" + $('mw_customer_text').getValue(); 
+		};
+		var ajaxdata= date_post;
+
+	 	new Ajax.Request(deliveryurls, {
+			method:'post',
+			parameters: ajaxdata,
+			onSuccess: function(transport) {
+				var json = transport.responseText.evalJSON();
+				if (json.state=='ok') {
+					$('delivery_ajaxmessage').removeClassName('ajaxerror').addClassName('ajaxok');
+				}
+				if (json.state=='error') {
+					$('delivery_ajaxmessage').removeClassName('ajaxok').addClassName('ajaxerror');
+				}
+				$('delivery_ajaxmessage').update(json.message);
+				$('hide_ajaxmessage').show();
+			},
+			onFailure: function() {
+				alert('Something went wrong...');
+			}
+		});
+	}
+</script>

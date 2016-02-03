@@ -1,0 +1,28 @@
+<link type="text/css" rel="stylesheet" href="<?php echo $this->getSkinUrl('ddate/css/jscal2.css') ?>" />
+<link type="text/css" rel="stylesheet" href="<?php echo $this->getSkinUrl('ddate/css/border-radius.css') ?>" />
+<script src="<?php echo $this->getSkinUrl('ddate/js/slideshow.js') ?>" type='text/javascript'></script>
+<?php 
+$ddate = (isset($_SESSION['ddate'])) ? $_SESSION['ddate'] : '';
+$dtime = (isset($_SESSION['dtime'])) ? $_SESSION['dtime'] : '';
+$ddate_comment = (isset($_SESSION['ddate_comment'])) ? $_SESSION['ddate_comment'] : '';
+?>
+<input type="hidden" id="ddate:date" name="ddate[date]" value="" title="<?php echo $this->__('Delivery Date') ?>" class="input-text" />
+<input type="hidden" id="ddate:dtime" name="ddate[dtime]" value="" title="<?php echo $this->__('Delivery Time') ?>" class="input-text" />
+<textarea style="display:none" id="ddate:ddate_comment" name="ddate[ddate_comment]"  rows="3" cols="55" ></textarea>
+<script>
+	function selectDdate(date, dtime, comment){
+		document.getElementById('ddate:date').value = date;
+		document.getElementById('ddate:dtime').value = dtime;
+		document.getElementById('ddate:ddate_comment').value = comment;
+		//jQuery('#slideshow-holder ul li a').removeClass('ddate_day_active');
+	}	
+	selectDdate('<?php echo $ddate ?>','<?php echo $dtime; ?>','<?php echo $ddate_comment?>');
+</script>
+
+<script type="text/javascript">
+    //<![CDATA[
+//    var ddate = new Ddate('co-ddate-form', '<?php //echo $this->getUrl('checkout/onepage/getAddress') ?>address/', '<?php //echo $this->getUrl('checkout/onepage/saveDdate') ?>');
+    var ddateForm = new VarienForm('co-ddate-form');
+    //]]>
+</script>
+

@@ -1,0 +1,130 @@
+<link type="text/css" rel="stylesheet" href="<?php echo $this->getSkinUrl('ddate/css/jscal2.css') ?>" />
+<link type="text/css" rel="stylesheet" href="<?php echo $this->getSkinUrl('ddate/css/border-radius.css') ?>" />
+<script src="<?php echo $this->getSkinUrl('ddate/js/slideshow.js') ?>" type='text/javascript'></script>
+<form id="co-ddate-form" action="">
+    <fieldset class="group-select">
+        <ul>
+            <li><div class="input-box">
+                    <input type="hidden" id="ddate:date" name="ddate[date]" value="" title="<?php echo $this->__('Delivery Date') ?>" class="input-text" />
+                    <input type="hidden" id="ddate:dtime" name="ddate[dtime]" value="" title="<?php echo $this->__('Delivery Time') ?>" class="input-text" />
+                </div>
+            </li>
+        </ul>
+        <?php if (!Mage::getStoreConfig("ddate/info/calender_display")) { ?>
+            <div class="delivery">
+                <div class="deli_title">
+                    <h6><a id="slideshow-previous" href="#previous"><?php echo Mage::helper('ddate')->__('Previous 7 days') ?></a><a id="slideshow-next" ><?php echo Mage::helper('ddate')->__('Next 7 days') ?></a></h6>
+                </div>
+                <div class="deli_date_time">
+                    <div class="deli_time">
+                        <h6 style="height:29px;"><strong><?php echo Mage::getStoreConfig("ddate/info/first_column_header") ?></strong></h6>
+                        <?php
+                            $slots = $this->getSlots();
+                            foreach ($slots as $slot) {
+                                echo "<p>" . $slot->getDtime() . "</p>";
+                            }
+                        ?>
+                    </div>
+                    <div class="deli_date">
+                        <div id="slideshow-area">
+                            <div id="slideshow-scroller">
+                                <div id="slideshow-holder">
+                                    <script>
+                                        function selectDdate(date, dtime){
+                                            document.getElementById('ddate:date').value = date;
+                                            document.getElementById('ddate:dtime').value = dtime;
+                                            jQuery('#slideshow-holder ul li a').removeClass('ddate_day_active');
+                                        }
+                                    </script>
+                                    <?php
+                                    $currentTime = time();
+                                    $weeks = $this->getNumberWeek();
+                                    for ($w = 0; $w < $weeks; $w++):
+                                        ?>
+                                        <div class="slideshow-content">
+                                            <div class="deli_date_top">
+                                                <ul>
+                                                    <?php
+                                                    for ($i = 7 * $w; $i < 7 * $w + 7; $i++) {
+                                                    ?>
+                                                        <li <?php if ($i % 2 != 0)
+                                                echo 'class="oddrow"' ?>><?php echo date('(D)', strtotime('+' . $i . ' day', $currentTime)) ?><span><?php echo date('m/j', strtotime('+' . $i . ' day', $currentTime)) ?></span></li>
+                                                            <?php
+                                                        }
+                                                        ?>
+                                                    <div class="clear"><span></span></div>
+                                                </ul>
+                                            </div>
+                                            <div class="deli_date_top select_one">
+                                                <ul>
+                                                    <?php
+                                                    foreach ($slots as $slot) :
+                                                        for ($i = 7 * $w; $i < 7 * $w +7; $i++) :
+                                                            $strDate = date('Y-m-d', strtotime('+' . $i . ' day', $currentTime));
+                                                            if($this->isEnabled($slot->getId(), $strDate)):
+                                                    ?>
+                                                                <li <?php if ($i % 2 != 0)
+                                                echo 'class="oddrow"' ?>><a href="#select" onclick="selectDdate('<?php echo date('Y-m-d', strtotime('+' . $i . ' day', $currentTime)) ?>','<?php echo $slot->getDtimeId(); ?>');jQuery(this).addClass('ddate_day_active');"><?php echo Mage::helper('ddate')->__('Select') ?></a></li>
+                                                                <?php else: ?>
+                                                                <li class="disablerow">&nbsp;</li>
+                                                            <?php
+                                                            endif;
+                                                        endfor; ?>
+                                                    <?php
+                                                    endforeach; 
+                                                    ?>
+                                                    <div class="clear"><span></span></div>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <?php
+                                    endfor;
+                                    ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear"><span></span></div>
+                </div>
+            </div>
+
+            <div style="margin:10px;">
+                <img src="<?php echo $this->getSkinUrl('ddate/images/unavailable.jpg') ?>"> <?php echo Mage::helper('ddate')->__('Unavailable') ?>
+            </div>
+        <?php } else { ?>
+            <div style="margin:10px;">
+                <table>
+                    <tr>
+                        <td valign="top">
+                            <?php echo Mage::helper('ddate')->__('Choose your date'); ?>:
+                            <input class="input-text" id="delivery_date" type="text" name="delivery_date" size="12" readonly>
+                            <img src="<?php echo $this->getSkinUrl('ddate/images/grid-cal.gif') ?>" id="ddate-trigger-picker"></img>
+                        </td>
+                        <td valign="top">
+                            <input type="hidden" id="min_date" value="<?php echo date('Ymd') ?>">
+                            <input type="hidden" id="datetime_picker" value="<?php echo date('Ymd') ?>">
+                            <input type="hidden" id="max_date" value="<?php echo $this->getDateMax(); ?>">
+                            <input type="hidden" id="d_saturday" value="<?php echo Mage::helper('ddate')->getSaturday(); ?>">
+                            <input type="hidden" id="d_sunday" value="<?php echo Mage::helper('ddate')->getSunday(); ?>">
+                            <input type="hidden" id="special_day" value="<?php echo Mage::helper('ddate')->getSpecialDayByList(); ?>">
+                            <div id="cont" style="display:none;position:absolute;z-index:1;"></div>
+
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        <?php } ?>
+
+        <div style="margin:10px; <?php if (!Mage::getStoreConfig("ddate/info/comment"))
+            echo 'display:none;' ?>">
+            <?php echo Mage::helper('ddate')->__('Your Comment') ?>: <br/>
+            <textarea name="ddate[ddate_comment]" id="ddate:ddate_comment" rows="3" cols="55" value=''></textarea>
+        </div>
+    </fieldset>
+</form>
+<script type="text/javascript">
+    //<![CDATA[
+    var ddateForm = new VarienForm('co-ddate-form');
+    //]]>
+</script>
+

@@ -1,0 +1,37 @@
+<?php $dtime= $collection = Mage::getModel('ddate/dtime')->getCollection(); ?>
+<div class="entry-edit">
+	<div class="entry-edit-head">
+		<h4 class="icon-head fieldset-legend head-billing-address">Delivery Information</h4>
+	</div>
+	<fieldset class="np">
+		<div id="order-billing_address_fields" class="order-address">
+			<div class="content">
+				<div class="hor-scroll">
+					<table cellspacing="0" class="form-list">
+						<tbody>
+							<tr>
+								<td class="label"><label for="order-billing_address_prefix">Delivery Date</label></td>
+								<td class="value">
+									<input type="text" class=" input-text" value="" name="order[ddate]" id="order-ddate"> <br>
+									<label>Only format: Year-month-day. Ex:2012-10-3 </label>
+								</td>
+							</tr>
+							<tr>
+								<td class="label"><label for="order-billing_address_country_id">Delivery Time </label></td>
+								<td class="value">
+									<select class="countries input-text select" name="order[dtime]" id="order-dtime">
+									<option value=""> </option>
+									<?php foreach($dtime as $time):?>									
+										<option value="<?php echo $time->getDtimeId()?>"><?php echo $time->getDtime();?></option>
+									<?php endforeach; ?>
+									</select>
+								</td>
+								<input type="hidden" value="creating" name="order[admin_create_order]"/>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>					   
+		</div>			   
+	</fieldset>
+</div>

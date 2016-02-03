@@ -1,0 +1,8 @@
+<?php $_product = $this->getProduct(); ?>
+<?php if($_product->getTypeId() == "configurable" && Mage::getStoreConfig('color_selector_plus/colorselectorplusgeneral/showonlist', Mage::app()->getStore())): ?>
+	<?php $_attributes = $_product->getTypeInstance(true)->getConfigurableAttributesAsArray($_product); ?>
+   	<?php if(sizeof($_attributes)): ?>
+    	<?php $productId = $_product->getId(); ?>
+      	<?php echo $this->getListSwatchHtml($_attributes, $productId); ?>
+  	<?php endif; ?>
+<?php endif; ?>

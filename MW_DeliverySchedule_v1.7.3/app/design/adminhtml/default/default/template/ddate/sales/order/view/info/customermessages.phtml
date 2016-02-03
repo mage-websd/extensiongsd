@@ -1,0 +1,55 @@
+<?php 	
+	$ddate = Mage::registry('ddate_by_order');
+	$_order = Mage::registry('current_order');
+?>
+
+<div class="box-right">	
+    <div class="entry-edit">
+		<div class="entry-edit-head">
+			<h4 class="icon-head head-shipping-method"><?php echo $this->helper('ddate')->__('Customer Order Comment') ?></h4>
+			<?php if ($_order->getStatus()!= Mage_Sales_Model_Order::STATE_CANCELED) : ?>
+			<div class="tools">
+				<a id="mw_comment_done_button" name="mw_comment_done_button" href="javascript:void(0);" onclick="update_comment_form()"><?php echo $this->helper('ddate')->__('Update Comment') ?></a>
+			</div>
+			<?php endif; ?>
+		</div>
+
+		<fieldset>
+			<textarea cols="84" rows="1" value="<?php echo $ddate['ddate_comment']; ?>" name="mw_customercomment_info" id="mw_customercomment_info" style="width:98%; height:4em;"><?php echo $ddate['ddate_comment']; ?></textarea>
+			<div class="clear"></div>
+			<div id="comment_ajaxmessage" class ="ajaxddate"></div>	
+			<div id="cm_hide_ajaxmessage" style="display:none;">
+				<a href="javascript:void(0);" onclick="$('cm_hide_ajaxmessage').hide();$('comment_ajaxmessage').update('');">
+					<?php echo $this->__('Hide message') ;?>
+				</a>
+			</div>
+		</fieldset>
+    </div>
+</div>
+
+<script type="text/javascript">
+	commenturls= '<?php echo Mage::getUrl('ddate_admin/adminhtml_ddate/update_comment') ?>';
+
+	function update_comment_form() {
+		data= "orderid="+mworderid+"&mwsalesoderid="+mwsalesoderid+"&mwcomment="+$('mw_customercomment_info').getValue();
+		new Ajax.Request(commenturls, {
+			method:'post',
+			parameters: data,
+			onSuccess: function(transport) {
+				var response = transport.responseText || "no response text";
+				var json = transport.responseText.evalJSON();
+				if (json.state =='ok') {
+					$('comment_ajaxmessage').removeClassName('ajaxerror').addClassName('ajaxok');
+				}
+				if (json.state =='error') {
+					$('comment_ajaxmessage').removeClassName('ajaxok').addClassName('ajaxerror');
+				}
+				$('comment_ajaxmessage').update(json.message);
+				$('cm_hide_ajaxmessage').show();
+			},
+			onFailure: function() {
+				alert('Something went wrong...');
+			}
+		});
+	}
+</script>

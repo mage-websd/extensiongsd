@@ -1,0 +1,176 @@
+<?php $address_index = 'multiaddress'.$this->getAddressIndex();?>
+<script type='text/javascript'>
+
+	var currentSlide<?php echo $address_index; ?> = 1;
+var contentSlides<?php echo $address_index; ?> = "";
+var totalSlides<?php echo $address_index; ?>;
+  
+jQuery(document).ready(function(){
+    jQuery("#slideshow-previous<?php echo $address_index; ?>").click(showPreviousSlide<?php echo $address_index; ?>);
+    jQuery("#slideshow-next<?php echo $address_index; ?>").click(showNextSlide<?php echo $address_index; ?>);
+  
+    var totalWidth<?php echo $address_index; ?> = 0;
+    totalSlides<?php echo $address_index; ?> = 0;
+    contentSlides<?php echo $address_index; ?> = jQuery(".slideshow-content<?php echo $address_index; ?>");
+    contentSlides<?php echo $address_index; ?>.each(function(i){
+        totalWidth<?php echo $address_index; ?> += this.clientWidth;
+        totalSlides<?php echo $address_index; ?>++;
+    });
+    jQuery("#slideshow-holder<?php echo $address_index; ?>").width(500*totalSlides<?php echo $address_index; ?>);
+    jQuery("#slideshow-scroller<?php echo $address_index; ?>").attr({
+        scrollLeft: 0
+    });
+    updateButtons<?php echo $address_index; ?>();
+});
+
+function showPreviousSlide<?php echo $address_index; ?>()
+{
+    currentSlide<?php echo $address_index; ?>--;
+    updateContentHolder<?php echo $address_index; ?>();
+    updateButtons<?php echo $address_index; ?>();
+}
+
+function showNextSlide<?php echo $address_index; ?>()
+{
+    currentSlide<?php echo $address_index; ?>++;
+    updateContentHolder<?php echo $address_index; ?>();
+    updateButtons<?php echo $address_index; ?>();
+}
+
+function updateContentHolder<?php echo $address_index; ?>()
+{
+    var scrollAmount = 0;
+    contentSlides<?php echo $address_index; ?>.each(function(i){
+        if(currentSlide<?php echo $address_index; ?> - 1 > i) {
+            scrollAmount += this.clientWidth;
+        }
+    });
+    jQuery("#slideshow-scroller<?php echo $address_index; ?>").animate({
+        scrollLeft: scrollAmount
+    }, 500);
+}
+
+function updateButtons<?php echo $address_index; ?>()
+{
+    if(currentSlide<?php echo $address_index; ?> < totalSlides<?php echo $address_index; ?>) {
+        jQuery("#slideshow-next<?php echo $address_index; ?>").show();
+    } else {
+        jQuery("#slideshow-next<?php echo $address_index; ?>").hide();
+    }
+    if(currentSlide > 1) {
+        jQuery("#slideshow-previous<?php echo $address_index; ?>").show();
+    } else {
+        jQuery("#slideshow-previous<?php echo $address_index; ?>").hide();
+    }
+}
+</script>
+        <ul>
+            <li><div class="input-box">
+                    <input type="hidden" id="ddate:date<?php echo $address_index; ?>" name="ddate[date<?php echo $address_index; ?>]" value="" title="<?php echo $this->__('Delivery Date') ?>" class="input-text" />
+                                   
+                    <input type="hidden" id="ddate:dtime<?php echo $address_index; ?>" name="ddate[dtime<?php echo $address_index; ?>]" value="" title="<?php echo $this->__('Delivery Time') ?>" class="input-text" />
+                </div>
+            </li>
+        </ul>
+        <?php if (!Mage::getStoreConfig("ddate/info/calender_display")) { ?>
+            <div class="delivery">
+                <div class="deli_title">
+                    <h6><a id="slideshow-previous<?php echo $address_index; ?>" href="#previous"><?php echo Mage::helper('ddate')->__('Previous 7 days') ?></a><a id="slideshow-next<?php echo $address_index; ?>" ><?php echo Mage::helper('ddate')->__('Next 7 days') ?></a></h6>
+                </div>
+                <div class="deli_date_time">
+                    <div class="deli_time">
+                        <h6 class="first_column_header"><strong><?php echo Mage::getStoreConfig("ddate/info/first_column_header") ?></strong></h6>
+                        <?php
+//                        $enableDates = $this->prepareSlotOnDate();
+                        
+                        $slots = $this->getSlots();
+                        foreach ($slots as $slot) {
+                            echo "<p>" . $slot->getDtime() . "</p>";
+                        }
+                        ?>
+                    </div>
+                    <div class="deli_date">
+                        <div id="slideshow-area<?php echo $address_index; ?>">
+                            <div id="slideshow-scroller<?php echo $address_index; ?>">
+                                <div id="slideshow-holder<?php echo $address_index; ?>">
+                                    <script>
+                                        function selectDdate<?php echo $address_index; ?>(date, dtime){
+                                            document.getElementById('ddate:date<?php echo $address_index; ?>').value = date;
+                                            document.getElementById('ddate:dtime<?php echo $address_index; ?>').value = dtime;
+                                            //document.getElementById('ddate:ampm').value = "am";
+                                            jQuery('#slideshow-holder ul li a').removeClass('ddate_day_active');
+                                        }
+                                    </script>
+                                    <?php
+									$currentTime = Mage::getSingleton('core/date')->timestamp();
+                                    
+                                    $weeks = $this->getNumberWeek();
+                                    for ($w = 0; $w < $weeks; $w++):
+                                        ?>
+                                        <div class="slideshow-content<?php echo $address_index; ?>">
+
+                                            <div class="deli_date_top">
+                                                <ul>
+                                                    <?php
+                                                    for ($i = 7 * $w; $i < 7 * $w + 7; $i++) {
+                                                        ?>
+                                                        <li <?php if ($i % 2 != 0)
+                                                echo 'class="oddrow"' ?>><?php echo $this->__( date('(D)', strtotime('+' . $i . ' day', $currentTime)) ) ?><span><?php echo date('m/j', strtotime('+' . $i . ' day', $currentTime)) ?></span></li>
+                                                            <?php
+                                                        }
+                                                        ?>
+                                                    <div class="clear"><span></span></div>
+                                                </ul>
+                                            </div>
+                                            <div class="deli_date_top select_one">
+                                                <ul>
+                                                    <?php
+                                                    foreach ($slots as $slot) {
+                                                        for ($i = 7 * $w; $i < 7 * $w +7; $i++) {
+                                                            $strDate = date('Y-m-d', strtotime('+' . $i . ' day', $currentTime));
+															if($this->isEnabled($slot->getId(), $strDate)):
+																?>
+																<li <?php if ($i % 2 != 0) echo 'class="oddrow"' ?>>
+<a href="#select" onclick="selectDdate<?php echo $address_index; ?>('<?php echo date('Y-m-d', strtotime('+' . $i . ' day', $currentTime)) ?>','<?php echo $slot->getDtimeId(); ?>');jQuery(this).addClass('ddate_day_active');"><?php echo Mage::helper('ddate')->__('Select') ?></a>
+																</li>
+															<?php else: ?>
+																<li class="disablerow">&nbsp;</li>
+															<?php
+                                                            endif;
+                                                        }
+                                                        ?>
+
+                                                    <?php } ?>
+
+                                                    <div class="clear"><span></span></div>
+                                                </ul>
+                                            </div>
+                                        </div>
+
+                                        <?php
+                                    endfor;
+                                    ?>
+
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="clear"><span></span></div>
+                </div>
+            </div>
+
+            <div style="margin:10px;">
+                <img src="<?php echo $this->getSkinUrl('ddate/images/unavailable.jpg') ?>"> <?php echo Mage::helper('ddate')->__('Unavailable') ?>
+            </div>
+        <?php } ?>
+		
+		
+
+        <div style="margin:10px; <?php if (!Mage::getStoreConfig("ddate/info/comment"))
+            echo 'display:none;' ?>">
+            <?php echo Mage::helper('ddate')->__('Your Comment') ?>: <br/>
+            <textarea name="ddate[ddate_comment]" id="ddate:ddate_comment" rows="3" cols="55" value=''></textarea>
+        </div>   
+
+<div class="clear"><span></span></div>

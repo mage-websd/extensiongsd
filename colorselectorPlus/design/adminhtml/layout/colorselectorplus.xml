@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<layout version="1.0.0">
+	<adminhtml_system_config_edit>
+		<reference name="head">
+			<action method="addItem">
+				<type>skin_css</type>
+				<name>colorselectorplus/css/colorselectorplus.css</name>
+			</action>
+		</reference>
+	</adminhtml_system_config_edit>
+	<adminhtml_catalog_product_edit>
+    	<reference name="head">
+			<action method="addItem"><type>js</type><name>cjm/colorselectorplus/product-update.js</name></action>
+        </reference>
+    </adminhtml_catalog_product_edit>
+	<adminhtml_catalog_product_new>
+		<reference name="head">
+			<action method="addItem"><type>js</type><name>cjm/colorselectorplus/product-update.js</name></action>
+        </reference>
+	</adminhtml_catalog_product_new>
+</layout>

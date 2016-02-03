@@ -1,0 +1,91 @@
+<?xml version="1.0"?>
+<config>
+    <tabs>
+        <deliverydate translate="label" module="deliverydate">
+            <label>Biztech Extensions</label>
+            <sort_order>400</sort_order>
+        </deliverydate>
+    </tabs>
+    <sections>
+        <deliverydate translate="label" module="deliverydate">
+            <class>separator-top</class>
+            <label>Delivery Date</label>
+            <tab>deliverydate</tab>
+            <sort_order>130</sort_order>
+            <show_in_default>1</show_in_default>
+            <show_in_website>1</show_in_website>
+            <show_in_store>1</show_in_store>
+            <groups>
+                <deliverydate_general translate="label">
+                    <label>General</label>
+                    <frontend_type>text</frontend_type>
+                    <sort_order>10</sort_order>
+                    <show_in_default>1</show_in_default>
+                    <show_in_website>1</show_in_website>
+                    <show_in_store>1</show_in_store>
+                    <fields>
+                        <enabled translate="label">
+                            <label>Enabled</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>adminhtml/system_config_source_yesno</source_model>
+                            <sort_order>1</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Select Yes to enable this feature.</comment>
+                        </enabled>
+                        <on_which_page translate="label">
+                            <label>Display At</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>Bc_Deliverydate_Model_Config_Option</source_model>
+                            <sort_order>2</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Choose at which step delivery date should be captured.</comment>
+                        </on_which_page>
+                        <deliverydate_html translate="label">
+                            <label>Design HTML</label>
+                            <frontend_type>textarea</frontend_type>
+                            <sort_order>3</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment></comment>
+                        </deliverydate_html>
+                        <deliverydate_format>
+                            <label>Date Format</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>Bc_Deliverydate_Model_Config_Dateformat</source_model>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Choose date format in which date will be displayed in frontend and admin panel.</comment>
+                        </deliverydate_format>
+                        <deliverytime_format>
+                            <label>Time Format</label>
+                            <frontend_type>select</frontend_type>
+                            <source_model>Bc_Deliverydate_Model_Config_Timeformat</source_model>
+                            <sort_order>4</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Choose time format in which time will be displayed in frontend and admin panel.</comment>
+                        </deliverytime_format>
+                        <deliverydate_dayoff>
+                            <label>Day Off</label>
+                            <frontend_type>multiselect</frontend_type>
+                            <source_model>Bc_Deliverydate_Model_Config_Dayoff</source_model>
+                            <sort_order>5</sort_order>
+                            <show_in_default>1</show_in_default>
+                            <show_in_website>1</show_in_website>
+                            <show_in_store>1</show_in_store>
+                            <comment>Choose days on which shipping will not be available.</comment>
+                        </deliverydate_dayoff>
+                    </fields>
+                </deliverydate_general>
+            </groups>
+        </deliverydate>
+    </sections>
+</config>
