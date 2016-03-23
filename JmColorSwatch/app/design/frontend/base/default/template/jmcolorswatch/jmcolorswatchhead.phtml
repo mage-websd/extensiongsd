@@ -1,0 +1,13 @@
+<?php if(Mage::helper("jmcolorswatch")->get('show')) { ?>
+<script type="text/javascript">
+  var baseurl = "<?php echo Mage::getBaseUrl(); ?>"
+</script>
+
+<?php if(!defined('JM_ADD_JQUERY')): ?>
+	<script type="text/javascript" src="<?php echo $this->getSkinUrl('js/jquery/jquery.js') ?>"></script>
+	<?php define('JM_ADD_JQUERY', true); ?>
+<?php endif; ?>
+
+<script type="text/javascript" src="<?php echo $this->getSkinUrl('joomlart/jmcolorswatch/js/jmcolorswatch.js') ?>">
+</script>
+<?php } ?>

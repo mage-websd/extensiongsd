@@ -1,0 +1,31 @@
+<?xml version="1.0"?> 
+<config>
+<acl>
+            <resources>
+                <admin>
+                    <children>
+                        <system>
+                            <children>
+                                <config>
+                                    <children>
+                                        <joomlart_jmcolorswatch>
+                                            <title>JM colorswatch</title>
+                                        </joomlart_jmcolorswatch>
+                                    </children>
+                                </config>
+                            </children>
+                        </system>
+                    </children>
+                </admin>
+            </resources>
+        </acl>
+        <translate>
+			<modules>
+				<JoomlArt_JmColorSwatch>
+					<files>
+						<default>JoomlArt_JmColorSwatch.csv</default>
+					</files>
+				</JoomlArt_JmColorSwatch>
+			</modules>
+		</translate>
+</config>

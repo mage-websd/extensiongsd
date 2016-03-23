@@ -1,0 +1,17 @@
+<?xml version="1.0"?>   
+<layout version="0.1.0">
+  <default>
+  	   <reference name="head">
+        	 <block type="core/template"  template="jmcolorswatch/jmcolorswatchhead.phtml"  />
+        </reference>
+  </default> 
+  <jmcolorswatch_index_index>   
+    <reference name="root">   
+      <action method="setTemplate"><template>page/1column.phtml</template></action>   
+    </reference>   
+    <reference name="content">   
+      <block type="jmcolorswatch/index" name="jmcolorswatch_index" template="jmcolorswatch/index.phtml"/>   
+    </reference>   
+  </jmcolorswatch_index_index>   
+</layout>   
+	
